@@ -4,13 +4,13 @@
 
 # TO-DO Features
 
-## Source
+### Source
 - [ ] Main entry point
   - [ ] Initialization
   - [ ] Uninitialization
 - [ ] VMT-Hooking
 
-## Engine SDK
+### Engine SDK
 - [ ] Math utilities
   - [ ] General functions like WorldToScreen
   - [ ] 4x4 Matrix Class
@@ -23,7 +23,7 @@
   - [ ] Base Interfaces
   - [ ] Base Structures
 
-## Utilities
+### Utilities
 - [ ] Debug
   - [ ] Run only under debug build
   - [ ] Add formatted printing
