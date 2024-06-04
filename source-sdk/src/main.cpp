@@ -6,12 +6,12 @@ void Initialization()
 		utils::debug::Initialize("source-sdk");
 	}
 	catch (const std::exception& error) {
-		LOG(ERR, "Exception: %s", error.what());
+		LOG(DebugLevel::ERR, "Exception: {}", error.what());
 		if (MessageBoxA(NULL, error.what(), "Exception!", MB_ICONERROR))
 			globals::shouldUnload = true;
 	}
 
-	LOG(OK, "Initialization finished!");
+	LOG(DebugLevel::OK, "Initialization finished!");
 }
 
 void Attach(HINSTANCE instance)
@@ -22,6 +22,8 @@ void Attach(HINSTANCE instance)
 
 	// Start the initialization procedure
 	Initialization();
+
+	LOG(DebugLevel::OK, "Test print {}", 5);
 
 	// Wait till the user presses VK_END to start the unload procedure
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload)

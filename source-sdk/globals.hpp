@@ -8,11 +8,11 @@
 #include <chrono>
 
 // This is the last module that is being loaded by pretty much every source game.
-#define LAST_LOADED_MODULE "serverbrowser.dll"
+static constexpr const char* LAST_LOADED_MODULE = "notepad.exe";
 
 // Utils
 #include "utils/debug/debug.hpp"
 
 namespace globals {
-	bool shouldUnload = false;
+	inline bool shouldUnload = false;
 }

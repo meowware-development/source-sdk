@@ -1,43 +1,42 @@
 #pragma once
 #include <string_view>
 #include <cstdarg>
+//#include <print>
+#include <iostream>
+
+enum class DebugLevel {
+	NONE,
+	OK,
+	ERR,
+};
 
 namespace utils::debug {
 	void Initialize(std::string_view title) noexcept;
 	void Release() noexcept;
 
-	enum class Level {
-		NONE,
-		OK,
-		ERR,
-	};
-
-	template <typename ... Args>
-	void Log(utils::debug::Level level, const char* format, ...) noexcept {
+	void Log(DebugLevel level, std::string_view format, auto&&... args) noexcept {
 #ifdef _DEBUG
 		switch (level) {
-		case Level::NONE: {
+		case DebugLevel::NONE: {
 			printf("[\033[97m...\033[0m] ");
 			break;
 		}
-		case Level::OK: {
+		case DebugLevel::OK: {
 			printf("[\033[92mOK\033[0m] ");
 			break;
 		}
-		case Level::ERR: {
+		case DebugLevel::ERR: {
 			printf("[\033[31mERROR\033[0m] ");
 			break;
 		}
 		}
 
-		va_list args;
-		va_start(args, format);
-		vprintf(format, args);
-		va_end(args);
+		// std::println(std::runtime_format(format), std::forward<decltype(args)>(args)...);
 
-		printf("\n");
+		// Fix until runtime_format comes to msvc
+		std::cout << std::vformat(format, std::make_format_args(args...)) << "\n";
 #endif
 	}
 }
 
-#define LOG(level, format, ...) utils::debug::Log(utils::debug::Level::level, format, __VA_ARGS__)
+#define LOG(level, format, ...) utils::debug::Log(level, format, __VA_ARGS__)
