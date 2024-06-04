@@ -4,6 +4,7 @@
 
 void utils::debug::Initialize(std::string_view title) noexcept
 {
+#ifdef _DEBUG
 	AllocConsole();
 
 	freopen_s(reinterpret_cast<_iobuf**>(__acrt_iob_func(0)), "conin$", "r", static_cast<_iobuf*>(__acrt_iob_func(0)));
@@ -15,13 +16,16 @@ void utils::debug::Initialize(std::string_view title) noexcept
 	SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 
 	SetConsoleTitleA(title.data());
+#endif
 }
 
 void utils::debug::Release() noexcept
 {
+#ifdef _DEBUG
 	fclose(static_cast<_iobuf*>(__acrt_iob_func(0)));
 	fclose(static_cast<_iobuf*>(__acrt_iob_func(1)));
 	fclose(static_cast<_iobuf*>(__acrt_iob_func(2)));
 
 	FreeConsole();
+#endif
 }

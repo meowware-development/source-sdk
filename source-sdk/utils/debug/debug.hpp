@@ -14,7 +14,7 @@ namespace utils::debug {
 
 	template <typename ... Args>
 	void Log(utils::debug::Level level, const char* format, ...) noexcept {
-
+#ifdef _DEBUG
 		switch (level) {
 		case Level::NONE: {
 			printf("[\033[97m...\033[0m] ");
@@ -36,6 +36,7 @@ namespace utils::debug {
 		va_end(args);
 
 		printf("\n");
+#endif
 	}
 }
 
