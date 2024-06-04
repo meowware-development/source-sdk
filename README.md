@@ -6,9 +6,9 @@ In easier words, our project stands as a base to help people improve upon their 
 # TO-DO Features
 
 ### Source
-- [ ] Main entry point
-  - [ ] Initialization
-  - [ ] Uninitialization
+- [x] Main entry point
+  - [x] Initialization
+  - [x] Uninitialization
 - [ ] VMT-Hooking
 
 ### Engine SDK
@@ -25,9 +25,9 @@ In easier words, our project stands as a base to help people improve upon their 
   - [ ] Base Structures
 
 ### Utilities
-- [ ] Debug
-  - [ ] Run only under debug build
-  - [ ] Add formatted printing
+- [x] Debug
+  - [x] Run only under debug build
+  - [x] Add formatted printing
 - [ ] Config
   - [ ] Proper serializer/deserializer
 - [ ] Input
