@@ -1,6 +1,7 @@
 # Source-sdk
 
 **Source-sdk** is meant to be a powerful, easy to use toolkit to understand the inner core of the Source Game Engine powered by Valve by (mainly) exploiting it.  
+In easier words, our project stands as a base to help people improve upon their game hacking skills.
 
 # TO-DO Features
 
