@@ -147,6 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="utils\debug\debug.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="globals.hpp" />
+    <ClInclude Include="utils\debug\debug.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
