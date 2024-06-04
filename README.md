@@ -1,7 +1,47 @@
 # Source-sdk
 
-Source-sdk™ is meant to be a powerful, modern, easy to use base to understand the inner core of the Source Game Engine powered by Valve.  
+**Source-sdk™** is meant to be a powerful, modern, easy to use base to understand the inner core of the Source Game Engine powered by Valve.  
 In other words, our project is an open-source toolkit that provides functionality to mainly (but not limited to) exploit any game based on the engine provided.
+
+# TO-DO Features
+
+## Source
+- [ ] Main entry point
+  - [ ] Initialization
+  - [ ] Uninitialization
+- [ ] VMT-Hooking
+
+## Engine SDK
+- [ ] Math utilities
+  - [ ] General functions like WorldToScreen
+  - [ ] 4x4 Matrix Class
+  - [ ] Vector3D, Vector2D class
+- [ ] Game event management
+- [ ] Netvar management
+- [ ] Game-related stuff
+  - [ ] Base Classes
+  - [ ] Base Enums
+  - [ ] Base Interfaces
+  - [ ] Base Structures
+
+## Utilities
+- [ ] Debug
+  - [ ] Run only under debug build
+  - [ ] Add formatted printing
+- [ ] Config
+  - [ ] Proper serializer/deserializer
+- [ ] Input
+  - [ ] Proper WndProc input handling
+  - [ ] Easy to use wrapper
+- [ ] Memory
+  - [ ] Proper and efficient pattern scanner
+  - [ ] VFunc caller
+  - [ ] VTable index getter
+  - [ ] Module management
+- [ ] Rendering
+  - [ ] DX9 wrapper
+  - [ ] Make it thread-safe
+  - [ ] Batch rendering (if possible)
 
 # Licensing
 
