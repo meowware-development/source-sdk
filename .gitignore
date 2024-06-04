@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+/source-sdk/.vs/source-sdk/FileContentIndex/3d9f9ec8-b714-40f0-98ed-b7e3eb1fdd96.vsidx
+/source-sdk/.vs/source-sdk/v17/Browse.VC.opendb
