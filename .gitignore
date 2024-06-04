@@ -32,3 +32,5 @@
 *.app
 /source-sdk/.vs/
 /source-sdk/build/
+/source-sdk/.vs/source-sdk/v17/.suo
+/source-sdk/.vs/source-sdk/v17/DocumentLayout.json
