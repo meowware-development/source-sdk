@@ -1,16 +1,17 @@
 # Source-sdk
 
 **Source-sdk** is meant to be a powerful, easy to use toolkit to understand the inner core of the Source Game Engine powered by Valve by (mainly) exploiting it.  
+In easier words, our project stands as a base to help people improve upon their game hacking skills.
 
 # TO-DO Features
 
-## Source
+### Source
 - [ ] Main entry point
   - [ ] Initialization
   - [ ] Uninitialization
 - [ ] VMT-Hooking
 
-## Engine SDK
+### Engine SDK
 - [ ] Math utilities
   - [ ] General functions like WorldToScreen
   - [ ] 4x4 Matrix Class
@@ -23,7 +24,7 @@
   - [ ] Base Interfaces
   - [ ] Base Structures
 
-## Utilities
+### Utilities
 - [ ] Debug
   - [ ] Run only under debug build
   - [ ] Add formatted printing
@@ -44,4 +45,5 @@
 
 # Licensing
 
-This project runs under the GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007). Read the LICENSE file for more information.
+This project runs under the GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007).  
+Read the LICENSE file for more information.
