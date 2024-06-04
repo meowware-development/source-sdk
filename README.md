@@ -45,4 +45,5 @@ In easier words, our project stands as a base to help people improve upon their 
 
 # Licensing
 
-This project runs under the GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007). Read the LICENSE file for more information.
+This project runs under the GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007).  
+Read the LICENSE file for more information.
