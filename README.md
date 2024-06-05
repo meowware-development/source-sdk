@@ -35,9 +35,9 @@ In easier words, our project stands as a base to help people improve upon their 
   - [ ] Easy to use wrapper
 - [ ] Memory
   - [ ] Proper and efficient pattern scanner
-  - [ ] VFunc caller
-  - [ ] VTable index getter
-  - [ ] Module management
+  - [x] VFunc caller
+  - [x] VTable index getter
+  - [x] Module management
 - [ ] Rendering
   - [ ] DX9 wrapper
   - [ ] Make it thread-safe
