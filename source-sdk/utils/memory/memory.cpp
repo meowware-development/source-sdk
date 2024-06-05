@@ -5,6 +5,7 @@
 
 #include "../format/format.hpp"
 #include "../constants/const.hpp"
+#include "../debug/debug.hpp"
 
 uintptr_t utils::memory::GetModule(const std::string& moduleName)
 {
@@ -14,7 +15,7 @@ uintptr_t utils::memory::GetModule(const std::string& moduleName)
 	// We haven't called for that module yet, let's grab it
 	uintptr_t moduleAddress = reinterpret_cast<uintptr_t>(GetModuleHandleA(moduleName.data()));
 	if (!moduleAddress)
-		throw std::runtime_error(FORMAT("Couldn't grab module {}!", moduleName));
+		LOG(DebugLevel::ERR, "Failed to grab module {}!", moduleName);
 
 	modules.try_emplace(moduleName, moduleAddress);
 	return moduleAddress;
