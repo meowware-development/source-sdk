@@ -17,7 +17,7 @@ void Initialization()
 void Attach(HINSTANCE instance)
 {
 	// Wait for the game to fully load
-	while (!GetModuleHandleA(LAST_LOADED_MODULE))
+	while (!GetModuleHandleA(utils::consts::lastLoadedModule))
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
 	// Start the initialization procedure

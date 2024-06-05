@@ -147,11 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="utils\memory\memory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="utils\debug\debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp" />
+    <ClInclude Include="utils\constants\const.hpp" />
+    <ClInclude Include="utils\format\format.hpp" />
+    <ClInclude Include="utils\memory\memory.hpp" />
     <ClInclude Include="utils\debug\debug.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

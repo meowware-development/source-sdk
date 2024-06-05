@@ -14,7 +14,8 @@ namespace utils::debug {
 	void Initialize(std::string_view title) noexcept;
 	void Release() noexcept;
 
-	void Log(DebugLevel level, std::string_view format, auto&&... args) noexcept {
+	void Log(DebugLevel level, std::string_view format, auto&&... args) noexcept
+	{
 #ifdef _DEBUG
 		switch (level) {
 		case DebugLevel::NONE: {
