@@ -2,6 +2,6 @@
 #include <cstdint>
 
 namespace utils::consts {
-	constexpr uint8_t pointerSize = sizeof(void*);
+	constexpr size_t pointerSize = sizeof(void*);
 	constexpr const char* lastLoadedModule = "serverbrowser.dll";
 }
