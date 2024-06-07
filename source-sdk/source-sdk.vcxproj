@@ -147,12 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="utils\memory\memory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="utils\debug\debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp" />
+    <ClInclude Include="sdk\interfaces\interfaces.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
+    <ClInclude Include="sdk\valve\structures\consolecommand.hpp" />
+    <ClInclude Include="sdk\valve\structures\cvar.hpp" />
+    <ClInclude Include="sdk\valve\structures\enginecolor.hpp" />
     <ClInclude Include="utils\constants\const.hpp" />
     <ClInclude Include="utils\format\format.hpp" />
     <ClInclude Include="utils\memory\memory.hpp" />
