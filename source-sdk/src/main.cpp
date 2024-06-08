@@ -23,8 +23,6 @@ void Attach(HINSTANCE instance)
 	// Start the initialization procedure
 	Initialization();
 
-	LOG(DebugLevel::OK, "Test print {}", 5);
-
 	// Wait till the user presses VK_END to start the unload procedure
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload)
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -49,7 +47,7 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
 		HANDLE threadHandle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(Attach), instance, 0, 0);
 
 		if (!threadHandle) {
-			MessageBoxA(NULL, std::format("CreateThread Failed! Error code: {}", GetLastError()).data(), "Exception!", MB_ICONERROR);
+			MessageBoxA(NULL, FORMAT("CreateThread Failed! Error code: {}", GetLastError()), "Exception!", MB_ICONERROR);
 		}
 		else {
 			CloseHandle(threadHandle);

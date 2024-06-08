@@ -1,7 +1,5 @@
 #pragma once
 #include <string_view>
-#include <cstdarg>
-//#include <print>
 #include <iostream>
 
 enum class DebugLevel {
@@ -17,17 +15,18 @@ namespace utils::debug {
 	void Log(DebugLevel level, std::string_view format, auto&&... args) noexcept
 	{
 #ifdef _DEBUG
+		// https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 		switch (level) {
 		case DebugLevel::NONE: {
-			printf("[\033[97m...\033[0m] ");
+			std::print("[\033[97m...\033[0m] ");
 			break;
 		}
 		case DebugLevel::OK: {
-			printf("[\033[92mOK\033[0m] ");
+			std::print("[\033[92mOK\033[0m] ");
 			break;
 		}
 		case DebugLevel::ERR: {
-			printf("[\033[31mERROR\033[0m] ");
+			std::print("[\033[31mERROR\033[0m] ");
 			break;
 		}
 		}
