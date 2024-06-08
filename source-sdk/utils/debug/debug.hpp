@@ -2,14 +2,14 @@
 #include <string_view>
 #include <iostream>
 
-enum class DebugLevel {
+enum class DebugLevel : uint8_t {
 	NONE,
 	OK,
 	ERR,
 };
 
 namespace utils::debug {
-	void Initialize(std::string_view title) noexcept;
+	void Initialize(const std::string_view title) noexcept;
 	void Release() noexcept;
 
 	void Log(DebugLevel level, std::string_view format, auto&&... args) noexcept
@@ -35,8 +35,11 @@ namespace utils::debug {
 
 		// Fix until runtime_format comes to msvc
 		std::cout << std::vformat(format, std::make_format_args(args...)) << "\n";
-#endif
 	}
 }
 
+#ifdef _DEBUG
 #define LOG(level, format, ...) utils::debug::Log(level, format, __VA_ARGS__)
+#else
+#define LOG(level, format, ...) 
+#endif // _DEBUG

@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-void utils::debug::Initialize(std::string_view title) noexcept
+void utils::debug::Initialize(const std::string_view title) noexcept
 {
 #ifdef _DEBUG
 	AllocConsole();
