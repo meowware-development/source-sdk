@@ -28,11 +28,10 @@ In easier words, our project stands as a base to help people improve upon their 
 - [x] Debug
   - [x] Run only under debug build
   - [x] Add formatted printing
-- [ ] Config
-  - [ ] Proper serializer/deserializer
-- [ ] Input
-  - [ ] Proper WndProc input handling
-  - [ ] Easy to use wrapper
+- [x] Config
+- [x] Input
+  - [x] Proper WndProc input handling
+  - [x] Easy to use wrapper
 - [ ] Memory
   - [ ] Proper and efficient pattern scanner
   - [x] VFunc caller
