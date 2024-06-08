@@ -18,15 +18,15 @@ namespace utils::debug {
 		// https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 		switch (level) {
 		case DebugLevel::NONE: {
-			std::print("[\033[97m...\033[0m] ");
+			std::cout << "[\033[97m...\033[0m] ";
 			break;
 		}
 		case DebugLevel::OK: {
-			std::print("[\033[92mOK\033[0m] ");
+			std::cout << "[\033[92mOK\033[0m] ";
 			break;
 		}
 		case DebugLevel::ERR: {
-			std::print("[\033[31mERROR\033[0m] ");
+			std::cout << "[\033[31mERROR\033[0m] ";
 			break;
 		}
 		}
@@ -34,8 +34,9 @@ namespace utils::debug {
 		// std::println(std::runtime_format(format), std::forward<decltype(args)>(args)...);
 
 		// Fix until runtime_format comes to msvc
-		std::cout << std::vformat(format, std::make_format_args(args...)) << "\n";
+		std::cout << std::vformat(format, std::make_format_args(args...)) << '\n';
 	}
+#endif
 }
 
 #ifdef _DEBUG

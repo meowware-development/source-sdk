@@ -18,9 +18,9 @@ using CvarChangeCallback = void(__stdcall*)(CvarManager*, const char* old, float
 class CvarManager : public AppSystem {
 public:
 	virtual int AllocateDLLIdentifier() = 0;
-	virtual void			RegisterConCommand(ConsoleCommand* commandBase) = 0;
-	virtual void			UnregisterConCommand(ConsoleCommand* commandBase) = 0;
-	virtual void			UnregisterConCommands(int id) = 0;
+	virtual void RegisterConCommand(ConsoleCommand* commandBase) = 0;
+	virtual void UnregisterConCommand(ConsoleCommand* commandBase) = 0;
+	virtual void UnregisterConCommands(int id) = 0;
 	virtual const char* GetCommandLineValue(const char* name) = 0;
 
 	// Try to find the cvar pointer by name
@@ -43,22 +43,7 @@ public:
 	// Install a console printer
 	virtual void InstallConsoleDisplayFunc(void* pDisplayFunc) = 0;
 	virtual void RemoveConsoleDisplayFunc(void* pDisplayFunc) = 0;
-	void ConsoleColorPrintf(const EngineColor& clr, const char* pFormat, auto&& ...args) {
-		//std::array<char, 8192> completeText;
-		//strcpy_s(completeText.data(), completeText.size(), "[meowware] > ");
-		//strcat_s(completeText.data(), completeText.size(), pFormat);
-
-		//va_list argList;
-		//va_start(argList, pFormat);
-		//vprintf(pFormat, argList);
-		//va_end(argList);
-
-		//if (argList) {
-		//	strcat_s(completeText.data(), completeText.size(), argList);
-		//}
-
-		return utils::memory::CallVirtualFunction<void>(reinterpret_cast<uintptr_t>(this), 24, clr, pFormat, std::forward<decltype(args)>(args)...);
-	}
+	virtual void ConsoleColorPrintf(const EngineColor& clr, const char* pFormat, ...) = 0;
 	virtual void ConsolePrintf(const char* pFormat, ...) = 0;
 	virtual void ConsoleDPrintf(const char* pFormat, ...) = 0;
 

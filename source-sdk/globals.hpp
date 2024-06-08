@@ -8,13 +8,10 @@
 #include <chrono>
 
 // Utils
-#include "utils/debug/debug.hpp"
-#include "utils/format/format.hpp"
-#include "utils/constants/const.hpp"
+#include "utils/utils.hpp"
 
 // Sdk
-#include "sdk/interfaces/interfaces.hpp"
-#include "sdk/valve/structures/enginecolor.hpp"
+#include "sdk/sdk.hpp"
 
 namespace globals {
 	inline bool shouldUnload = false;

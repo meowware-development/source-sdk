@@ -17,7 +17,7 @@ namespace sdk::interfaces {
 	decltype(auto) GetInterface32(const std::string_view moduleName, const std::string_view interfaceName);
 	decltype(auto) GetInterface64(const std::string_view moduleName, const std::string_view interfaceName);
 
-	void Initalize();
+	void Initialize();
 
 	inline CvarManager* cvar = nullptr;
 }

@@ -1,22 +1,25 @@
 #pragma once
 
 // Our color implementation differs a bit; this is the same as the game's
+
 struct EngineColor {
 	// constructors
 	EngineColor()
 	{
 		*((int*)this) = 0;
 	}
+
 	EngineColor(int _r, int _g, int _b)
 	{
 		SetEngineColor(_r, _g, _b, 0);
 	}
+
 	EngineColor(int _r, int _g, int _b, int _a)
 	{
 		SetEngineColor(_r, _g, _b, _a);
 	}
 
-	// set the EngineColor
+	// Set the EngineColor
 	// r - red component (0-255)
 	// g - green component (0-255)
 	// b - blue component (0-255)

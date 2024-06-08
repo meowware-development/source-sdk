@@ -31,7 +31,7 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 	throw std::runtime_error(FORMAT("Failed to get interface {} in the interfaceList of module {}!", interfaceName, moduleName));
 }
 
-void sdk::interfaces::Initalize()
+void sdk::interfaces::Initialize()
 {
 	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
 }

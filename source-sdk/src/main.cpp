@@ -4,7 +4,9 @@ void Initialization()
 {
 	try {
 		utils::debug::Initialize("source-sdk");
-		sdk::interfaces::Initalize();
+		utils::input::Initialize();
+
+		sdk::interfaces::Initialize();
 	}
 	catch (const std::exception& error) {
 		LOG(DebugLevel::ERR, "Exception: {}", error.what());
@@ -23,10 +25,6 @@ void Attach(HINSTANCE instance)
 
 	// Start the initialization procedure
 	Initialization();
-	utils::memory::CallVirtualFunction<void>(0x0, 3, "Fasz", 5, true);
-	LOG(DebugLevel::OK, "Test print {}", 5);
-	sdk::interfaces::cvar->ConsolePrintf("Test print to the console! %d", 5);
-	sdk::interfaces::cvar->ConsoleColorPrintf(EngineColor(255, 255, 255, 255), "Fuck formatting! %d", 5);
 
 	// Wait till the user presses VK_END to start the unload procedure
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload)
@@ -41,6 +39,7 @@ void Detach()
 	// Do any cleaning here.
 
 	utils::debug::Release();
+	utils::input::Uninitialize();
 }
 
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
