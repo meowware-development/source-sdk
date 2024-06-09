@@ -4,6 +4,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#include <windowsx.h>
+
 #include <exception>
 
 namespace utils::input {
@@ -19,8 +21,10 @@ namespace utils::input {
 		case WM_SYSKEYDOWN: {
 			if (wparam > 0 && wparam < 256) {
 				switch (keys[wparam].state) {
-				case KeyState::IDLE: keys[wparam].state = KeyState::PRESSED; break;
-				case KeyState::PRESSED: keys[wparam].state = KeyState::HELD; break;
+				case KeyState::IDLE: {
+					keys[wparam].state = KeyState::PRESSED;
+					break;
+				}
 				}
 			}
 			break;
@@ -29,31 +33,37 @@ namespace utils::input {
 		case WM_SYSKEYUP: {
 			if (wparam > 0 && wparam < 256) {
 				keys[wparam].state = KeyState::IDLE;
+				keys[wparam].lastTickPressed = false;
 			}
 			break;
 		}
 		case WM_LBUTTONDOWN: // Handle left mouse button
 		case WM_LBUTTONDBLCLK: {
-			switch (leftMouseButton.state) {
-			case KeyState::IDLE: leftMouseButton.state = KeyState::PRESSED; break;
-			case KeyState::PRESSED: leftMouseButton.state = KeyState::HELD; break;
-			}
+			keys[VK_LBUTTON].state = KeyState::PRESSED;
 			break;
 		}
 		case WM_LBUTTONUP: {
-			leftMouseButton.state = KeyState::IDLE;
+			keys[VK_LBUTTON].state = KeyState::IDLE;
+			keys[VK_LBUTTON].lastTickPressed = false;
 			break;
 		}
 		case WM_RBUTTONDOWN: // Handle right mouse button
 		case WM_RBUTTONDBLCLK: {
-			switch (rightMouseButton.state) {
-			case KeyState::IDLE: rightMouseButton.state = KeyState::PRESSED; break;
-			case KeyState::PRESSED: rightMouseButton.state = KeyState::HELD; break;
-			}
+			keys[VK_RBUTTON].state = KeyState::PRESSED;
 			break;
 		}
 		case WM_RBUTTONUP: {
-			rightMouseButton.state = KeyState::IDLE;
+			keys[VK_RBUTTON].state = KeyState::IDLE;
+			keys[VK_RBUTTON].lastTickPressed = false;
+			break;
+		}
+		case WM_MOUSEMOVE: { // Handle mouse coordonations on the screen
+			mouse.x = GET_X_LPARAM(lparam);
+			mouse.y = GET_Y_LPARAM(lparam);
+			break;
+		}
+		case WM_MOUSEWHEEL: { // Handle mouse wheel
+			mouse.wheelDelta = GET_WHEEL_DELTA_WPARAM(wparam);
 			break;
 		}
 		}
@@ -62,37 +72,32 @@ namespace utils::input {
 	}
 }
 
-void utils::input::Update() {
+void utils::input::Update()
+{
 	/* This function has to be called every tick in order to update the key states manually,
-	since WndProc only gets called if any key press happens */
-	keysMutex.lock();
+	since WndProc only gets called if any key press happens ONCE, and it doesnt get called if the key is being held (too bad!)
+
+	WARNING: Must be called in the game's thread.
+	Tried doing a separate thread but it's just too fast (keys go to KeyState::HELD instantly and are not one time recognized for being at KeyState::PRESSED as they should)
+	Best place would be in a rendering function or even CHLClient::Update() I guess
+	*/
 
 	for (size_t i = 0; i < 256; ++i) {
 		Key& key = keys[i];
 
 		// If the key was already pressed, set it to held
-		if (key.lastTickPressed)
+		if (key.lastTickPressed) {
 			key.state = KeyState::HELD;
-
-		switch (key.state) {
-		case KeyState::IDLE: {
-			// Key stopped being held
-			key.lastTickPressed = false;
-			break;
-		}
-		case KeyState::PRESSED: {
-			// Pressed once, about to go to held next tick
+		} // If it wasn't and it is currently being pressed, set it to true
+		else if (key.state == KeyState::PRESSED) {
 			key.lastTickPressed = true;
-			break;
-		}
 		}
 	}
-
-	keysMutex.unlock();
 }
 
 void utils::input::Initialize()
 {
+	// Find game window by the Valve001 class (Can be used in all source games)
 	window = FindWindowA("Valve001", NULL);
 
 	if (!window)
@@ -105,15 +110,12 @@ void utils::input::Initialize()
 
 	LOG(DebugLevel::OK, "Initialized input!");
 
-	HANDLE update = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(Update), 0, 0, 0);
-
-	if (!update)
-		throw std::exception("Couldn't initialize utils::input::Update thread!");
-
-	CloseHandle(update);
+	initialized = true;
 }
 
 void utils::input::Uninitialize()
 {
 	SetWindowLongW(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(original));
+
+	initialized = false;
 }

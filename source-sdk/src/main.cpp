@@ -27,8 +27,10 @@ void Attach(HINSTANCE instance)
 	Initialization();
 
 	// Wait till the user presses VK_END to start the unload procedure
-	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload)
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	// @TODO: Replace with own input from wndproc after properly updating the keys in game thread
+	while (!utils::input::keys[VK_END].IsPressed() && !globals::shouldUnload) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(3));
+	}
 
 	// Exit thread, DllMain will be called with DLL_PROCESS_DETACH
 	FreeLibraryAndExitThread(instance, EXIT_SUCCESS);
@@ -48,6 +50,7 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
 
 	switch (reason) {
 	case DLL_PROCESS_ATTACH: {
+		std::thread(Attach, instance).detach();
 		HANDLE threadHandle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(Attach), instance, 0, 0);
 
 		if (!threadHandle) {
