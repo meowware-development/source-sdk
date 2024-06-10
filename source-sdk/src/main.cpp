@@ -5,6 +5,7 @@ void Initialization()
 	try {
 		utils::debug::Initialize("source-sdk");
 		utils::input::Initialize();
+		utils::crashhandler::Initalize();
 
 		sdk::interfaces::Initialize();
 	}

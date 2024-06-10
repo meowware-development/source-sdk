@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
+    <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />
     <ClCompile Include="utils\memory\memory.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="sdk\valve\structures\enginecolor.hpp" />
     <ClInclude Include="utils\config\scfg.hpp" />
     <ClInclude Include="utils\constants\const.hpp" />
+    <ClInclude Include="utils\crashhandler\crashhandler.hpp" />
     <ClInclude Include="utils\format\format.hpp" />
     <ClInclude Include="utils\input\input.hpp" />
     <ClInclude Include="utils\memory\memory.hpp" />

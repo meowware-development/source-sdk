@@ -11,3 +11,6 @@
 
 // Format
 #include "format/format.hpp"
+
+// Exception handler
+#include "crashhandler/crashhandler.hpp"
