@@ -31,9 +31,9 @@ uintptr_t utils::memory::GetAddress(uintptr_t base, int index)
 }
 
 template<typename Return>
-Return utils::memory::CallVirtualFunction(uintptr_t base, int index, auto&&... args)
+Return CallVirtualFunction(uintptr_t base, int index, auto&&... args)
 {
-	using Function = Return(__thiscall*)(void*, auto&&);
-	Function function = reinterpret_cast<Function>(*reinterpret_cast<void**>(base)[index]);
+	using Function = Return(__thiscall*)(void*, decltype(args)...);
+	Function function = reinterpret_cast<Function>(*reinterpret_cast<uintptr_t**>(base)[index]);
 	return function(reinterpret_cast<void*>(base), std::forward<decltype(args)>(args)...);
 }

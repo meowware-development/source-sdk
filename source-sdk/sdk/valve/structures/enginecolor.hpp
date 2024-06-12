@@ -11,7 +11,7 @@ struct EngineColor {
 
 	EngineColor(int _r, int _g, int _b)
 	{
-		SetEngineColor(_r, _g, _b, 0);
+		SetEngineColor(_r, _g, _b, 255);
 	}
 
 	EngineColor(int _r, int _g, int _b, int _a)
