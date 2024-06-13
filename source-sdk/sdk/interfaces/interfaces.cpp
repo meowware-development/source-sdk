@@ -34,4 +34,6 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 void sdk::interfaces::Initialize()
 {
 	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
+	surface = GetInterface(void, "vgui2.dll", "VGUI_Surface030");
+	panel = GetInterface(PanelInterface, "vgui2.dll", "VGUI_Panel009");
 }

@@ -3,11 +3,6 @@
 // Our color implementation differs a bit; this is the same as the game's
 
 struct EngineColor {
-	// constructors
-	EngineColor()
-	{
-		*((int*)this) = 0;
-	}
 
 	EngineColor(int _r, int _g, int _b)
 	{

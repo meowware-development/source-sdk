@@ -1,6 +1,7 @@
 #pragma once
 #include <string_view>
 #include "../valve/interfaces/cvar.hpp"
+#include "../valve/interfaces/panel.hpp"
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -20,6 +21,8 @@ namespace sdk::interfaces {
 	void Initialize();
 
 	inline CvarManager* cvar = nullptr;
+	inline void* surface = nullptr; // @TODO: Add ISurface to the sdk
+	inline PanelInterface* panel = nullptr;
 }
 
 // The difference between the 2 versions isn't that big, however, it's almost never inlined on 32 bit (only in module like steamclient.dll) so 

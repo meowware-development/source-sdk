@@ -1,4 +1,5 @@
 #include "../globals.hpp"
+#include "hooks/hooks.hpp"
 
 void Initialization()
 {
@@ -14,6 +15,9 @@ void Initialization()
 		if (MessageBoxA(NULL, error.what(), "Exception!", MB_ICONERROR))
 			globals::shouldUnload = true;
 	}
+
+	// Doesn't throw expections!
+	hooks::Initalize();
 
 	LOG(DebugLevel::OK, "Initialization finished!");
 }
@@ -40,6 +44,7 @@ void Attach(HINSTANCE instance)
 void Detach()
 {
 	// Do any cleaning here.
+	hooks::Uninitalize();
 
 	utils::debug::Release();
 	utils::input::Uninitialize();
