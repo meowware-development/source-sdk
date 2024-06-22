@@ -13,8 +13,6 @@ void src::hooks::Initalize() noexcept
 void src::hooks::Uninitalize() noexcept
 {
 	VMTHook::Uninitialize();
-
-	dx9::Uninitialize();
 }
 
 void __stdcall src::hooks::PaintTraverse::PaintTraverse(unsigned int panelID, bool forceRepaint, bool allowForce)

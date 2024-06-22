@@ -8,11 +8,7 @@
 #pragma comment(lib, "d3dx9.lib")
 
 namespace src::hooks::dx9 {
-	inline IDirect3D9* d3d;
-	inline IDirect3DDevice9* device;
-
 	void Initialize();
-	void Uninitialize();
 
 	namespace EndScene {
 		inline VMTHook hook;

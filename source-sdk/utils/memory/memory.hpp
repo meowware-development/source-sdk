@@ -16,6 +16,8 @@ namespace utils::memory {
 	template <typename Return>
 	Return CallVirtualFunction(uintptr_t base, int index, auto&&... args);
 
+	uint8_t* PatternScan(uintptr_t module, const char* ida);
+
 	inline std::unordered_map<std::string, uintptr_t> modules;
 }
 
