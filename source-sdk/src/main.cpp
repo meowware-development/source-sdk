@@ -9,6 +9,7 @@ void Initialization()
 		utils::crashhandler::Initalize();
 
 		sdk::interfaces::Initialize();
+
 	}
 	catch (const std::exception& error) {
 		LOG(DebugLevel::ERR, "Exception: {}", error.what());
@@ -16,8 +17,7 @@ void Initialization()
 			globals::shouldUnload = true;
 	}
 
-	// Doesn't throw expections!
-	hooks::Initalize();
+	src::hooks::Initalize();
 
 	LOG(DebugLevel::OK, "Initialization finished!");
 }
@@ -44,7 +44,7 @@ void Attach(HINSTANCE instance)
 void Detach()
 {
 	// Do any cleaning here.
-	hooks::Uninitalize();
+	src::hooks::Uninitalize();
 
 	utils::debug::Release();
 	utils::input::Uninitialize();

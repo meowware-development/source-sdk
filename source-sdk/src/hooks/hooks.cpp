@@ -1,19 +1,25 @@
 #include "hooks.hpp"
 #include "../../globals.hpp"
 
-void hooks::Initalize() noexcept
+#include "dx9/dx9.hpp"
+
+void src::hooks::Initalize() noexcept
 {
-	paintHook.Initalize("PaintTraverse", sdk::interfaces::panel, 41, hookedFunctions::PaintTraverse);
+	dx9::Initialize();
+
+	PaintTraverse::hook.Initialize("PaintTraverse", sdk::interfaces::panel, 41, PaintTraverse::PaintTraverse);
 }
 
-void hooks::Uninitalize() noexcept
+void src::hooks::Uninitalize() noexcept
 {
 	VMTHook::Uninitialize();
+
+	dx9::Uninitialize();
 }
 
-void __stdcall hookedFunctions::PaintTraverse(unsigned int panelID, bool forceRepaint, bool allowForce)
+void __stdcall src::hooks::PaintTraverse::PaintTraverse(unsigned int panelID, bool forceRepaint, bool allowForce)
 {
-	static const auto original = hooks::paintHook.GetOriginal<void(__thiscall*)(void*, unsigned int, bool, bool)>();
+	static const auto original = hook.GetOriginal<void(__thiscall*)(void*, unsigned int, bool, bool)>();
 
 	VPanel* panel = reinterpret_cast<VPanel*>(panelID);
 

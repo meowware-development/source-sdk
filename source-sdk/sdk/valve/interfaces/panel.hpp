@@ -7,10 +7,8 @@ class PanelInterface {
 public:
 	virtual ~PanelInterface() = 0;
 
-	// typeof(panel) == IClientPanel
 	virtual void Init(unsigned int vguiPanel, void* panel) = 0;
 
-	// methods
 	virtual void SetPos(unsigned int vguiPanel, int x, int y) = 0;
 	virtual void GetPos(unsigned int vguiPanel, int& x, int& y) = 0;
 	virtual void SetSize(unsigned int vguiPanel, int wide, int tall) = 0;

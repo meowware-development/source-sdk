@@ -1,0 +1,26 @@
+#pragma once
+#include "../vmthook/vmthook.hpp"
+
+#include <d3d9.h>
+#include <d3dx9.h>
+
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
+
+namespace src::hooks::dx9 {
+	inline IDirect3D9* d3d;
+	inline IDirect3DDevice9* device;
+
+	void Initialize();
+	void Uninitialize();
+
+	namespace EndScene {
+		inline VMTHook hook;
+		HRESULT __stdcall EndScene(IDirect3DDevice9* device);
+	}
+
+	namespace Reset {
+		inline VMTHook hook;
+		HRESULT __stdcall Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
+	}
+}

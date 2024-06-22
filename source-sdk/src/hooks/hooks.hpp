@@ -1,13 +1,12 @@
 #pragma once
 #include "vmthook/vmthook.hpp"
 
-namespace hooks {
+namespace src::hooks {
 	void Initalize() noexcept;
 	void Uninitalize() noexcept;
 
-	inline VMTHook paintHook{};
-}
-
-namespace hookedFunctions {
-	void __stdcall PaintTraverse(unsigned int panel, bool forceRepaint, bool allowForce);
+	namespace PaintTraverse {
+		inline VMTHook hook;
+		void __stdcall PaintTraverse(unsigned int panel, bool forceRepaint, bool allowForce);
+	}
 }

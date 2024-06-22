@@ -10,6 +10,7 @@ public:
 	int m_nAllocationCount;
 	int m_nGrowSize;
 };
+
 template <class T, class A = CUtlMemory<T>> class CUtlVector {
 public:
 	typedef A CAllocator;

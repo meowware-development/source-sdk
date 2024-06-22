@@ -35,6 +35,5 @@ LONG WINAPI utils::crashhandler::ExceptionHandler(EXCEPTION_POINTERS* exception)
 		reinterpret_cast<DWORD>(exception->ExceptionRecord->ExceptionAddress), exception->ContextRecord->Eax, exception->ContextRecord->Ecx, exception->ContextRecord->Esp,
 		exception->ContextRecord->Eip, exceptionText[exception->ExceptionRecord->ExceptionCode]), "Exception occured!", MB_ICONERROR);
 
-	// Continue handler search.
 	return 0;
 }

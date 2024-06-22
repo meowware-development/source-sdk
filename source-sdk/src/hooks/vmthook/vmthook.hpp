@@ -1,17 +1,19 @@
 #pragma once
 #define WIN32_MEAN_AND_LEAN
 #include <Windows.h>
+
 #include <memory>
 #include <vector>
 
-struct VMTHook;
+class VMTHook;
 
 static std::vector<VMTHook*> vmtHooks;
 
-struct VMTHook {
+class VMTHook {
+public:
 	VMTHook() = default;
 
-	void Initalize(const char* name, void* base, int index, void* detour)
+	void Initialize(const char* name, void* base, int index, void* detour)
 	{
 		// Get the vmt and the original function
 		void** vmt = *reinterpret_cast<void***>(base);
@@ -69,7 +71,7 @@ struct VMTHook {
 	// Call once to reset the hooks back to their original pointer.
 	static void Uninitialize()
 	{
-		for (auto& hook : vmtHooks) {
+		for (auto hook : vmtHooks) {
 			hook->Reset();
 		}
 	}
