@@ -1,5 +1,6 @@
 #pragma once
 #include <string_view>
+
 #include "../valve/interfaces/cvar.hpp"
 #include "../valve/interfaces/panel.hpp"
 
@@ -23,6 +24,7 @@ namespace sdk::interfaces {
 	inline CvarManager* cvar = nullptr;
 	inline void* surface = nullptr; // @TODO: Add ISurface to the sdk
 	inline PanelInterface* panel = nullptr;
+	inline void* directx9 = nullptr;
 }
 
 // The difference between the 2 versions isn't that big, however, it's almost never inlined on 32 bit (only in module like steamclient.dll) so 

@@ -6,32 +6,34 @@
 #include "../constants/const.hpp"
 #include "../debug/debug.hpp"
 
-uintptr_t utils::memory::GetModule(const std::string& moduleName)
+uintptr_t utils::memory::GetModule(const std::string& moduleName) noexcept
 {
 	if (modules.contains(moduleName))
 		return modules.at(moduleName);
 
 	// We haven't called for that module yet, let's grab it
 	uintptr_t moduleAddress = reinterpret_cast<uintptr_t>(GetModuleHandleA(moduleName.data()));
-	if (!moduleAddress)
+	if (!moduleAddress) {
 		LOG(DebugLevel::ERR, "Failed to grab module {}!", moduleName);
+		return 0;
+	}
 
 	modules.emplace(std::make_pair(moduleName, moduleAddress));
 	return moduleAddress;
 }
 
-int utils::memory::GetIndex(uintptr_t base, uintptr_t address)
+int utils::memory::GetIndex(uintptr_t base, uintptr_t address) noexcept
 {
 	return (static_cast<int>((address - base))) / utils::consts::pointerSize;
 }
 
-uintptr_t utils::memory::GetAddress(uintptr_t base, int index)
+uintptr_t utils::memory::GetAddress(uintptr_t base, int index) noexcept
 {
 	return (*reinterpret_cast<uintptr_t**>(base)[index]);
 }
 
 template<typename Return>
-Return CallVirtualFunction(uintptr_t base, int index, auto&&... args)
+Return CallVirtualFunction(uintptr_t base, int index, auto&&... args) noexcept
 {
 	using Function = Return(__thiscall*)(void*, decltype(args)...);
 	Function function = reinterpret_cast<Function>(*reinterpret_cast<uintptr_t**>(base)[index]);
@@ -63,8 +65,10 @@ uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)
 		a = (a <= '9') ? a - '0' : (a & 0x7) + 9;
 		b = (b <= '9') ? b - '0' : (b & 0x7) + 9;
 
-		bytes.emplace_back(static_cast<int>((a << 4) + b));
-		current++;
+		int dec = static_cast<int>((a << 4) + b);
+
+		bytes.emplace_back(dec);
+		current = current + 3;
 	}
 
 	// Creepy windows code
@@ -76,16 +80,16 @@ uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)
 
 	size_t bytesLength = bytes.size();
 
-	for (size_t i = 0UL; i < sizeOfImage - bytesLength; ++i) { // size - bytesLength because we dont want any overflow
+	for (size_t i = 0; i < sizeOfImage - bytesLength; ++i) { // size - bytesLength because we dont want any overflow
 		bool found = true; // Assume we found it
 
 		// Check for the byte sequence starting at position i, ending at i + bytesLength
-		for (size_t j = i; j < i + bytesLength; j++) {
-			if (scanBytes[j] == -1) { // Skip over wild cards
+		for (size_t j = 0; j < bytesLength; ++j) {
+			if (bytes[j] == -1) { // Skip over wild cards
 				continue;
 			}
 
-			if (bytes[j] != scanBytes[j - i]) { // Sequence doesn't match, break
+			if (bytes[j] != scanBytes[i + j]) { // Sequence doesn't match, break
 				found = false;
 				break;
 			}

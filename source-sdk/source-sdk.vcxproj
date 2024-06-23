@@ -156,7 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
-    <ClCompile Include="src\hooks\dx9\dx9.cpp" />
+    <ClCompile Include="src\hooks\classes\dx9.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />
@@ -168,6 +168,7 @@
     <ClInclude Include="globals.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
+    <ClInclude Include="sdk\signatures.hpp" />
     <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
     <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
     <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
@@ -177,7 +178,6 @@
     <ClInclude Include="sdk\valve\structures\memutil.hpp" />
     <ClInclude Include="sdk\valve\structures\vpanel.hpp" />
     <ClInclude Include="sdk\valve\structures\surfaceplat.hpp" />
-    <ClInclude Include="src\hooks\dx9\dx9.hpp" />
     <ClInclude Include="src\hooks\hooks.hpp" />
     <ClInclude Include="src\hooks\vmthook\vmthook.hpp" />
     <ClInclude Include="utils\config\scfg.hpp" />

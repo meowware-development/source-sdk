@@ -1,13 +1,12 @@
 #include "hooks.hpp"
 #include "../../globals.hpp"
 
-#include "dx9/dx9.hpp"
-
 void src::hooks::Initalize() noexcept
 {
-	dx9::Initialize();
+	Panel::PaintTraverse::hook.Initialize("PaintTraverse", sdk::interfaces::panel, 41, Panel::PaintTraverse::PaintTraverse);
 
-	PaintTraverse::hook.Initialize("PaintTraverse", sdk::interfaces::panel, 41, PaintTraverse::PaintTraverse);
+	DirectX9::EndScene::hook.Initialize("EndScene", sdk::interfaces::directx9, 42, DirectX9::EndScene::EndScene);
+	DirectX9::Reset::hook.Initialize("Reset", sdk::interfaces::directx9, 16, DirectX9::Reset::Reset);
 }
 
 void src::hooks::Uninitalize() noexcept
@@ -15,7 +14,7 @@ void src::hooks::Uninitalize() noexcept
 	VMTHook::Uninitialize();
 }
 
-void __stdcall src::hooks::PaintTraverse::PaintTraverse(unsigned int panelID, bool forceRepaint, bool allowForce)
+void __stdcall src::hooks::Panel::PaintTraverse::PaintTraverse(unsigned int panelID, bool forceRepaint, bool allowForce)
 {
 	static const auto original = hook.GetOriginal<void(__thiscall*)(void*, unsigned int, bool, bool)>();
 

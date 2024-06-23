@@ -1,9 +1,13 @@
 #include "interfaces.hpp"
+
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <stdexcept>
 
 #include "../../utils/memory/memory.hpp"
 #include "../../utils/format/format.hpp"
+
+#include "../signatures.hpp"
 
 template <typename Return>
 decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName, const std::string_view interfaceName)
@@ -34,6 +38,8 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 void sdk::interfaces::Initialize()
 {
 	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
-	surface = GetInterface(void, "vgui2.dll", "VGUI_Surface030");
-	panel = GetInterface(PanelInterface, "vgui2.dll", "VGUI_Panel009");
+	surface = GetInterface(void, "vgui2.dll", "VGUI_Surface0");
+	panel = GetInterface(PanelInterface, "vgui2.dll", "VGUI_Panel0");
+
+	directx9 = **reinterpret_cast<void***>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"), sdk::signatures::shaderapidx9::directx9::sig) + sdk::signatures::shaderapidx9::directx9::offset);
 }

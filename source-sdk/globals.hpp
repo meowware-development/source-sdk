@@ -10,7 +10,7 @@
 // Utils
 #include "utils/utils.hpp"
 
-// Sdk
+// SDK
 #include "sdk/sdk.hpp"
 
 namespace globals {
