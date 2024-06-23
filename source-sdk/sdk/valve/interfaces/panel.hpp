@@ -3,9 +3,9 @@
 
 struct SurfacePlat;
 
-class PanelInterface {
+class Panel {
 public:
-	virtual ~PanelInterface() = 0;
+	virtual ~Panel() = 0;
 
 	virtual void Init(unsigned int vguiPanel, void* panel) = 0;
 

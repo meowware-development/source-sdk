@@ -3,6 +3,7 @@
 
 #include "../valve/interfaces/cvar.hpp"
 #include "../valve/interfaces/panel.hpp"
+#include "../valve/interfaces/surface.hpp"
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -22,8 +23,8 @@ namespace sdk::interfaces {
 	void Initialize();
 
 	inline CvarManager* cvar = nullptr;
-	inline void* surface = nullptr; // @TODO: Add ISurface to the sdk
-	inline PanelInterface* panel = nullptr;
+	inline Surface* surface = nullptr; // @TODO: Add ISurface to the sdk
+	inline Panel* panel = nullptr;
 	inline void* directx9 = nullptr;
 }
 

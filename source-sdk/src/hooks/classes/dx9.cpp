@@ -2,6 +2,8 @@
 
 #include "../hooks.hpp"
 
+// Currently not used
+
 HRESULT __stdcall src::hooks::DirectX9::EndScene::EndScene(IDirect3DDevice9* device)
 {
 	static const auto original = hook.GetOriginal<decltype(&EndScene)>();

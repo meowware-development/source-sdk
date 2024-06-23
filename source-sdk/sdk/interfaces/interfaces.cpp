@@ -32,14 +32,14 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 		current = current->next;
 	}
 
-	throw std::runtime_error(FORMAT("Failed to get interface {} in the interfaceList of module {}!", interfaceName, moduleName));
+	throw std::runtime_error(FORMAT("Failed to fetch {} in module {}!", interfaceName, moduleName));
 }
 
 void sdk::interfaces::Initialize()
 {
 	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
-	surface = GetInterface(void, "vgui2.dll", "VGUI_Surface0");
-	panel = GetInterface(PanelInterface, "vgui2.dll", "VGUI_Panel0");
+	surface = GetInterface(Surface, "vguimatsurface.dll", "VGUI_Surface0");
+	panel = GetInterface(Panel, "vgui2.dll", "VGUI_Panel0");
 
 	directx9 = **reinterpret_cast<void***>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"), sdk::signatures::shaderapidx9::directx9::sig) + sdk::signatures::shaderapidx9::directx9::offset);
 }

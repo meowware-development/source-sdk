@@ -20,5 +20,10 @@ void __stdcall src::hooks::Panel::PaintTraverse::PaintTraverse(unsigned int pane
 
 	VPanel* panel = reinterpret_cast<VPanel*>(panelID);
 
+	if (!strcmp(panel->GetName(), "FocusOverlayPanel")) {
+		sdk::interfaces::surface->DrawSetColor(150, 200, 50, 255);
+		sdk::interfaces::surface->DrawFilledRect(200, 200, 400, 400);
+	}
+
 	return original(sdk::interfaces::panel, panelID, forceRepaint, allowForce);
 }

@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
+    <ClCompile Include="sdk\math\math.cpp" />
     <ClCompile Include="src\hooks\classes\dx9.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
@@ -166,12 +167,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp" />
+    <ClInclude Include="sdk\indexes.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
+    <ClInclude Include="sdk\math\math.hpp" />
+    <ClInclude Include="sdk\math\matrix.hpp" />
+    <ClInclude Include="sdk\math\vector.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
     <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
     <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
     <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\surface.hpp" />
+    <ClInclude Include="sdk\valve\misc\color.hpp" />
     <ClInclude Include="sdk\valve\structures\consolecommand.hpp" />
     <ClInclude Include="sdk\valve\structures\cvar.hpp" />
     <ClInclude Include="sdk\valve\structures\enginecolor.hpp" />

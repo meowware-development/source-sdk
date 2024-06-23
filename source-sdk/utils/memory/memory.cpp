@@ -1,10 +1,8 @@
-#include "memory.hpp"
 #include <Windows.h>
 #include <stdexcept>
 
 #include "../format/format.hpp"
-#include "../constants/const.hpp"
-#include "../debug/debug.hpp"
+#include "memory.hpp"
 
 uintptr_t utils::memory::GetModule(const std::string& moduleName) noexcept
 {
@@ -13,31 +11,11 @@ uintptr_t utils::memory::GetModule(const std::string& moduleName) noexcept
 
 	// We haven't called for that module yet, let's grab it
 	uintptr_t moduleAddress = reinterpret_cast<uintptr_t>(GetModuleHandleA(moduleName.data()));
-	if (!moduleAddress) {
-		LOG(DebugLevel::ERR, "Failed to grab module {}!", moduleName);
+	if (!moduleAddress)
 		return 0;
-	}
 
 	modules.emplace(std::make_pair(moduleName, moduleAddress));
 	return moduleAddress;
-}
-
-int utils::memory::GetIndex(uintptr_t base, uintptr_t address) noexcept
-{
-	return (static_cast<int>((address - base))) / utils::consts::pointerSize;
-}
-
-uintptr_t utils::memory::GetAddress(uintptr_t base, int index) noexcept
-{
-	return (*reinterpret_cast<uintptr_t**>(base)[index]);
-}
-
-template<typename Return>
-Return CallVirtualFunction(uintptr_t base, int index, auto&&... args) noexcept
-{
-	using Function = Return(__thiscall*)(void*, decltype(args)...);
-	Function function = reinterpret_cast<Function>(*reinterpret_cast<uintptr_t**>(base)[index]);
-	return function(reinterpret_cast<void*>(base), std::forward<decltype(args)>(args)...);
 }
 
 uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)

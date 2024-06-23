@@ -18,8 +18,6 @@ void Initialization()
 
 	src::hooks::Initalize();
 
-	//	void* offset = reinterpret_cast<void*>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"), sdk::signatures::shaderapidx9::directx9::sig));
-
 	LOG(DebugLevel::OK, "Initialization finished!");
 }
 
