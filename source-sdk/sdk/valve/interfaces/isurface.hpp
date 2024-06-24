@@ -1,15 +1,15 @@
 #pragma once
 
-#include "appsystem.hpp"
-
+#include "iappsystem.hpp"
 #include "../../math/vector.hpp"
-
 #include "../misc/color.hpp"
 
 typedef unsigned long HCursor;
 typedef unsigned long HTexture;
 typedef unsigned long HFont;
 typedef unsigned int VPANEL;
+
+#undef CreateFont
 
 struct Vertex
 {

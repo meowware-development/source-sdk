@@ -3,7 +3,8 @@
 #include <cstdarg>
 #include <array>
 #include <utility>
-#include "appsystem.hpp"
+
+#include "iappsystem.hpp"
 #include "../../../utils/constants/const.hpp"
 #include "../../../utils/memory/memory.hpp"
 

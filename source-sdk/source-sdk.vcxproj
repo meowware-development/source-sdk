@@ -157,9 +157,9 @@
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
-    <ClCompile Include="src\hooks\classes\dx9.cpp" />
-    <ClCompile Include="src\hooks\classes\panel.cpp" />
-    <ClCompile Include="src\hooks\classes\surface.cpp" />
+    <ClCompile Include="src\hooks\classes\directx9.cpp" />
+    <ClCompile Include="src\hooks\classes\ipanel.cpp" />
+    <ClCompile Include="src\hooks\classes\isurface.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />
@@ -177,10 +177,10 @@
     <ClInclude Include="sdk\math\vector.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
-    <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
-    <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
-    <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
-    <ClInclude Include="sdk\valve\interfaces\surface.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\iappsystem.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\icvar.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\ipanel.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\isurface.hpp" />
     <ClInclude Include="sdk\valve\misc\color.hpp" />
     <ClInclude Include="sdk\valve\structures\consolecommand.hpp" />
     <ClInclude Include="sdk\valve\structures\cvar.hpp" />

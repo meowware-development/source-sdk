@@ -1,9 +1,10 @@
 #pragma once
 #include <string_view>
+#include <d3d9.h>
 
-#include "../valve/interfaces/cvar.hpp"
-#include "../valve/interfaces/panel.hpp"
-#include "../valve/interfaces/surface.hpp"
+#include "../valve/interfaces/icvar.hpp"
+#include "../valve/interfaces/ipanel.hpp"
+#include "../valve/interfaces/isurface.hpp"
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -25,7 +26,7 @@ namespace sdk::interfaces {
 	inline CvarManager* cvar = nullptr;
 	inline Surface* surface = nullptr; // @TODO: Add ISurface to the sdk
 	inline Panel* panel = nullptr;
-	inline void* directx9 = nullptr;
+	inline IDirect3DDevice9* directx9 = nullptr;
 }
 
 // The difference between the 2 versions isn't that big, however, it's almost never inlined on 32 bit (only in module like steamclient.dll) so 

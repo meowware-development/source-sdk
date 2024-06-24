@@ -1,6 +1,6 @@
 #include "../hooks.hpp"
 
-// Currently not used
+#include <intrin.h>
 
 HRESULT __stdcall src::hooks::DirectX9::EndScene::HookFn(IDirect3DDevice9* device)
 {
@@ -11,7 +11,8 @@ HRESULT __stdcall src::hooks::DirectX9::EndScene::HookFn(IDirect3DDevice9* devic
 
 HRESULT __stdcall src::hooks::DirectX9::Reset::HookFn(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
-	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
+	static auto original = hook.GetOriginal<decltype(&HookFn)>();
 
 	return original(device, pPresentationParameters);
 }
+

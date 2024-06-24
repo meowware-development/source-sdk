@@ -1,4 +1,5 @@
 #pragma once
+#include <d3dx9.h>
 
 class Color
 {
@@ -52,6 +53,11 @@ public:
 	inline int g() const { return m_Color[1]; }
 	inline int b() const { return m_Color[2]; }
 	inline int a() const { return m_Color[3]; }
+
+	D3DCOLOR D3DColor()
+	{
+		return D3DCOLOR_RGBA(m_Color[0], m_Color[1], m_Color[2], m_Color[3]);
+	}
 
 	unsigned char& operator[](int index)
 	{
