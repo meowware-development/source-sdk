@@ -1,6 +1,6 @@
 #include "../hooks.hpp"
 
-#include "../../utils/renderer/renderer.hpp"
+#include "../../../utils/renderer/renderer.hpp"
 #include "../../../sdk/interfaces/interfaces.hpp"
 
 // Under the hood, this function is probably being called on directx9 device Reset

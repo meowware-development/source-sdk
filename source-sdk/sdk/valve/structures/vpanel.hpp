@@ -1,6 +1,9 @@
 #pragma once
 #include "memutil.hpp"
 
+#undef SendMessage
+#undef GetClassName
+
 struct SurfacePlat;
 
 struct VPanel {

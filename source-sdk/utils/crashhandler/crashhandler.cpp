@@ -4,7 +4,9 @@
 
 void utils::crashhandler::Initalize()
 {
+#ifndef _DEBUG
 	AddVectoredExceptionHandler(0, ExceptionHandler);
+#endif
 }
 
 static std::unordered_map<DWORD, const char*> exceptionText = {
@@ -31,9 +33,9 @@ static std::unordered_map<DWORD, const char*> exceptionText = {
 
 LONG WINAPI utils::crashhandler::ExceptionHandler(EXCEPTION_POINTERS* exception)
 {
-	//MessageBoxA(0, FORMAT("Exception occured at 0x{:X}!\nEAX: 0x{:X}\nECX: 0x{:X}\nESP: 0x{:X}\nEIP: 0x{:X}\nException: {}",
-	//	reinterpret_cast<DWORD>(exception->ExceptionRecord->ExceptionAddress), exception->ContextRecord->Eax, exception->ContextRecord->Ecx, exception->ContextRecord->Esp,
-	//	exception->ContextRecord->Rip, exceptionText[exception->ExceptionRecord->ExceptionCode]), "Exception occured!", MB_ICONERROR);
+	MessageBoxA(0, FORMAT("Exception occured at 0x{:X}!\nEAX: 0x{:X}\nECX: 0x{:X}\nESP: 0x{:X}\nEIP: 0x{:X}\nException: {}",
+		reinterpret_cast<DWORD>(exception->ExceptionRecord->ExceptionAddress), exception->ContextRecord->Eax, exception->ContextRecord->Ecx, exception->ContextRecord->Esp,
+		exception->ContextRecord->Eip, exceptionText[exception->ExceptionRecord->ExceptionCode]), "Exception occured!", MB_ICONERROR);
 
 	return 0;
 }

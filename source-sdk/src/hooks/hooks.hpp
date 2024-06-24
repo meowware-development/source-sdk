@@ -12,11 +12,6 @@ namespace src::hooks {
 			inline VMTHook hook;
 			void __stdcall HookFn(unsigned int panel, bool forceRepaint, bool allowForce);
 		}
-
-		namespace PaintTraverseEx {
-			inline VMTHook hook;
-			void __stdcall HookFn(unsigned int panel, bool paintPopups);
-		}
 	}
 
 	namespace DirectX9 {

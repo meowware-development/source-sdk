@@ -24,10 +24,12 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 	const uintptr_t internalFunction = createInterface + 9 + rva;
 	InterfaceReg* current = **reinterpret_cast<InterfaceReg***>(internalFunction + 6);
 
-	for (; current; current = current->next) {
+	while (current) {
 		if (strstr(current->name, interfaceName.data())) {
 			return reinterpret_cast<Return*>(current->createFunction());
 		}
+
+		current = current->next;
 	}
 
 	throw std::runtime_error(FORMAT("Failed to fetch {} in module {}!", interfaceName, moduleName));
@@ -38,6 +40,8 @@ void sdk::interfaces::Initialize()
 	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
 	surface = GetInterface(Surface, "vguimatsurface.dll", "VGUI_Surface0");
 	panel = GetInterface(Panel, "vgui2.dll", "VGUI_Panel0");
+	engine = GetInterface(Engine, "engine.dll", "VEngineClient0");
+	netchannel = engine->GetNetChannelInfo();
 
-	directx9 = **reinterpret_cast<IDirect3DDevice9***>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"), sdk::signatures::shaderapidx9::directx9::sig) + sdk::signatures::shaderapidx9::directx9::offset);
+	directx9 = **reinterpret_cast<void***>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"), sdk::signatures::shaderapidx9::directx9::sig) + sdk::signatures::shaderapidx9::directx9::offset);
 }

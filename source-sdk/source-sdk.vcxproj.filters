@@ -36,7 +36,7 @@
     <ClCompile Include="src\hooks\hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hooks\classes\directx9.cpp">
+    <ClCompile Include="src\hooks\classes\dx9.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sdk\math\math.cpp">
@@ -45,10 +45,10 @@
     <ClCompile Include="utils\renderer\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hooks\classes\isurface.cpp">
+    <ClCompile Include="src\hooks\classes\surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hooks\classes\ipanel.cpp">
+    <ClCompile Include="src\hooks\classes\panel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,10 +71,10 @@
     <ClInclude Include="sdk\interfaces\interfaces.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\interfaces\icvar.hpp">
+    <ClInclude Include="sdk\valve\interfaces\cvar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\interfaces\iappsystem.hpp">
+    <ClInclude Include="sdk\valve\interfaces\appsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\valve\structures\cvar.hpp">
@@ -116,7 +116,7 @@
     <ClInclude Include="sdk\valve\structures\memutil.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\interfaces\ipanel.hpp">
+    <ClInclude Include="sdk\valve\interfaces\panel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\signatures.hpp">
@@ -125,7 +125,7 @@
     <ClInclude Include="sdk\indexes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\interfaces\isurface.hpp">
+    <ClInclude Include="sdk\valve\interfaces\surface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\math\math.hpp">
