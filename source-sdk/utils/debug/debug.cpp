@@ -1,5 +1,6 @@
 #include "debug.hpp"
 
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 void utils::debug::Initialize(const std::string_view title) noexcept

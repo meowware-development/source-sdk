@@ -14,3 +14,6 @@
 
 // Exception handler
 #include "crashhandler/crashhandler.hpp"
+
+// Renderer
+#include "renderer/renderer.hpp"

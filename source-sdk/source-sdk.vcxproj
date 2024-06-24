@@ -158,12 +158,15 @@
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
     <ClCompile Include="src\hooks\classes\dx9.cpp" />
+    <ClCompile Include="src\hooks\classes\panel.cpp" />
+    <ClCompile Include="src\hooks\classes\surface.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />
     <ClCompile Include="utils\memory\memory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="utils\debug\debug.cpp" />
+    <ClCompile Include="utils\renderer\renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp" />
@@ -194,6 +197,7 @@
     <ClInclude Include="utils\input\input.hpp" />
     <ClInclude Include="utils\memory\memory.hpp" />
     <ClInclude Include="utils\debug\debug.hpp" />
+    <ClInclude Include="utils\renderer\renderer.hpp" />
     <ClInclude Include="utils\utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

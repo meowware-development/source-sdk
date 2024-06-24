@@ -8,8 +8,9 @@ public:
 
 	Color(int _r, int _g, int _b)
 	{
-		SetColor(_r, _g, _b, 0);
+		SetColor(_r, _g, _b, 255);
 	}
+
 
 	Color(int _r, int _g, int _b, int _a)
 	{
@@ -79,5 +80,5 @@ public:
 	}
 
 private:
-	unsigned char m_Color[4] = { 0, 0, 0, 0 };
+	unsigned char m_Color[4] = { 255, 255, 255, 255 };
 };

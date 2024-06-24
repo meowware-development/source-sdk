@@ -64,6 +64,40 @@ struct CharRenderInfo
 	bool shouldclip;
 };
 
+enum ETextureFormat
+{
+	eTextureFormat_RGBA,
+	eTextureFormat_BGRA,
+	eTextureFormat_BGRA_Opaque, // bgra format but alpha is always 255, CEF does this, we can use this fact for better perf on win32 gdi
+};
+
+enum SurfaceFeature_e
+{
+	ANTIALIASED_FONTS = 1,
+	DROPSHADOW_FONTS = 2,
+	ESCAPE_KEY = 3,
+	OPENING_NEW_HTML_WINDOWS = 4,
+	FRAME_MINIMIZE_MAXIMIZE = 5,
+	OUTLINE_FONTS = 6,
+	DIRECT_HWND_RENDER = 7,
+};
+
+enum EFontFlags
+{
+	FONTFLAG_NONE,
+	FONTFLAG_ITALIC = 0x001,
+	FONTFLAG_UNDERLINE = 0x002,
+	FONTFLAG_STRIKEOUT = 0x004,
+	FONTFLAG_SYMBOL = 0x008,
+	FONTFLAG_ANTIALIAS = 0x010,
+	FONTFLAG_GAUSSIANBLUR = 0x020,
+	FONTFLAG_ROTARY = 0x040,
+	FONTFLAG_DROPSHADOW = 0x080,
+	FONTFLAG_ADDITIVE = 0x100,
+	FONTFLAG_OUTLINE = 0x200,
+	FONTFLAG_CUSTOM = 0x400,
+	FONTFLAG_BITMAP = 0x800,
+};
 
 class Surface : public AppSystem {
 public:
@@ -81,8 +115,8 @@ public:
 	virtual void PopMakeCurrent(VPANEL panel) = 0;
 
 	// rendering functions
-	virtual void DrawSetColor(Color col) = 0;
 	virtual void DrawSetColor(int r, int g, int b, int a) = 0;
+	virtual void DrawSetColor(Color col) = 0;
 
 	virtual void DrawFilledRect(int x0, int y0, int x1, int y1) = 0;
 	virtual void DrawFilledRectArray(void* pRects, int numRects) = 0;
@@ -103,13 +137,6 @@ public:
 	virtual void* CreateHTMLWindow(void* events, VPANEL context) = 0;
 	virtual void PaintHTMLWindow(void* htmlwin) = 0;
 	virtual void DeleteHTMLWindow(void* htmlwin) = 0;
-
-	enum ETextureFormat
-	{
-		eTextureFormat_RGBA,
-		eTextureFormat_BGRA,
-		eTextureFormat_BGRA_Opaque, // bgra format but alpha is always 255, CEF does this, we can use this fact for better perf on win32 gdi
-	};
 
 	virtual int	 DrawGetTextureId(char const* filename) = 0;
 	virtual bool DrawGetTextureFile(int id, char* filename, int maxlen) = 0;
@@ -146,16 +173,6 @@ public:
 	virtual bool HasFocus() = 0;
 
 	// returns true if the surface supports minimize & maximize capabilities
-	enum SurfaceFeature_e
-	{
-		ANTIALIASED_FONTS = 1,
-		DROPSHADOW_FONTS = 2,
-		ESCAPE_KEY = 3,
-		OPENING_NEW_HTML_WINDOWS = 4,
-		FRAME_MINIMIZE_MAXIMIZE = 5,
-		OUTLINE_FONTS = 6,
-		DIRECT_HWND_RENDER = 7,
-	};
 	virtual bool SupportsFeature(SurfaceFeature_e feature) = 0;
 
 	// restricts what gets drawn to one panel and it's children
@@ -177,24 +194,6 @@ public:
 	// fonts
 	// creates an empty handle to a vgui font.  windows fonts can be add to this via SetFontGlyphSet().
 	virtual HFont CreateFont() = 0;
-
-	// adds to the font
-	enum EFontFlags
-	{
-		FONTFLAG_NONE,
-		FONTFLAG_ITALIC = 0x001,
-		FONTFLAG_UNDERLINE = 0x002,
-		FONTFLAG_STRIKEOUT = 0x004,
-		FONTFLAG_SYMBOL = 0x008,
-		FONTFLAG_ANTIALIAS = 0x010,
-		FONTFLAG_GAUSSIANBLUR = 0x020,
-		FONTFLAG_ROTARY = 0x040,
-		FONTFLAG_DROPSHADOW = 0x080,
-		FONTFLAG_ADDITIVE = 0x100,
-		FONTFLAG_OUTLINE = 0x200,
-		FONTFLAG_CUSTOM = 0x400,		// custom generated font - never fall back to asian compatibility mode
-		FONTFLAG_BITMAP = 0x800,		// compiled bitmap font - no fallbacks
-	};
 
 	virtual bool SetFontGlyphSet(HFont font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags, int nRangeMin = 0, int nRangeMax = 0) = 0;
 

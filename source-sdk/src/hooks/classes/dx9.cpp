@@ -1,19 +1,17 @@
-#pragma once
-
 #include "../hooks.hpp"
 
 // Currently not used
 
-HRESULT __stdcall src::hooks::DirectX9::EndScene::EndScene(IDirect3DDevice9* device)
+HRESULT __stdcall src::hooks::DirectX9::EndScene::HookFn(IDirect3DDevice9* device)
 {
-	static const auto original = hook.GetOriginal<decltype(&EndScene)>();
+	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
 
 	return original(device);
 }
 
-HRESULT __stdcall src::hooks::DirectX9::Reset::Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters)
+HRESULT __stdcall src::hooks::DirectX9::Reset::HookFn(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
-	static const auto original = hook.GetOriginal<decltype(&Reset)>();
+	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
 
 	return original(device, pPresentationParameters);
 }

@@ -10,19 +10,26 @@ namespace src::hooks {
 	namespace Panel {
 		namespace PaintTraverse {
 			inline VMTHook hook;
-			void __stdcall PaintTraverse(unsigned int panel, bool forceRepaint, bool allowForce);
+			void __stdcall HookFn(unsigned int panel, bool forceRepaint, bool allowForce);
 		}
 	}
 
 	namespace DirectX9 {
 		namespace EndScene {
 			inline VMTHook hook;
-			HRESULT __stdcall EndScene(IDirect3DDevice9* device);
+			HRESULT __stdcall HookFn(IDirect3DDevice9* device);
 		}
 
 		namespace Reset {
 			inline VMTHook hook;
-			HRESULT __stdcall Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
+			HRESULT __stdcall HookFn(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
+		}
+	}
+
+	namespace Surface {
+		namespace OnScreenSizeChanged {
+			inline VMTHook hook;
+			void __fastcall HookFn(void* ecx, void* edx, int nOldWidth, int nOldHeight);
 		}
 	}
 }

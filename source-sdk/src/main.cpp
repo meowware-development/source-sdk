@@ -9,6 +9,8 @@ void Initialization()
 		utils::crashhandler::Initalize();
 
 		sdk::interfaces::Initialize();
+
+		utils::renderer::Initialize();
 	}
 	catch (const std::exception& error) {
 		LOG(DebugLevel::ERR, "Exception: {}", error.what());
