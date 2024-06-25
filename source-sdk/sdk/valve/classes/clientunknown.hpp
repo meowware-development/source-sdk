@@ -1,17 +1,15 @@
 #pragma once
+#include "handleentity.hpp"
 
 class ClientNetworkable;
 class ClientEntity;
 class BaseEntity;
 class ClientRenderable;
+class Collideable;
 
-class ClientUnknown {
-private: // Stuff from IHandleEntity
-	virtual void __pad0() = 0;
-	virtual void __pad1() = 0;
-	virtual void __pad2() = 0;
+class ClientUnknown : public HandleEntity {
 public:
-	virtual void* GetCollideable() = 0;
+	virtual Collideable* GetCollideable() = 0;
 	virtual ClientNetworkable* GetClientNetworkable() = 0;
 	virtual ClientRenderable* GetClientRenderable() = 0;
 	virtual ClientEntity* GetClientEntity() = 0;

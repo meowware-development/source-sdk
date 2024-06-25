@@ -191,6 +191,25 @@ public:
 
 		return delta.Length();
 	}
+
+	void Init(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+};
+
+class __declspec(align(16))VectorAligned : public Vector3 {
+public:
+	VectorAligned& operator=(const Vector3& vOther) {
+		this->x = vOther.x;
+		this->y = vOther.y;
+		this->z = vOther.z;
+		return *this;
+	}
+
+	float w;
 };
 
 class Vector2 {
@@ -247,4 +266,8 @@ public:
 		result.y = this->y / other.y;
 		return result;
 	}
+};
+
+class Vector4 {
+	float x, y, z, w;
 };

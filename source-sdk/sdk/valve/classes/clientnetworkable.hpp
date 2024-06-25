@@ -2,7 +2,7 @@
 
 struct ClientClass;
 
-enum ShouldTransmitState_t
+enum ShouldTransmitState
 {
 	SHOULDTRANSMIT_START = 0,	// The entity is starting to be transmitted (maybe it entered the PVS).
 
@@ -13,7 +13,7 @@ enum ShouldTransmitState_t
 
 // NOTE: All of these are commented out; NotifyShouldTransmit actually
 // has all these in them. Left it as an enum in case we want to go back though
-enum DataUpdateType_t
+enum DataUpdateType
 {
 	DATA_UPDATE_CREATED = 0,	// indicates it was created +and+ entered the pvs
 	//	DATA_UPDATE_ENTERED_PVS,
@@ -52,13 +52,13 @@ public:
 	// so attachments and other entity origins may not be valid yet.
 	//
 
-	virtual void			OnPreDataChanged(DataUpdateType_t updateType) = 0;
-	virtual void			OnDataChanged(DataUpdateType_t updateType) = 0;
+	virtual void			OnPreDataChanged(DataUpdateType updateType) = 0;
+	virtual void			OnDataChanged(DataUpdateType updateType) = 0;
 
 	// Called when data is being updated across the network.
 	// Only low-level entities should need to know about these.
-	virtual void			PreDataUpdate(DataUpdateType_t updateType) = 0;
-	virtual void			PostDataUpdate(DataUpdateType_t updateType) = 0;
+	virtual void			PreDataUpdate(DataUpdateType updateType) = 0;
+	virtual void			PostDataUpdate(DataUpdateType updateType) = 0;
 
 
 	// Objects become dormant on the client if they leave the PVS on the server.
@@ -66,7 +66,7 @@ public:
 
 	// Ent Index is the server handle used to reference this entity.
 	// If the index is < 0, that indicates the entity is not known to the server
-	virtual int				entindex(void) const = 0;
+	virtual int				EntityIndex(void) const = 0;
 
 	// Server to client entity message received
 	virtual void			ReceiveMessage(int classID, void* msg) = 0;
