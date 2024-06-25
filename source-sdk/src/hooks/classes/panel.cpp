@@ -9,12 +9,20 @@ void __stdcall src::hooks::Panel::PaintTraverse::HookFn(unsigned int panelID, bo
 	static const auto original = hook.GetOriginal<void(__thiscall*)(void*, unsigned int, bool, bool)>();
 
 	VPanel* panel = reinterpret_cast<VPanel*>(panelID);
+	
+	original(sdk::interfaces::panel, panelID, forceRepaint, allowForce);
 
-	if (!strcmp(panel->GetName(), "FocusOverlayPanel")) {
-		utils::renderer::FilledRectangle(200.f, 400.f, 500.f, 500.f, Color(100, 0, 200));
-		utils::renderer::Text(10.f, 10.f, utils::renderer::fonts::tahoma13, Color(255, 255, 255, 255), "[source-sdk]");
+	if (!forceRepaint || !allowForce)
+		return;
+
+	if (std::string_view(panel->GetName()) == "FocusOverlayPanel") {
+		static auto originalPanel = panelID;
+		if (panelID != originalPanel)
+			return;
+
+		utils::renderer::FilledRectangle(0, 0, 100, 100, Color(100, 100, 100));
+		utils::renderer::Rectangle(300, 300, 150, 150, Color(255, 255, 255));
+		utils::renderer::Text(0, 120, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[meowware]");
 	}
-
-	return original(sdk::interfaces::panel, panelID, forceRepaint, allowForce);
 }
 

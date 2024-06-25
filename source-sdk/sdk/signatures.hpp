@@ -10,4 +10,11 @@ namespace sdk::signatures {
 			constexpr int offset = 0x7;
 		}
 	}
+
+	namespace client {
+		namespace globalvars {
+			constexpr const char* sig = "A1 ?? ?? ?? ?? 56 8B F1 FF 70";
+			constexpr int offset = 1;
+		}
+	}
 }
