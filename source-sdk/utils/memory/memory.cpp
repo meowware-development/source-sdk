@@ -80,6 +80,6 @@ uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)
 	}
 
 	// Scan for signatures ONLY in the initialization stage, in order to catch not found signatures.
-	throw std::runtime_error(FORMAT("Couldn't find signature: %s", ida));
+	throw std::runtime_error(FORMAT("Couldn't find signature: {}", ida));
 	return nullptr;
 }

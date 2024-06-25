@@ -5,9 +5,11 @@
 #include "../valve/interfaces/panel.hpp"
 #include "../valve/interfaces/surface.hpp"
 #include "../valve/interfaces/engine.hpp"
+#include "../valve/interfaces/playerinfomanager.hpp"
 #include "../valve/interfaces/netchannelinfo.hpp"
-#include "../valve/interfaces/globalvars.hpp"
 #include "../valve/interfaces/clientmode.hpp"
+#include "../valve/interfaces/enginevgui.hpp"
+
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -27,13 +29,14 @@ namespace sdk::interfaces {
 	void Initialize();
 
 	inline CvarManager* cvar = nullptr;
-	inline Surface* surface = nullptr; // @TODO: Add ISurface to the sdk
+	inline Surface* surface = nullptr;
 	inline Panel* panel = nullptr;
 	inline Engine* engine = nullptr;
 	inline NetChannelInfo* netchannel = nullptr;
-	inline GlobalVars* globalVars = nullptr;
 	inline ClientMode* clientMode = nullptr;
 	inline void* directx9 = nullptr;
+	inline PlayerInfoManager* playerInfoManager = nullptr;
+	inline EngineVGui* engineVGUI = nullptr;
 }
 
 // The difference between the 2 versions isn't that big, however, it's almost never inlined on 32 bit (only in module like steamclient.dll) so 

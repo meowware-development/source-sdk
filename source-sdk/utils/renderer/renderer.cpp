@@ -18,7 +18,9 @@ void utils::renderer::fonts::AddFont(HFont& font, const char* windowsFontName, i
 
 void utils::renderer::fonts::Initialize()
 {
-	AddFont(tahoma13, "Tahoma", 14, 500, 0, 0, EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS);
+	AddFont(tahoma14, "Tahoma", 14, 1000, 0, 0, EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS);
+	AddFont(tahoma13, "Tahoma", 13, 1000, 0, 0, EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS);
+	AddFont(tahoma13outline, "Tahoma", 13, 1000, 0, 0, EFontFlags::FONTFLAG_OUTLINE | EFontFlags::FONTFLAG_ANTIALIAS);
 }
 
 void utils::renderer::Initialize()
