@@ -44,4 +44,9 @@ void sdk::interfaces::Initialize()
 	playerInfoManager = GetInterface(PlayerInfoManager, "server.dll", "PlayerInfoManager002");
 	engineVGUI = GetInterface(EngineVGui, "engine.dll", "VEngineVGui00");
 	netchannel = engine->GetNetChannelInfo();
+
+	directx9 = **reinterpret_cast<void***>(utils::memory::PatternScan(utils::memory::GetModule("shaderapidx9.dll"),
+		sdk::signatures::shaderapidx9::directx9::sig) + sdk::signatures::shaderapidx9::directx9::offset);
+	clientMode = ClientMode::GetClientMode();
+
 }

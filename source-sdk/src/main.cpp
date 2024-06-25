@@ -32,9 +32,6 @@ void Attach(HINSTANCE instance)
 	// Start the initialization procedure
 	Initialization();
 
-	// debug test
-	LOG(DebugLevel::OK, "Local name: {}", PlayerInfo::Get(sdk::interfaces::engine->GetLocalPlayer()).name);
-
 	// Wait till the user presses VK_END to start the unload procedure
 	// @TODO: Replace with own input from wndproc after properly updating the keys in game thread
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload) {

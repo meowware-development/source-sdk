@@ -14,15 +14,21 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	original(ecx, panelID, forceRepaint, allowForce);
 
 	VPanel* panel = reinterpret_cast<VPanel*>(panelID);
+	
+	original(sdk::interfaces::panel, panelID, forceRepaint, allowForce);
 
-	// Draw In Game (If you pause the game, it won't render over the pause semi-transparent background)
-	// Do ESP and whatnot here...
-	if (panelID == sdk::interfaces::engineVGUI->GetPanel(PANEL_TOOLS)) {
-		GlobalVars* globalVars = sdk::interfaces::playerInfoManager->GetGlobalVars();
-		utils::renderer::Text(10.f, 25.f, utils::renderer::fonts::tahoma13outline, Color(0, 255, 255, 255), FORMAT("curtime: {}", globalVars->curtime));
-		utils::renderer::Text(10.f, 40.f, utils::renderer::fonts::tahoma13outline, Color(255, 255, 0, 255), FORMAT("realtime: {}", globalVars->realtime));
-		utils::renderer::Text(10.f, 55.f, utils::renderer::fonts::tahoma13outline, Color(255, 255, 0, 255), FORMAT("fps: {}", 1.0f / globalVars->frametime));
-		utils::renderer::Text(10.f, 70.f, utils::renderer::fonts::tahoma13outline, Color(255, 255, 0, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
+
+	if (!forceRepaint || !allowForce)
+		return;
+
+	if (std::string_view(panel->GetName()) == "FocusOverlayPanel") {
+		static auto originalPanel = panelID;
+		if (panelID != originalPanel)
+			return;
+
+		utils::renderer::FilledRectangle(0, 0, 100, 100, Color(100, 100, 100));
+		utils::renderer::Rectangle(300, 300, 150, 150, Color(255, 255, 255));
+		utils::renderer::Text(0, 120, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[meowware]");
 	}
 }
 

@@ -39,4 +39,11 @@ namespace src::hooks {
 			void __fastcall HookFn(void* ecx, void* edx, int nOldWidth, int nOldHeight);
 		}
 	}
+
+	namespace ClientMode {
+		namespace CreateMove {
+			inline VMTHook hook;
+			bool __stdcall HookFn(float time, void* usercmd);
+		}
+	}
 }

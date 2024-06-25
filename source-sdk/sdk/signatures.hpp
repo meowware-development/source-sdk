@@ -12,4 +12,11 @@ namespace sdk::signatures {
 		using FinishDrawingCallback = void(__thiscall*)(void*);
 		constexpr const char* FinishDrawing = "55 8B EC 6A FF 68 ?? ?? ?? ?? 64 A1 00 00 00 00 50 64 89 25 00 00 00 00 51 56 6A";
 	}
+
+	namespace client {
+		namespace globalvars {
+			constexpr const char* sig = "A1 ?? ?? ?? ?? 56 8B F1 FF 70";
+			constexpr int offset = 1;
+		}
+	}
 }
