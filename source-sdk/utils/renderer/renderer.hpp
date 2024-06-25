@@ -7,6 +7,8 @@
 namespace utils::renderer {
 	namespace fonts {
 		inline unsigned long tahoma13;
+		inline unsigned long tahoma13outline;
+		inline unsigned long tahoma14;
 
 		void AddFont(HFont& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags, int nRangeMin = 0, int nRangeMax = 0);
 

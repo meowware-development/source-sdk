@@ -10,7 +10,14 @@ namespace src::hooks {
 	namespace Panel {
 		namespace PaintTraverse {
 			inline VMTHook hook;
-			void __stdcall HookFn(unsigned int panel, bool forceRepaint, bool allowForce);
+			void __fastcall HookFn(void* ecx, void* edx, unsigned int panel, bool forceRepaint, bool allowForce);
+		}
+	}
+
+	namespace VGUIEngine {
+		namespace Paint {
+			inline VMTHook hook;
+			void __fastcall HookFn(void* ecx, void* edx, int paintMode);
 		}
 	}
 

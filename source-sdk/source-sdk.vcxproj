@@ -158,9 +158,9 @@
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
-    <ClCompile Include="src\hooks\classes\dx9.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />
+    <ClCompile Include="src\hooks\classes\vguiengine.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />
@@ -181,8 +181,10 @@
     <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
     <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
     <ClInclude Include="sdk\valve\interfaces\engine.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp" />
     <ClInclude Include="sdk\valve\interfaces\netchannelinfo.hpp" />
     <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\playerinfomanager.hpp" />
     <ClInclude Include="sdk\valve\interfaces\surface.hpp" />
     <ClInclude Include="sdk\valve\misc\clienttextmessage.hpp" />
     <ClInclude Include="sdk\valve\misc\color.hpp" />
@@ -191,10 +193,12 @@
     <ClInclude Include="sdk\valve\structures\consolecommand.hpp" />
     <ClInclude Include="sdk\valve\structures\cvar.hpp" />
     <ClInclude Include="sdk\valve\structures\enginecolor.hpp" />
+    <ClInclude Include="sdk\valve\structures\globalvars.hpp" />
     <ClInclude Include="sdk\valve\structures\material.hpp" />
     <ClInclude Include="sdk\valve\structures\memutil.hpp" />
     <ClInclude Include="sdk\valve\structures\model.hpp" />
     <ClInclude Include="sdk\valve\structures\playerinfo.hpp" />
+    <ClInclude Include="sdk\valve\structures\string_t.hpp" />
     <ClInclude Include="sdk\valve\structures\vpanel.hpp" />
     <ClInclude Include="sdk\valve\structures\surfaceplat.hpp" />
     <ClInclude Include="src\hooks\hooks.hpp" />
