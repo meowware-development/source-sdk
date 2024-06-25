@@ -8,6 +8,7 @@
 #include "../../utils/format/format.hpp"
 
 #include "../signatures.hpp"
+#include "../../utils/debug/debug.hpp"
 
 template <typename Return>
 decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName, const std::string_view interfaceName)
@@ -26,6 +27,7 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 
 	while (current) {
 		if (strstr(current->name, interfaceName.data())) {
+			LOG(DebugLevel::OK, "Found interface {} in module {}!", current->name, moduleName);
 			return reinterpret_cast<Return*>(current->createFunction());
 		}
 
@@ -35,15 +37,25 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 	throw std::runtime_error(FORMAT("Failed to fetch {} in module {}!", interfaceName, moduleName));
 }
 
+#ifdef WIN32
+#define INTERFACE(type, moduleName, interfaceName) sdk::interfaces::GetInterface32<type>(moduleName, interfaceName);
+#define SIGNATURE(type, moduleName, sig, offset) **reinterpret_cast<type***>(utils::memory::PatternScan(utils::memory::GetModule(moduleName), sig) + offset);
+#else
+#define INTERFACE(type, moduleName, interfaceName) sdk::interfaces::GetInterface64<type>(moduleName, interfaceName);
+#endif
+
 void sdk::interfaces::Initialize()
 {
-	cvar = GetInterface(CvarManager, "vstdlib.dll", "VEngineCvar00");
-	surface = GetInterface(Surface, "vguimatsurface.dll", "VGUI_Surface0");
-	panel = GetInterface(Panel, "vgui2.dll", "VGUI_Panel0");
-	engine = GetInterface(Engine, "engine.dll", "VEngineClient0");
-	playerInfoManager = GetInterface(PlayerInfoManager, "server.dll", "PlayerInfoManager002");
-	engineVGUI = GetInterface(EngineVGui, "engine.dll", "VEngineVGui00");
-	netchannel = engine->GetNetChannelInfo();
+	client = INTERFACE(CHLClient, "client.dll", "VClient01");
+	cvar = INTERFACE(CvarManager, "vstdlib.dll", "VEngineCvar00");
+	surface = INTERFACE(Surface, "vguimatsurface.dll", "VGUI_Surface0");
+	panel = INTERFACE(Panel, "vgui2.dll", "VGUI_Panel0");
+	engine = INTERFACE(Engine, "engine.dll", "VEngineClient0");
+	playerInfoManager = INTERFACE(PlayerInfoManager, "server.dll", "PlayerInfoManager002");
+	engineVGUI = INTERFACE(EngineVGui, "engine.dll", "VEngineVGui00");
+	entityList = INTERFACE(ClientEntityList, "client.dll", "VClientEntityList00");
 
-	clientMode = ClientMode::GetClientMode();
+	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
+
+	LOG(DebugLevel::OK, "Initialized interfaces!");
 }

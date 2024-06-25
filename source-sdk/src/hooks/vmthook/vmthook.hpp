@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+#include "../../../utils/debug/debug.hpp"
+
 class VMTHook;
 
 static std::vector<VMTHook*> vmtHooks;
@@ -39,6 +41,8 @@ public:
 
 		// Add to the list
 		vmtHooks.emplace_back(this);
+
+		LOG(DebugLevel::OK, "Hooked {}!", name);
 	}
 
 	/// <summary>

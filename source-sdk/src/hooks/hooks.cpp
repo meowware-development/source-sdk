@@ -11,6 +11,8 @@ void src::hooks::Initalize() noexcept
 	ClientMode::CreateMove::hook.Initialize("CreateMove", sdk::interfaces::clientMode, 21, ClientMode::CreateMove::HookFn);
 
 	Surface::OnScreenSizeChanged::hook.Initialize("OnScreenSizeChanged", sdk::interfaces::surface, 111, Surface::OnScreenSizeChanged::HookFn);
+
+	LOG(DebugLevel::OK, "Initialized hooks!");
 }
 
 void src::hooks::Uninitalize() noexcept

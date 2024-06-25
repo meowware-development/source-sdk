@@ -157,9 +157,10 @@
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
-    <ClCompile Include="sdk\valve\interfaces\clientmode.cpp" />
+    <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
+    <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
-    <ClCompile Include="src\hooks\classes\clientmode.cpp" />
+    <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />
     <ClCompile Include="src\hooks\classes\vguiengine.cpp" />
@@ -180,10 +181,17 @@
     <ClInclude Include="sdk\math\vector.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
+    <ClInclude Include="sdk\valve\classes\baseentity.hpp" />
+    <ClInclude Include="sdk\valve\classes\cliententity.hpp" />
+    <ClInclude Include="sdk\valve\classes\clientnetworkable.hpp" />
+    <ClInclude Include="sdk\valve\classes\clientthinkable.hpp" />
+    <ClInclude Include="sdk\valve\classes\clientunknown.hpp" />
     <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\chlclient.hpp" />
     <ClInclude Include="sdk\valve\interfaces\clientmode.hpp" />
     <ClInclude Include="sdk\valve\interfaces\cvar.hpp" />
     <ClInclude Include="sdk\valve\interfaces\engine.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\entitylist.hpp" />
     <ClInclude Include="sdk\valve\interfaces\globalvars.hpp" />
     <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp" />
     <ClInclude Include="sdk\valve\interfaces\netchannelinfo.hpp" />
@@ -195,6 +203,10 @@
     <ClInclude Include="sdk\valve\misc\color.hpp" />
     <ClInclude Include="sdk\valve\misc\materialvar.hpp" />
     <ClInclude Include="sdk\valve\misc\surfaceinfo.hpp" />
+    <ClInclude Include="sdk\valve\netvars\netvar.hpp" />
+    <ClInclude Include="sdk\valve\netvars\recvprop.hpp" />
+    <ClInclude Include="sdk\valve\netvars\recvtable.hpp" />
+    <ClInclude Include="sdk\valve\structures\clientclass.hpp" />
     <ClInclude Include="sdk\valve\structures\consolecommand.hpp" />
     <ClInclude Include="sdk\valve\structures\cvar.hpp" />
     <ClInclude Include="sdk\valve\structures\enginecolor.hpp" />
@@ -213,6 +225,7 @@
     <ClInclude Include="utils\config\scfg.hpp" />
     <ClInclude Include="utils\constants\const.hpp" />
     <ClInclude Include="utils\crashhandler\crashhandler.hpp" />
+    <ClInclude Include="utils\hash\fnv1a.hpp" />
     <ClInclude Include="utils\format\format.hpp" />
     <ClInclude Include="utils\input\input.hpp" />
     <ClInclude Include="utils\memory\memory.hpp" />

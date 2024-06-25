@@ -8,6 +8,7 @@
 #include "valve/structures/vpanel.hpp"
 #include "valve/structures/material.hpp"
 #include "valve/structures/playerinfo.hpp"
+#include "valve/netvars/netvar.hpp"
 
 // Offsets, signatures, indexes, whatever
 #include "signatures.hpp"

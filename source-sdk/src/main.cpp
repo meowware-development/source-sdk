@@ -10,6 +10,8 @@ void Initialization()
 
 		sdk::interfaces::Initialize();
 
+		sdk::netvars::Initialize();
+
 		utils::renderer::Initialize();
 	}
 	catch (const std::exception& error) {

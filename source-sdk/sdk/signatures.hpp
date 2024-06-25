@@ -14,9 +14,11 @@ namespace sdk::signatures {
 	}
 
 	namespace client {
-		namespace globalvars {
-			constexpr const char* sig = "A1 ?? ?? ?? ?? 56 8B F1 FF 70";
-			constexpr int offset = 1;
+		namespace clientMode {
+			// Find HudProcessInput in CHLClient
+			// Then find a xref to the pointer and sig a function and offset accordingly
+			constexpr const char* sig = "56 8B F1 8B 0D ?? ?? ?? ?? 8B 01 8B 40 64";
+			constexpr int offset = 5;
 		}
 	}
 }
