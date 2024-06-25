@@ -2,7 +2,7 @@
 
 #include "netvar.hpp"
 #include "../structures/clientclass.hpp"
-#include "../../utils/debug/debug.hpp"
+#include "../../../utils/debug/debug.hpp"
 #include "../../interfaces/interfaces.hpp"
 
 #include <fstream>
@@ -36,7 +36,7 @@ void sdk::netvars::Initialize()
 					offsetMap[utils::hash::fnv1a::hash32(table->tableName)][utils::hash::fnv1a::hash32(extraProp.varName)] = offset + extraProp.offset;
 #if LOG_TO_FILE
 					loggedCache[table->tableName][extraProp.varName] = offset + extraProp.offset;
-					utils::debug::Log(SUCCESS, "Got an \"internal\" prop, from the table %s and prop %s, with the name %s and an offset of %d (%d)",
+					utils::debug::Log(SUCCESS, "Got an \"internal\" prop, from the table {} and prop {}, with the name %s and an offset of {} ({})",
 						table->tableName, prop.varName, extraProp.varName, extraProp.offset, offset + extraProp.offset);
 #endif
 				}
@@ -51,7 +51,7 @@ void sdk::netvars::Initialize()
 
 #if LOG_TO_FILE
 			loggedCache[table->tableName][prop.varName] = prop.offset;
-			utils::debug::Log(SUCCESS, "Got a prop from the table %s with the name %s and an offset of %d!", table->tableName, prop.varName, prop.offset);
+			utils::debug::Log(SUCCESS, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
 #endif
 		}
 		cClass = cClass->next;

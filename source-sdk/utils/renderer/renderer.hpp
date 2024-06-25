@@ -18,7 +18,7 @@ namespace utils::renderer {
 	void FilledRectangle(float x, float y, float width, float height, Color color);
 	void Rectangle(float x, float y, float width, float height, Color color);
 
-	void Text(float x, float y, const HFont& font, Color color, std::string text);
+	void Text(float x, float y, const HFont& font, Color color, std::string_view text);
 	void TextWSTR(float x, float y, const HFont& font, Color color, std::wstring wstr);
 
 	Vector2 GetTextSize(const HFont& font, std::string text);

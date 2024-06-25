@@ -43,13 +43,13 @@ void utils::renderer::Rectangle(float x, float y, float width, float height, Col
 	sdk::interfaces::surface->DrawOutlinedRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x + width), static_cast<int>(y + height));
 }
 
-void utils::renderer::Text(float x, float y, const HFont& font, Color color, std::string text)
+void utils::renderer::Text(float x, float y, const HFont& font, Color color, std::string_view text)
 {
 	// Using WinAPI seems like the easiest solution.
 	// There was the codecvt library that did utf8 -> utf16 but it got deprecated in c++17 (and it had poor performance also)
 	// And MSVC suggested to switch to MultiByteToWideChar, so whatever.
 	wchar_t wstr[128];
-	if (MultiByteToWideChar(CP_UTF8, 0, text.c_str(), -1, wstr, 128) > 0) {
+	if (MultiByteToWideChar(CP_UTF8, 0, text.data(), -1, wstr, 128) > 0) {
 		sdk::interfaces::surface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
 		sdk::interfaces::surface->DrawSetTextFont(font);
 		sdk::interfaces::surface->DrawSetTextPos(static_cast<int>(x), static_cast<int>(y));
