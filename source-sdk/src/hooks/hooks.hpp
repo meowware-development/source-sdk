@@ -21,18 +21,6 @@ namespace src::hooks {
 		}
 	}
 
-	namespace DirectX9 {
-		namespace EndScene {
-			inline VMTHook hook;
-			HRESULT __stdcall HookFn(IDirect3DDevice9* device);
-		}
-
-		namespace Reset {
-			inline VMTHook hook;
-			HRESULT __stdcall HookFn(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
-		}
-	}
-
 	namespace Surface {
 		namespace OnScreenSizeChanged {
 			inline VMTHook hook;

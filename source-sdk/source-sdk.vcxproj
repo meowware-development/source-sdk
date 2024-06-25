@@ -160,7 +160,6 @@
     <ClCompile Include="sdk\valve\interfaces\clientmode.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
     <ClCompile Include="src\hooks\classes\clientmode_hook.cpp" />
-    <ClCompile Include="src\hooks\classes\dx9.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />
     <ClCompile Include="src\hooks\classes\vguiengine.cpp" />

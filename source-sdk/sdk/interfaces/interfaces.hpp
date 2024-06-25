@@ -34,7 +34,6 @@ namespace sdk::interfaces {
 	inline Engine* engine = nullptr;
 	inline NetChannelInfo* netchannel = nullptr;
 	inline ClientMode* clientMode = nullptr;
-	inline void* directx9 = nullptr;
 	inline PlayerInfoManager* playerInfoManager = nullptr;
 	inline EngineVGui* engineVGUI = nullptr;
 }

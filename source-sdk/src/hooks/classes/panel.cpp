@@ -11,12 +11,9 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 {
 	static const auto original = hook.GetOriginal<void(__thiscall*)(void*, unsigned int, bool, bool)>();
 
-	original(ecx, panelID, forceRepaint, allowForce);
-
 	VPanel* panel = reinterpret_cast<VPanel*>(panelID);
 	
 	original(sdk::interfaces::panel, panelID, forceRepaint, allowForce);
-
 
 	if (!forceRepaint || !allowForce)
 		return;
@@ -26,9 +23,7 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 		if (panelID != originalPanel)
 			return;
 
-		utils::renderer::FilledRectangle(0, 0, 100, 100, Color(100, 100, 100));
-		utils::renderer::Rectangle(300, 300, 150, 150, Color(255, 255, 255));
-		utils::renderer::Text(0, 120, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[meowware]");
+		utils::renderer::Text(10, 80, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
 	}
 }
 
