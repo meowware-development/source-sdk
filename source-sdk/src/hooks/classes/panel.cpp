@@ -4,6 +4,7 @@
 #include "../../../sdk/valve/structures/vpanel.hpp"
 #include "../../../utils/renderer/renderer.hpp"
 #include "../../../utils/format/format.hpp"
+#include "../../../sdk/sdk.hpp"
 
 #include <intrin.h>
 
@@ -18,7 +19,10 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	if (!forceRepaint || !allowForce)
 		return;
 
+	// Always focused panel, always bright
 	static int FocusOverlayPanel = 0;
+
+	// Reacts to in-game panels by dimming (ex. when console is up it gets dimmer)
 	static int EngineTools = 0;
 
 	if (FocusOverlayPanel == 0) {
@@ -36,12 +40,13 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	// A switch statement doesn't work here
 	if (panelID == FocusOverlayPanel) {
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
+		utils::renderer::Text(20, 95, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("MoveType: {}", BaseEntity::GetLocalEntity()->GetMoveType()));
 	}
 	else if (panelID == EngineTools) {
 		GlobalVars* globalVars = sdk::interfaces::playerInfoManager->GetGlobalVars();
 
-		utils::renderer::Text(20, 35, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("curtime: {}", globalVars->curtime));
-		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {}", globalVars->realtime));
+		utils::renderer::Text(20, 35, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("curtime: {:.2f}", globalVars->curtime));
+		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {:.2f}", globalVars->realtime));
 		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("fps: {}", 1.f / globalVars->frametime));
 		utils::renderer::Text(20, 80, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
 	}

@@ -1,6 +1,7 @@
 #pragma once
 
 struct ClientClass;
+class ClientUnknown;
 
 enum ShouldTransmitState
 {

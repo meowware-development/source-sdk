@@ -34,18 +34,6 @@ void Attach(HINSTANCE instance)
 	// Start the initialization procedure
 	Initialization();
 
-	// debug shit v2
-	BaseEntity* localPlayer = sdk::interfaces::entityList->GetClientEntity(sdk::interfaces::engine->GetLocalPlayer())->As<BaseEntity>();
-	if (localPlayer) {
-		LOG(DebugLevel::OK, "Are we transparent? {}", localPlayer->IsTransparent());
-		LOG(DebugLevel::OK, "Index: {}", localPlayer->EntityIndex());
-		Team* team = localPlayer->GetTeam();
-		LOG(DebugLevel::OK, "Team: {}", team->m_szTeamname);
-		/*const Vector3& origin = localPlayer->GetOldOrigin();
-		LOG(DebugLevel::OK, "Origin: {} {} {}", origin.x, origin.y, origin.z);*/
-		const Model* const model = localPlayer->GetModel();
-		LOG(DebugLevel::OK, "Model name: {}", model->name);
-	}
 	// Wait till the user presses VK_END to start the unload procedure
 	// @TODO: Replace with own input from wndproc after properly updating the keys in game thread
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload) {

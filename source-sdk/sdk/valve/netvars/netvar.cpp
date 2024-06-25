@@ -36,7 +36,7 @@ void sdk::netvars::Initialize()
 					offsetMap[utils::hash::fnv1a::hash32(table->tableName)][utils::hash::fnv1a::hash32(extraProp.varName)] = offset + extraProp.offset;
 #if LOG_TO_FILE
 					loggedCache[table->tableName][extraProp.varName] = offset + extraProp.offset;
-					utils::debug::Log(SUCCESS, "Got an \"internal\" prop, from the table {} and prop {}, with the name %s and an offset of {} ({})",
+					LOG(DebugLevel::OK, "Got an \"internal\" prop, from the table {} and prop {}, with the name {} and an offset of {} ({})",
 						table->tableName, prop.varName, extraProp.varName, extraProp.offset, offset + extraProp.offset);
 #endif
 				}
@@ -51,7 +51,7 @@ void sdk::netvars::Initialize()
 
 #if LOG_TO_FILE
 			loggedCache[table->tableName][prop.varName] = prop.offset;
-			utils::debug::Log(SUCCESS, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
+			LOG(DebugLevel::OK, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
 #endif
 		}
 		cClass = cClass->next;

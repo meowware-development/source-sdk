@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
+    <ClCompile Include="sdk\valve\classes\baseentity.cpp" />
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
