@@ -34,6 +34,12 @@ void Attach(HINSTANCE instance)
 	// Start the initialization procedure
 	Initialization();
 
+	BaseEntity* local = BaseEntity::GetLocalEntity();
+	LOG(DebugLevel::OK, "LocalTeamNumber: {}", local->GetTeamNumber());
+	Team* team = local->GetTeam();
+	if (team)
+		LOG(DebugLevel::OK, "local team score: {}", team->GetScore());
+
 	// Wait till the user presses VK_END to start the unload procedure
 	// @TODO: Replace with own input from wndproc after properly updating the keys in game thread
 	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload) {

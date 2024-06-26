@@ -14,7 +14,6 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 
 	auto localEntity = BaseEntity::GetLocalEntity();
 
-	printf("Team: %d\n", localEntity->GetTeam());
 
 	return original(sdk::interfaces::clientMode, time, usercmd);
 }

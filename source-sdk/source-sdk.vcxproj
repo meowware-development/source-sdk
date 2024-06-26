@@ -161,6 +161,7 @@
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
+    <ClCompile Include="sdk\valve\structures\team.cpp" />
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />

@@ -33,3 +33,23 @@ int BaseEntity::GetMaxHealth()
 {
 	return utils::memory::CallVirtualFunction<int>(this, sdk::indexes::C_BaseEntity::GetMaxHealth);
 }
+
+Team* BaseEntity::GetTeam()
+{
+	return utils::memory::CallVirtualFunction<Team*>(this, 73);
+}
+
+int BaseEntity::GetTeamNumber()
+{
+	return utils::memory::CallVirtualFunction<int>(this, 74);
+}
+
+bool BaseEntity::IsInSameTeamAs(BaseEntity* other)
+{
+	return utils::memory::CallVirtualFunction<bool>(this, 77, other);
+}
+
+bool BaseEntity::IsInLocalTeam()
+{
+	return utils::memory::CallVirtualFunction<bool>(this, 78);
+}

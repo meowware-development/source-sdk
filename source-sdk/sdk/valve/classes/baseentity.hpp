@@ -26,6 +26,10 @@ public:
 	// GetMaxHealth is extremely useful on L4D1/L4D2 where the max hp isnt always 100
 	int GetHealth();
 	int GetMaxHealth();
+	Team* GetTeam();
+	int GetTeamNumber();
+	bool IsInSameTeamAs(BaseEntity* other);
+	bool IsInLocalTeam();
 public:
 	NETVAR(Vector3, Origin, DT_BaseEntity, m_vecOrigin);
 	NETVAR(float, AnimTime, DT_BaseEntity, m_flAnimTime);
@@ -33,6 +37,5 @@ public:
 	NETVAR(int, ModelIndex, DT_BaseEntity, m_nModelIndex);
 	NETVAR(int, RenderMode, DT_BaseEntity, m_nRenderMode);
 	NETVAR(int, RenderFX, DT_BaseEntity, m_nRenderFX);
-	NETVAR(int, Team, DT_BaseEntity, m_iTeamNum);
 	NETVAR(uintptr_t, Owner, DT_BaseEntity, m_hOwnerEntity);
 };
