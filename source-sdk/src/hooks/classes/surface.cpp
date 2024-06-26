@@ -8,8 +8,8 @@ void __fastcall src::hooks::Surface::OnScreenSizeChanged::HookFn(void* ecx, void
 {
 	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
 
+	original(ecx, edx, nOldWidth, nOldHeight);
+
 	// Get the new screen size, and initialize fonts again
 	utils::renderer::Initialize();
-
-	return original(ecx, edx, nOldWidth, nOldHeight);
 }

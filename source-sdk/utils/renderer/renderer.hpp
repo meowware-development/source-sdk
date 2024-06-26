@@ -6,11 +6,22 @@
 
 namespace utils::renderer {
 	namespace fonts {
-		inline unsigned long tahoma13;
-		inline unsigned long tahoma13outline;
-		inline unsigned long tahoma14;
+		struct Font {
+			const char* windowsFontName;
+			int tall;
+			int weight;
+			int blur;
+			int scanlines;
+			int flags;
 
-		void AddFont(HFont& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags, int nRangeMin = 0, int nRangeMax = 0);
+			unsigned long handle = 0;
+		};
+
+		inline Font tahoma13;
+		inline Font tahoma13outline;
+		inline Font tahoma14;
+
+		void AddFont(Font& font);
 
 		void Initialize();
 	}
@@ -18,11 +29,11 @@ namespace utils::renderer {
 	void FilledRectangle(float x, float y, float width, float height, Color color);
 	void Rectangle(float x, float y, float width, float height, Color color);
 
-	void Text(float x, float y, const HFont& font, Color color, std::string_view text);
-	void TextWSTR(float x, float y, const HFont& font, Color color, std::wstring wstr);
+	void Text(float x, float y, const fonts::Font& font, Color color, std::string_view text);
+	void TextWSTR(float x, float y, const fonts::Font& font, Color color, std::wstring wstr);
 
-	Vector2 GetTextSize(const HFont& font, std::string text);
-	Vector2 GetTextSizeWSTR(const HFont& font, std::wstring wstr);
+	Vector2 GetTextSize(const fonts::Font& font, std::string text);
+	Vector2 GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr);
 
 	inline int screenWidth = 0;
 	inline int screenHeight = 0;

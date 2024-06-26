@@ -7,20 +7,23 @@
 
 #undef CreateFont
 
-void utils::renderer::fonts::AddFont(HFont& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags, int nRangeMin, int nRangeMax)
+void utils::renderer::fonts::AddFont(Font& font)
 {
-	// Creates a new handle and returns it as a HFont (unsigned long)
-	font = sdk::interfaces::surface->CreateFont();
+	if (!font.handle)
+		font.handle = sdk::interfaces::surface->CreateFont();
 
-	// Basically set the font options
-	sdk::interfaces::surface->SetFontGlyphSet(font, windowsFontName, tall, weight, blur, scanlines, flags, nRangeMax, nRangeMax);
+	sdk::interfaces::surface->SetFontGlyphSet(font.handle, font.windowsFontName, font.tall, font.weight, font.blur, font.scanlines, font.flags);
 }
 
 void utils::renderer::fonts::Initialize()
 {
-	AddFont(tahoma14, "Tahoma", 14, 1000, 0, 0, EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS);
-	AddFont(tahoma13, "Tahoma", 13, 1000, 0, 0, EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS);
-	AddFont(tahoma13outline, "Tahoma", 13, 1000, 0, 0, EFontFlags::FONTFLAG_OUTLINE | EFontFlags::FONTFLAG_ANTIALIAS);
+	tahoma13 = Font{
+		"Tahoma",
+		13, 1000, 0, 0,
+		EFontFlags::FONTFLAG_DROPSHADOW | EFontFlags::FONTFLAG_ANTIALIAS
+	};
+
+	AddFont(tahoma13);
 }
 
 void utils::renderer::Initialize()
@@ -43,7 +46,7 @@ void utils::renderer::Rectangle(float x, float y, float width, float height, Col
 	sdk::interfaces::surface->DrawOutlinedRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x + width), static_cast<int>(y + height));
 }
 
-void utils::renderer::Text(float x, float y, const HFont& font, Color color, std::string_view text)
+void utils::renderer::Text(float x, float y, const fonts::Font& font, Color color, std::string_view text)
 {
 	// Using WinAPI seems like the easiest solution.
 	// There was the codecvt library that did utf8 -> utf16 but it got deprecated in c++17 (and it had poor performance also)
@@ -51,27 +54,27 @@ void utils::renderer::Text(float x, float y, const HFont& font, Color color, std
 	wchar_t wstr[128];
 	if (MultiByteToWideChar(CP_UTF8, 0, text.data(), -1, wstr, 128) > 0) {
 		sdk::interfaces::surface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
-		sdk::interfaces::surface->DrawSetTextFont(font);
+		sdk::interfaces::surface->DrawSetTextFont(font.handle);
 		sdk::interfaces::surface->DrawSetTextPos(static_cast<int>(x), static_cast<int>(y));
 		sdk::interfaces::surface->DrawPrintText(wstr, wcslen(wstr));
 	}
 }
 
-void utils::renderer::TextWSTR(float x, float y, const HFont& font, Color color, std::wstring wstr)
+void utils::renderer::TextWSTR(float x, float y, const fonts::Font& font, Color color, std::wstring wstr)
 {
 	sdk::interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
-	sdk::interfaces::surface->DrawSetTextFont(font);
+	sdk::interfaces::surface->DrawSetTextFont(font.handle);
 	sdk::interfaces::surface->DrawSetTextPos(static_cast<int>(x), static_cast<int>(y));
 	sdk::interfaces::surface->DrawPrintText(wstr.data(), wstr.length());
 }
 
-Vector2 utils::renderer::GetTextSize(const HFont& font, std::string text)
+Vector2 utils::renderer::GetTextSize(const fonts::Font& font, std::string text)
 {
 	wchar_t wstr[128];
 	if (MultiByteToWideChar(CP_UTF8, 0, text.c_str(), -1, wstr, 128) > 0) {
 		int wide, tall;
 
-		sdk::interfaces::surface->GetTextSize(font, wstr, wide, tall);
+		sdk::interfaces::surface->GetTextSize(font.handle, wstr, wide, tall);
 
 		return Vector2{ static_cast<float>(wide), static_cast<float>(tall) };
 	}
@@ -79,11 +82,11 @@ Vector2 utils::renderer::GetTextSize(const HFont& font, std::string text)
 	return Vector2();
 }
 
-Vector2 utils::renderer::GetTextSizeWSTR(const HFont& font, std::wstring wstr)
+Vector2 utils::renderer::GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr)
 {
 	int wide, tall;
 
-	sdk::interfaces::surface->GetTextSize(font, wstr.data(), wide, tall);
+	sdk::interfaces::surface->GetTextSize(font.handle, wstr.data(), wide, tall);
 
 	return Vector2{ static_cast<float>(wide), static_cast<float>(tall) };
 }
