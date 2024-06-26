@@ -41,7 +41,6 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	if (panelID == FocusOverlayPanel) {
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
 		utils::renderer::Text(20, 95, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("MoveType: {}", BaseEntity::GetLocalEntity()->GetMoveType()));
-		utils::renderer::Text(20, 110, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("Teamscore: {}", BaseEntity::GetLocalEntity()->GetTeam()->GetScore()));
 	}
 	else if (panelID == EngineTools) {
 		GlobalVars* globalVars = sdk::interfaces::playerInfoManager->GetGlobalVars();

@@ -49,3 +49,11 @@ enum class MoveType : int
 
 	MOVETYPE_MAX_BITS = 4
 };
+
+enum class TeamType : int
+{
+	NONE = 0,
+	SPECTATOR = 1,
+	TERRORISTS = 2,
+	CT = 3
+};

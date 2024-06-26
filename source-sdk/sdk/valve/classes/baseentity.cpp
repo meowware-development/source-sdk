@@ -2,7 +2,7 @@
 #include "../../interfaces/interfaces.hpp"
 #include "../../../utils/memory/memory.hpp"
 #include "../../../utils/debug/debug.hpp"
-#include "../../indexes.hpp"
+#include "../../signatures.hpp"
 
 BaseEntity* BaseEntity::GetLocalEntity()
 {
@@ -20,28 +20,28 @@ int BaseEntity::GetSolidFlags()
 
 int BaseEntity::GetMoveType()
 {
-	static auto offset = *reinterpret_cast<short*>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "80 B8 ?? ?? ?? ?? ?? A1") + 2);
+	static auto offset = *reinterpret_cast<short*>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), sdk::signatures::client::C_BaseEntity::MoveType::sig) + sdk::signatures::client::C_BaseEntity::MoveType::offset);
 	return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + offset);
 }
 
 int BaseEntity::GetHealth()
 {
-	return utils::memory::CallVirtualFunction<int>(this, sdk::indexes::C_BaseEntity::GetHealth);
+	return utils::memory::CallVirtualFunction<int>(this, 106);
 }
 
 int BaseEntity::GetMaxHealth()
 {
-	return utils::memory::CallVirtualFunction<int>(this, sdk::indexes::C_BaseEntity::GetMaxHealth);
+	return utils::memory::CallVirtualFunction<int>(this, 107);
 }
 
-Team* BaseEntity::GetTeam()
+/*Team* BaseEntity::GetTeam()
 {
 	return utils::memory::CallVirtualFunction<Team*>(this, 73);
-}
+}*/
 
-int BaseEntity::GetTeamNumber()
+TeamType BaseEntity::GetTeamNumber()
 {
-	return utils::memory::CallVirtualFunction<int>(this, 74);
+	return static_cast<TeamType>(utils::memory::CallVirtualFunction<int>(this, 74));
 }
 
 bool BaseEntity::IsInSameTeamAs(BaseEntity* other)

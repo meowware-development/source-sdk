@@ -20,5 +20,13 @@ namespace sdk::signatures {
 			constexpr const char* sig = "56 8B F1 8B 0D ?? ?? ?? ?? 8B 01 8B 40 64";
 			constexpr int offset = 5;
 		}
+
+		namespace C_BaseEntity {
+			//
+			namespace MoveType {
+				constexpr const char* sig = "80 B8 ?? ?? ?? ?? ?? A1";
+				constexpr int offset = 2;
+			}
+		}
 	}
 }

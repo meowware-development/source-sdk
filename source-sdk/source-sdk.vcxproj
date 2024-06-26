@@ -161,7 +161,7 @@
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
-    <ClCompile Include="sdk\valve\structures\team.cpp" />
+    <ClCompile Include="sdk\valve\classes\team.cpp" />
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />
@@ -176,7 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp" />
-    <ClInclude Include="sdk\indexes.hpp" />
     <ClInclude Include="sdk\interfaces\interfaces.hpp" />
     <ClInclude Include="sdk\math\math.hpp" />
     <ClInclude Include="sdk\math\matrix.hpp" />
@@ -227,7 +226,7 @@
     <ClInclude Include="sdk\valve\structures\string_t.hpp" />
     <ClInclude Include="sdk\valve\structures\studio.hpp" />
     <ClInclude Include="sdk\valve\structures\takedamageinfo.hpp" />
-    <ClInclude Include="sdk\valve\structures\team.hpp" />
+    <ClInclude Include="sdk\valve\classes\team.hpp" />
     <ClInclude Include="sdk\valve\structures\trace.hpp" />
     <ClInclude Include="sdk\valve\structures\usercmd.hpp" />
     <ClInclude Include="sdk\valve\structures\vpanel.hpp" />

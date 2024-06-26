@@ -1,4 +1,5 @@
-#define LOG_TO_FILE 0 // Set this to 1, if you want to log the netvar dump into a file called "netvar_dump.txt"
+// Set this to 1 to dump netvars and clientclass ids into files stored in the game directory
+#define DUMP 0
 
 #include "netvar.hpp"
 #include "../structures/clientclass.hpp"
@@ -10,15 +11,23 @@
 
 void sdk::netvars::Initialize()
 {
-#if LOG_TO_FILE
-	// This is not too clean, but this is the easiest way to do it.
+#if DUMP
 	std::unordered_map<std::string_view, std::unordered_map<std::string_view, uintptr_t>> loggedCache;
 #endif
 
 	// Loop through all the classes
 	ClientClass* cClass = sdk::interfaces::client->GetAllClasses();
 
+#if DUMP 
+	std::ofstream client_ids("client_ids.txt");
+	client_ids << "enum class ClassIDS : int {\n";
+#endif
+
 	while (cClass != nullptr) {
+#if DUMP 
+		client_ids << '\t' << cClass->networkName << " = " << static_cast<int>(cClass->classId) << ",\n";
+#endif
+
 		RecvTable* table = cClass->table;
 
 		for (int i = 0; i < table->propCount; i++) {
@@ -34,10 +43,10 @@ void sdk::netvars::Initialize()
 						continue;
 
 					offsetMap[utils::hash::fnv1a::hash32(table->tableName)][utils::hash::fnv1a::hash32(extraProp.varName)] = offset + extraProp.offset;
-#if LOG_TO_FILE
+#if DUMP
 					loggedCache[table->tableName][extraProp.varName] = offset + extraProp.offset;
-					LOG(DebugLevel::OK, "Got an \"internal\" prop, from the table {} and prop {}, with the name {} and an offset of {} ({})",
-						table->tableName, prop.varName, extraProp.varName, extraProp.offset, offset + extraProp.offset);
+					//	LOG(DebugLevel::OK, "Got an \"internal\" prop, from the table {} and prop {}, with the name {} and an offset of {} ({})",
+					//		table->tableName, prop.varName, extraProp.varName, extraProp.offset, offset + extraProp.offset);
 #endif
 				}
 			}
@@ -49,9 +58,9 @@ void sdk::netvars::Initialize()
 			// Cache them
 			offsetMap[utils::hash::fnv1a::hash32(table->tableName)][utils::hash::fnv1a::hash32(prop.varName)] = prop.offset;
 
-#if LOG_TO_FILE
+#if DUMP
 			loggedCache[table->tableName][prop.varName] = prop.offset;
-			LOG(DebugLevel::OK, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
+			//LOG(DebugLevel::OK, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
 #endif
 		}
 		cClass = cClass->next;
@@ -59,18 +68,22 @@ void sdk::netvars::Initialize()
 
 	LOG(DebugLevel::OK, "Initialized netvars!");
 
-#if LOG_TO_FILE 
-	std::ofstream dump("netvar_dump.txt");
+#if DUMP 
+	client_ids << "};";
+
+	client_ids.close();
+
+	std::ofstream netvar_dump("netvar_dump.txt");
 
 	for (auto& [table, props] : loggedCache) {
-		dump << std::format("{}\n    ", table);
+		netvar_dump << std::format("{}\n    ", table);
 		for (auto& [propName, offset] : props) {
-			dump << std::format("[{}] - 0x{:x}\n    ", propName, offset);
+			netvar_dump << std::format("[{}] - 0x{:x}\n    ", propName, offset);
 		}
-		dump << "\n\n";
+		netvar_dump << "\n\n";
 	}
 
-	dump.close();
+	netvar_dump.close();
 #endif
 }
 

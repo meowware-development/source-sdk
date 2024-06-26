@@ -9,11 +9,11 @@
 #include "collideable.hpp"
 
 #include "../misc/color.hpp"
+#include "../misc/entity.hpp"
 
 #include "../netvars/netvar.hpp"
 
 struct Model;
-struct Team;
 
 class BaseEntity : public ClientEntity {
 public:
@@ -26,8 +26,10 @@ public:
 	// GetMaxHealth is extremely useful on L4D1/L4D2 where the max hp isnt always 100
 	int GetHealth();
 	int GetMaxHealth();
-	Team* GetTeam();
-	int GetTeamNumber();
+
+	// Team functionality
+	//Team* GetTeam();
+	TeamType GetTeamNumber();
 	bool IsInSameTeamAs(BaseEntity* other);
 	bool IsInLocalTeam();
 public:
