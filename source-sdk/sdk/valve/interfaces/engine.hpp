@@ -1,7 +1,6 @@
 #pragma once
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
-#include "../misc/buttoncode.hpp"
 
 enum SkyboxVisibility
 {
@@ -31,7 +30,7 @@ struct PlayerInfo;
 struct ClientTextMessage;
 class NetChannelInfo;
 
-class Engine 
+class Engine
 {
 public:
 	// Find the model's surfaces that intersect the given sphere.
@@ -74,7 +73,7 @@ public:
 	virtual int					GetPlayerForUserID(int userID) = 0;
 
 	// Retrieves text message system information for the specified message by name
-	virtual ClientTextMessage* TextMessageGet(const char* pName) = 0;
+	virtual void* TextMessageGet(const char* pName) = 0;
 
 	// Returns true if the console is visible
 	virtual bool				Con_IsVisible(void) = 0;
@@ -100,7 +99,7 @@ public:
 	virtual bool				IsStreaming(void* pAudioSource) const = 0;
 
 	// Copy current view orientation into va
-	virtual void				GetViewAngles(Vector3& va) = 0; 
+	virtual void				GetViewAngles(Vector3& va) = 0;
 	// Set current view orientation from va
 	virtual void				SetViewAngles(Vector3& va) = 0;
 
@@ -112,11 +111,11 @@ public:
 	virtual	const char* Key_LookupBinding(const char* pBinding) = 0;
 
 	// Given the name of the key "mouse1", "e", "tab", etc., return the string it is bound to "+jump", "impulse 50", etc.
-	virtual const char* Key_BindingForKey(ButtonCode code) = 0;
+	virtual const char* Key_BindingForKey(int code) = 0;
 
 	// key trapping (for binding keys)
 	virtual void				StartKeyTrapMode(void) = 0;
-	virtual bool				CheckDoneKeyTrapping(ButtonCode& code) = 0;
+	virtual bool				CheckDoneKeyTrapping(int& code) = 0;
 
 	// Returns true if the player is fully connected and active in game (i.e, not still loading)
 	virtual bool				IsInGame(void) = 0; //26
@@ -147,7 +146,7 @@ public:
 	virtual const char* GetGameDirectory(void) = 0;
 
 	// Get access to the world to screen transformation matrix
-	virtual const Matrix4x4& WorldToScreenMatrix() = 0; 
+	virtual const Matrix4x4& WorldToScreenMatrix() = 0;
 
 	// Get the matrix to move a point from world space into view space
 	// (translate and rotate so the camera is at the origin looking down X).

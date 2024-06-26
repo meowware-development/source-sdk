@@ -1,8 +1,8 @@
 #include "../hooks.hpp"
 
-#include "../../../sdk/interfaces/interfaces.hpp"
-#include "../../../utils/debug/debug.hpp"
-#include "../../../sdk/valve/classes/baseentity.hpp"
+#include "../../../globals.hpp"
+
+#include "../../features/features.hpp"
 
 bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* usercmd)
 {
@@ -12,8 +12,14 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 	uintptr_t _bp; __asm mov _bp, ebp;
 	bool* sendPacket = (bool*)(***(uintptr_t***)_bp - 0x1);
 
-	auto localEntity = BaseEntity::GetLocalEntity();
+	UserCmd* userCmd = reinterpret_cast<UserCmd*>(usercmd);
 
+	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
+
+	if (!globals::localPlayer)
+		return original(sdk::interfaces::clientMode, time, usercmd);
+
+	features::BunnyHop(userCmd);
 
 	return original(sdk::interfaces::clientMode, time, usercmd);
 }

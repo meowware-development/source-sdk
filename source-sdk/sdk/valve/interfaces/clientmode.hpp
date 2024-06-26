@@ -1,5 +1,4 @@
 #pragma once
-#include "../misc/buttoncode.hpp"
 
 enum class HeadtrackMovementMode
 {
@@ -69,7 +68,7 @@ public:
 	virtual bool	ShouldDrawFog(void) = 0;
 
 	virtual void	OverrideView(void* pSetup) = 0;
-	virtual int		KeyInput(int down, ButtonCode keynum, const char* pszCurrentBinding) = 0;
+	virtual int		KeyInput(int down, int keynum, const char* pszCurrentBinding) = 0;
 	virtual void	StartMessageMode(int iMessageModeType) = 0;
 	virtual void* GetMessagePanel() = 0;
 	virtual void	OverrideMouseInput(float* x, float* y) = 0;
@@ -118,7 +117,7 @@ public:
 	virtual bool	DoPostScreenSpaceEffects(const void* pSetup) = 0;
 
 	virtual void	DisplayReplayMessage(const char* pLocalizeName, float flDuration, bool bUrgent,
-										  const char* pSound, bool bDlg) = 0;
+		const char* pSound, bool bDlg) = 0;
 
 	// Updates.
 public:

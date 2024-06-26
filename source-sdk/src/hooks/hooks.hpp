@@ -34,4 +34,11 @@ namespace src::hooks {
 			bool __stdcall HookFn(float time, void* usercmd);
 		}
 	}
+
+	namespace Client {
+		namespace HudUpdate {
+			inline VMTHook hook;
+			void __fastcall HookFn(void* ecx, void* edx, bool active);
+		}
+	}
 }

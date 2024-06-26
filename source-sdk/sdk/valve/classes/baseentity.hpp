@@ -18,6 +18,8 @@ struct Model;
 class BaseEntity : public ClientEntity {
 public:
 	static BaseEntity* GetLocalEntity();
+	bool IsValid();
+
 	int GetSolidFlags();
 
 	int GetMoveType();
@@ -29,7 +31,7 @@ public:
 
 	// Team functionality
 	//Team* GetTeam();
-	TeamType GetTeamNumber();
+	Team GetTeamNumber();
 	bool IsInSameTeamAs(BaseEntity* other);
 	bool IsInLocalTeam();
 public:
@@ -39,5 +41,5 @@ public:
 	NETVAR(int, ModelIndex, DT_BaseEntity, m_nModelIndex);
 	NETVAR(int, RenderMode, DT_BaseEntity, m_nRenderMode);
 	NETVAR(int, RenderFX, DT_BaseEntity, m_nRenderFX);
-	NETVAR(uintptr_t, Owner, DT_BaseEntity, m_hOwnerEntity);
+	NETVAR(void*, Owner, DT_BaseEntity, m_hOwnerEntity);
 };

@@ -63,6 +63,21 @@
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sdk\valve\classes\baseentity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\valve\classes\team.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\valve\events\eventlistener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\classes\client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.hpp">
@@ -92,16 +107,7 @@
     <ClInclude Include="sdk\valve\structures\cvar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\structures\consolecommand.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\valve\structures\enginecolor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\sdk.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\config\scfg.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utils\input\input.hpp">
@@ -134,9 +140,6 @@
     <ClInclude Include="sdk\signatures.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\indexes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\valve\interfaces\surface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -161,13 +164,10 @@
     <ClInclude Include="sdk\valve\interfaces\netchannelinfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\misc\clienttextmessage.hpp">
+    <ClInclude Include="sdk\valve\structures\materialvar.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\misc\materialvar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\valve\misc\surfaceinfo.hpp">
+    <ClInclude Include="sdk\valve\structures\surfaceinfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\valve\structures\material.hpp">
@@ -185,7 +185,7 @@
     <ClInclude Include="sdk\valve\interfaces\clientmode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\valve\misc\buttoncode.hpp">
+    <ClInclude Include="sdk\valve\structures\buttoncode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp">
@@ -240,6 +240,51 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\valve\interfaces\entitylist.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\classes\collideable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\classes\handleentity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\interfaces\tracesystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\misc\entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\misc\sourcedefs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\firebulletsinfo.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\takedamageinfo.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\classes\team.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\trace.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\misc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\features.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\classes\baseplayer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\events\eventlistener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\interfaces\eventmanager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

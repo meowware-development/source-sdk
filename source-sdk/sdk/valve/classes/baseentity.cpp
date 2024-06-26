@@ -9,6 +9,11 @@ BaseEntity* BaseEntity::GetLocalEntity()
 	return sdk::interfaces::entityList->GetClientEntity(sdk::interfaces::engine->GetLocalPlayer())->As<BaseEntity>();
 }
 
+bool BaseEntity::IsValid()
+{
+	return this != nullptr;
+}
+
 int BaseEntity::GetSolidFlags()
 {
 	auto collideable = GetCollideable();
@@ -39,9 +44,9 @@ int BaseEntity::GetMaxHealth()
 	return utils::memory::CallVirtualFunction<Team*>(this, 73);
 }*/
 
-TeamType BaseEntity::GetTeamNumber()
+Team BaseEntity::GetTeamNumber()
 {
-	return static_cast<TeamType>(utils::memory::CallVirtualFunction<int>(this, 74));
+	return static_cast<Team>(utils::memory::CallVirtualFunction<int>(this, 74));
 }
 
 bool BaseEntity::IsInSameTeamAs(BaseEntity* other)

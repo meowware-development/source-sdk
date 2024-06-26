@@ -13,6 +13,8 @@ void Initialization()
 		sdk::netvars::Initialize();
 
 		utils::renderer::Initialize();
+
+		sdk::events::Initialize();
 	}
 	catch (const std::exception& error) {
 		LOG(DebugLevel::ERR, "Exception: {}", error.what());
@@ -36,7 +38,7 @@ void Attach(HINSTANCE instance)
 
 	// Wait till the user presses VK_END to start the unload procedure
 	// @TODO: Replace with own input from wndproc after properly updating the keys in game thread
-	while (!GetAsyncKeyState(VK_END) && !globals::shouldUnload) {
+	while (utils::input::keys[VK_END].IsIdle() && !globals::shouldUnload) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
@@ -52,6 +54,8 @@ void Detach()
 	utils::debug::Release();
 
 	utils::input::Uninitialize();
+
+	sdk::events::Uninitialize();
 }
 
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)

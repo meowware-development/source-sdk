@@ -15,4 +15,5 @@
 
 namespace globals {
 	inline bool shouldUnload = false;
+	inline BasePlayer* localPlayer = nullptr;
 }
