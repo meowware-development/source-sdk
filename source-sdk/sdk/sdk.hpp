@@ -6,3 +6,6 @@
 
 #include "valve/classes/baseplayer.hpp"
 #include "valve/structures/usercmd.hpp"
+#include "valve/structures/model.hpp"
+#include "valve/structures/playerinfo.hpp"
+

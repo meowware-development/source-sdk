@@ -13,6 +13,7 @@
 #include "../valve/interfaces/entitylist.hpp"
 #include "../valve/interfaces/tracesystem.hpp"
 #include "../valve/interfaces/eventmanager.hpp"
+#include "../valve/interfaces/modelinfo.hpp"
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -42,4 +43,5 @@ namespace sdk::interfaces {
 	inline ClientEntityList* entityList = nullptr;
 	inline TraceSystem* traceSystem = nullptr;
 	inline GameEventManager* gameEventManager = nullptr;
+	inline ModelInfo* modelInfo = nullptr;
 }

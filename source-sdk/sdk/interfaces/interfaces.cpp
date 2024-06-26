@@ -56,6 +56,7 @@ void sdk::interfaces::Initialize()
 	entityList = INTERFACE(ClientEntityList, "client.dll", "VClientEntityList00");
 	traceSystem = INTERFACE(TraceSystem, "engine.dll", "EngineTraceClient00");
 	gameEventManager = INTERFACE(GameEventManager, "engine.dll", "GAMEEVENTSMANAGER002");
+	modelInfo = INTERFACE(ModelInfo, "engine.dll", "VModelInfoClient00");
 
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
 

@@ -6,3 +6,4 @@ using HCursor = unsigned long;
 using HTexture = unsigned long;
 using HFont = unsigned long;
 using VPANEL = unsigned int;
+using MDLHandle_t = unsigned short;
