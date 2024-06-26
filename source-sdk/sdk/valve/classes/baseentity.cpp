@@ -39,14 +39,14 @@ int BaseEntity::GetMaxHealth()
 	return utils::memory::CallVirtualFunction<int>(this, 107);
 }
 
-/*Team* BaseEntity::GetTeam()
+Team* BaseEntity::GetTeam()
 {
 	return utils::memory::CallVirtualFunction<Team*>(this, 73);
-}*/
+}
 
-Team BaseEntity::GetTeamNumber()
+TeamID BaseEntity::GetTeamNumber()
 {
-	return static_cast<Team>(utils::memory::CallVirtualFunction<int>(this, 74));
+	return utils::memory::CallVirtualFunction<TeamID>(this, 74);
 }
 
 bool BaseEntity::IsInSameTeamAs(BaseEntity* other)

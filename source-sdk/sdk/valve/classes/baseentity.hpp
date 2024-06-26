@@ -14,6 +14,7 @@
 #include "../netvars/netvar.hpp"
 
 struct Model;
+class Team;
 
 class BaseEntity : public ClientEntity {
 public:
@@ -30,12 +31,11 @@ public:
 	int GetMaxHealth();
 
 	// Team functionality
-	//Team* GetTeam();
-	Team GetTeamNumber();
+	Team* GetTeam();
+	TeamID GetTeamNumber();
 	bool IsInSameTeamAs(BaseEntity* other);
 	bool IsInLocalTeam();
 
-	bool IsAlive();
 public:
 	NETVAR(Vector3, Origin, DT_BaseEntity, m_vecOrigin);
 	NETVAR(float, AnimTime, DT_BaseEntity, m_flAnimTime);

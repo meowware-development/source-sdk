@@ -8,4 +8,4 @@
 #include "valve/structures/usercmd.hpp"
 #include "valve/structures/model.hpp"
 #include "valve/structures/playerinfo.hpp"
-
+#include "valve/classes/team.hpp"

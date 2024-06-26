@@ -8,7 +8,6 @@ char* Team::GetName(void)
 
 int Team::GetScore(void)
 {
-	//return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + 0x54C);
 	return utils::memory::CallVirtualFunction<int>(this, 159);
 }
 

@@ -98,7 +98,7 @@ enum MoveType : int
 	MOVETYPE_MAX_BITS = 4
 };
 
-enum class Team : int
+enum class TeamID : int
 {
 	NONE = 0,
 	SPECTATOR = 1,
