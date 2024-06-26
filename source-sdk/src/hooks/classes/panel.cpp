@@ -5,8 +5,8 @@
 #include "../../../utils/renderer/renderer.hpp"
 #include "../../../utils/format/format.hpp"
 #include "../../../sdk/sdk.hpp"
+#include "../../features/esp.hpp"
 
-#include <intrin.h>
 
 void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, unsigned int panelID, bool forceRepaint, bool allowForce)
 {
@@ -40,14 +40,15 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	// A switch statement doesn't work here since the variables are static
 	if (panelID == FocusOverlayPanel) {
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
+
+		src::features::Run2D();
 	}
 	else if (panelID == EngineTools) {
 		GlobalVars* globalVars = sdk::interfaces::playerInfoManager->GetGlobalVars();
 
 		utils::renderer::Text(20, 35, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("curtime: {:.2f}", globalVars->curtime));
 		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {:.2f}", globalVars->realtime));
-		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("fps: {}", 1.f / globalVars->frametime));
-		utils::renderer::Text(20, 80, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
+		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
 	}
 }
 

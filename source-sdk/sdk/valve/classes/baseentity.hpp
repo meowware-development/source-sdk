@@ -34,6 +34,8 @@ public:
 	Team GetTeamNumber();
 	bool IsInSameTeamAs(BaseEntity* other);
 	bool IsInLocalTeam();
+
+	bool IsAlive();
 public:
 	NETVAR(Vector3, Origin, DT_BaseEntity, m_vecOrigin);
 	NETVAR(float, AnimTime, DT_BaseEntity, m_flAnimTime);

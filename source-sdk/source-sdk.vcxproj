@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)build\output\</OutDir>
     <IntDir>$(SolutionDir)build\intermediates\</IntDir>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)build\output\</OutDir>
@@ -105,6 +105,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,6 +164,7 @@
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
     <ClCompile Include="sdk\valve\classes\team.cpp" />
+    <ClCompile Include="src\features\esp.cpp" />
     <ClCompile Include="src\features\misc.cpp" />
     <ClCompile Include="src\hooks\classes\client.cpp" />
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
@@ -203,6 +205,7 @@
     <ClInclude Include="sdk\valve\interfaces\eventmanager.hpp" />
     <ClInclude Include="sdk\valve\interfaces\globalvars.hpp" />
     <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\modelinfo.hpp" />
     <ClInclude Include="sdk\valve\interfaces\netchannelinfo.hpp" />
     <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
     <ClInclude Include="sdk\valve\interfaces\playerinfomanager.hpp" />
@@ -232,8 +235,10 @@
     <ClInclude Include="sdk\valve\classes\team.hpp" />
     <ClInclude Include="sdk\valve\structures\trace.hpp" />
     <ClInclude Include="sdk\valve\structures\usercmd.hpp" />
+    <ClInclude Include="sdk\valve\structures\vcollide.hpp" />
     <ClInclude Include="sdk\valve\structures\vpanel.hpp" />
     <ClInclude Include="sdk\valve\structures\surfaceplat.hpp" />
+    <ClInclude Include="src\features\esp.hpp" />
     <ClInclude Include="src\features\features.hpp" />
     <ClInclude Include="src\features\misc.hpp" />
     <ClInclude Include="src\hooks\hooks.hpp" />
