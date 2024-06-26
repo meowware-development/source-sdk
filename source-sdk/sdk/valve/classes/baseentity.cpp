@@ -58,3 +58,8 @@ bool BaseEntity::IsInLocalTeam()
 {
 	return utils::memory::CallVirtualFunction<bool>(this, 78);
 }
+
+bool BaseEntity::IsPlayer()
+{
+	return utils::memory::CallVirtualFunction<bool>(this, 131);
+}

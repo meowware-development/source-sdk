@@ -26,4 +26,5 @@ public:
 	bool IsAlive() {
 		return (GetLifeState() == LIFE_ALIVE);
 	}
+
 };

@@ -99,7 +99,10 @@ void src::features::Run2D()
 		BaseEntity* entity = sdk::interfaces::entityList->GetClientEntity(i)->As<BaseEntity>();
 
 		// You can do alive check, teammate check, whatever here
-		if (!entity || entity->IsDormant() || entity == localPlayer || entity->GetClientClass()->classId != ClassIDS::CCSPlayer)
+		if (!entity || entity->IsDormant() || entity == localPlayer || !entity->IsPlayer())
+			continue;
+
+		if (!reinterpret_cast<BasePlayer*>(entity)->IsAlive())
 			continue;
 
 		Box box{};
