@@ -6,8 +6,7 @@
 
 #include "../netvars/netvar.hpp"
 
-class ClientEntity : public ClientUnknown, public ClientRenderable, public ClientNetworkable, public ClientThinkable
-{
+class ClientEntity : public ClientUnknown, public ClientRenderable, public ClientNetworkable, public ClientThinkable {
 public:
 	template <typename Type>
 	Type* As() { return reinterpret_cast<Type*>(this); }

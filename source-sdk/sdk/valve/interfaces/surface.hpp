@@ -5,13 +5,9 @@
 #include "../../math/vector.hpp"
 
 #include "../misc/color.hpp"
+#include "../misc/sourcedefs.hpp"
 
 #undef CreateFont
-
-typedef unsigned long HCursor;
-typedef unsigned long HTexture;
-typedef unsigned long HFont;
-typedef unsigned int VPANEL;
 
 struct Vertex
 {

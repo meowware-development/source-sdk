@@ -16,9 +16,5 @@ void __fastcall src::hooks::VGUIEngine::Paint::HookFn(void* ecx, void* edx, int 
 
 	StartDrawing(sdk::interfaces::surface);
 
-	// Stuff drawn here will not be rendered when console / server browser is opened
-
-	utils::renderer::Text(10, 10, utils::renderer::fonts::tahoma13outline, Color(255, 100, 200), "[source-sdk (Counter-Strike: Source)]");
-
 	FinishDrawing(sdk::interfaces::surface);
 }

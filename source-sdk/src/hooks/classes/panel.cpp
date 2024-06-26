@@ -37,7 +37,7 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 		}
 	}
 
-	// A switch statement doesn't work here
+	// A switch statement doesn't work here since the variables are static
 	if (panelID == FocusOverlayPanel) {
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
 		utils::renderer::Text(20, 95, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("MoveType: {}", BaseEntity::GetLocalEntity()->GetMoveType()));

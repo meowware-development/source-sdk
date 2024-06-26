@@ -23,7 +23,7 @@ namespace sdk {
 }
 
 #define NETVAR(type, name, tableName, propName) type& Get##name() { \
-	static int offset = sdk::netvars::GetOffset(utils::hash::fnv1a::hash32(tableName), utils::hash::fnv1a::hash32(propName)); \
+	static int offset = sdk::netvars::GetOffset(utils::hash::fnv1a::hash32(#tableName), utils::hash::fnv1a::hash32(#propName)); \
 	return *reinterpret_cast<type*>(uintptr_t(this) + offset); \
 }
 

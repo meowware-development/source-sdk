@@ -1,8 +1,10 @@
 #pragma once
+
+#include "../misc/trace.hpp"
 #include "../../math/vector.hpp"
 #include "../misc/sourcedefs.hpp"
 
-struct Plane 
+struct Plane
 {
 	Vector3	normal;
 	float	dist;
@@ -19,7 +21,7 @@ struct TraceSurface
 };
 
 
-class BaseTrace 
+class BaseTrace
 {
 public:
 	// these members are aligned!!
@@ -38,7 +40,7 @@ public:
 
 class BaseEntity;
 
-class GameTrace : public BaseTrace 
+class GameTrace : public BaseTrace
 {
 public:
 	inline bool DidHit() const { return fraction < 1 || allsolid || startsolid; };
@@ -68,14 +70,7 @@ enum class TraceType : int
 
 class HandleEntity;
 
-class TraceFilter
-{
-public:
-	virtual bool ShouldHitEntity(HandleEntity* pEntity, int contentsMask) = 0;
-	virtual TraceFilter	GetTraceType() const = 0;
-};
-
-struct Ray 
+struct Ray
 {
 	VectorAligned start; // starting point, centered within the extents
 	VectorAligned delta; // direction + length of the ray
@@ -111,4 +106,78 @@ struct Ray
 
 		start = vecStart + ((max + min) * 0.5f);
 	}
+};
+
+struct Trace {
+	Vector3 start;
+	Vector3 end;
+	Plane plane;
+	float flFraction;
+	int contents;
+	unsigned short dispFlags;
+	bool allsolid;
+	bool startSolid;
+	float fractionLeftSolid;
+	TraceSurface surface;
+	int hitGroup;
+	short physicsBone;
+	BaseEntity* entity;
+	int hitbox;
+
+	bool DidHit() const {
+		return flFraction < 1.f;
+	}
+
+	bool DidHitWorld() const {
+		return false;
+	}
+
+	bool DidHitNonWorldEntity() const {
+		return entity != NULL && !DidHitWorld();
+	}
+};
+
+class iTraceFilter {
+public:
+	virtual bool ShouldHitEntity(void* pEntity, int contentsMask) = 0;
+	virtual TraceType GetTraceType() const = 0;
+};
+
+class TraceFilter : public iTraceFilter {
+public:
+	bool ShouldHitEntity(void* pEntityHandle, int contentsMask) {
+		return (pEntityHandle != skip);
+	}
+
+	TraceType GetTraceType() const {
+		return TraceType::TRACE_EVERYTHING;
+	}
+
+	void* skip;
+};
+
+class TraceEntity : public TraceFilter {
+public:
+	bool ShouldHitEntity(void* pEntityHandle, int contentsMask) {
+		return !(pEntityHandle == pSkip1);
+	}
+
+	TraceType GetTraceType() const {
+		return TraceType::TRACE_ENTITIES_ONLY;
+	}
+
+	void* pSkip1;
+};
+
+class TraceWorldOnly : public TraceFilter {
+public:
+	bool ShouldHitEntity(void* pEntityHandle, int contentsMask) {
+		return false;
+	}
+
+	TraceType GetTraceType() const {
+		return TraceType::TRACE_WORLD_ONLY;
+	}
+
+	void* pSkip1;
 };

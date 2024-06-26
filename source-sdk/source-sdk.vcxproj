@@ -189,7 +189,6 @@
     <ClInclude Include="sdk\valve\classes\clientunknown.hpp" />
     <ClInclude Include="sdk\valve\classes\collideable.hpp" />
     <ClInclude Include="sdk\valve\classes\handleentity.hpp" />
-    <ClInclude Include="sdk\valve\classes\trace.hpp" />
     <ClInclude Include="sdk\valve\interfaces\appsystem.hpp" />
     <ClInclude Include="sdk\valve\interfaces\chlclient.hpp" />
     <ClInclude Include="sdk\valve\interfaces\clientmode.hpp" />
@@ -202,12 +201,15 @@
     <ClInclude Include="sdk\valve\interfaces\panel.hpp" />
     <ClInclude Include="sdk\valve\interfaces\playerinfomanager.hpp" />
     <ClInclude Include="sdk\valve\interfaces\surface.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\tracesystem.hpp" />
     <ClInclude Include="sdk\valve\misc\buttoncode.hpp" />
     <ClInclude Include="sdk\valve\misc\clienttextmessage.hpp" />
     <ClInclude Include="sdk\valve\misc\color.hpp" />
+    <ClInclude Include="sdk\valve\misc\entity.hpp" />
     <ClInclude Include="sdk\valve\misc\materialvar.hpp" />
     <ClInclude Include="sdk\valve\misc\sourcedefs.hpp" />
     <ClInclude Include="sdk\valve\misc\surfaceinfo.hpp" />
+    <ClInclude Include="sdk\valve\misc\trace.hpp" />
     <ClInclude Include="sdk\valve\netvars\netvar.hpp" />
     <ClInclude Include="sdk\valve\netvars\recvprop.hpp" />
     <ClInclude Include="sdk\valve\netvars\recvtable.hpp" />
@@ -225,6 +227,7 @@
     <ClInclude Include="sdk\valve\structures\studio.hpp" />
     <ClInclude Include="sdk\valve\structures\takedamageinfo.hpp" />
     <ClInclude Include="sdk\valve\structures\team.hpp" />
+    <ClInclude Include="sdk\valve\structures\trace.hpp" />
     <ClInclude Include="sdk\valve\structures\usercmd.hpp" />
     <ClInclude Include="sdk\valve\structures\vpanel.hpp" />
     <ClInclude Include="sdk\valve\structures\surfaceplat.hpp" />

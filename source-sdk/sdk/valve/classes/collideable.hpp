@@ -1,7 +1,8 @@
 #pragma once
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
-#include "trace.hpp"
+
+#include "../structures/trace.hpp"
 
 class HandleEntity;
 class ClientUnknown;

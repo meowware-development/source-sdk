@@ -1,5 +1,5 @@
 #pragma once
-#include "surface.hpp"
+#include "../misc/sourcedefs.hpp"
 
 enum VGuiPanel {
 	PANEL_ROOT = 0,
