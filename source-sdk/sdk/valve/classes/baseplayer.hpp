@@ -27,4 +27,8 @@ public:
 		return (GetLifeState() == LIFE_ALIVE);
 	}
 
+	void SetLocalViewangles(Vector3 newAngle);
+	void PreThink();
+	void Think();
+	void PostThink();
 };

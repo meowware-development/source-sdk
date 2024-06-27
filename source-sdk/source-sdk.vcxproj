@@ -159,6 +159,7 @@
     <ClCompile Include="sdk\interfaces\interfaces.cpp" />
     <ClCompile Include="sdk\math\math.cpp" />
     <ClCompile Include="sdk\valve\classes\baseentity.cpp" />
+    <ClCompile Include="sdk\valve\classes\baseplayer.cpp" />
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
     <ClCompile Include="sdk\valve\events\eventlistener.cpp" />
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="sdk\valve\interfaces\engine.hpp" />
     <ClInclude Include="sdk\valve\interfaces\entitylist.hpp" />
     <ClInclude Include="sdk\valve\interfaces\eventmanager.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\gamemovement.hpp" />
     <ClInclude Include="sdk\valve\interfaces\globalvars.hpp" />
     <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp" />
     <ClInclude Include="sdk\valve\interfaces\modelinfo.hpp" />
@@ -217,6 +219,7 @@
     <ClInclude Include="sdk\valve\structures\event.hpp" />
     <ClInclude Include="sdk\valve\structures\materialvar.hpp" />
     <ClInclude Include="sdk\valve\misc\sourcedefs.hpp" />
+    <ClInclude Include="sdk\valve\structures\movedata.hpp" />
     <ClInclude Include="sdk\valve\structures\surfaceinfo.hpp" />
     <ClInclude Include="sdk\valve\netvars\netvar.hpp" />
     <ClInclude Include="sdk\valve\netvars\recvprop.hpp" />

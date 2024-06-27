@@ -57,7 +57,8 @@ void sdk::interfaces::Initialize()
 	traceSystem = INTERFACE(TraceSystem, "engine.dll", "EngineTraceClient00");
 	gameEventManager = INTERFACE(GameEventManager, "engine.dll", "GAMEEVENTSMANAGER002");
 	modelInfo = INTERFACE(ModelInfo, "engine.dll", "VModelInfoClient00");
-
+	movement = INTERFACE(GameMovement, "client.dll", "GameMovement0");
+		
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
 
 	LOG(DebugLevel::OK, "Initialized interfaces!");

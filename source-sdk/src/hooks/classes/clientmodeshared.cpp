@@ -21,5 +21,9 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 
 	features::BunnyHop(userCmd);
 
+	sdk::interfaces::movement->StartTrackPredictionErrors(globals::localPlayer);
+
+	sdk::interfaces::movement->FinishTrackPredictionErrors(globals::localPlayer);
+
 	return original(sdk::interfaces::clientMode, time, usercmd);
 }
