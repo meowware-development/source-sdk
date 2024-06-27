@@ -1,13 +1,12 @@
 #include "esp.hpp"
-#include "../../sdk/sdk.hpp"
-#include "../../sdk/math/math.hpp"
-#include "../../utils/renderer/renderer.hpp"
+
+#include "../../globals.hpp"
 
 struct Box {
 	float x, y, width, height;
 };
 
-static bool GetBoundings(BaseEntity* entity, Box* box) 
+static bool GetBoundings(BaseEntity* entity, Box* box)
 {
 	Matrix3x4 boneMatrix[MAXSTUDIOBONES];
 
@@ -18,7 +17,7 @@ static bool GetBoundings(BaseEntity* entity, Box* box)
 
 	if (!model)
 		return false;
-	
+
 	StudioHDR* pStudioHdr = sdk::interfaces::modelInfo->GetStudiomodel(model);
 	if (!pStudioHdr)
 		return false;
@@ -41,7 +40,7 @@ static bool GetBoundings(BaseEntity* entity, Box* box)
 		Vector3 min = pbox->mins;
 		Vector3 max = pbox->maxs;
 
-		Vector3 points[8] = {
+		std::array<Vector3, 8> points = {
 			Vector3(min.x, min.y, min.z),
 			Vector3(min.x, max.y, min.z),
 			Vector3(max.x, max.y, min.z),
@@ -80,7 +79,9 @@ static bool GetBoundings(BaseEntity* entity, Box* box)
 
 void src::features::Draw2DBoundingBox(Box* box)
 {
+	utils::renderer::Rectangle(box->x - 1, box->y - 1, box->width + 2, box->height + 2, Color(0, 0, 0, 150));
 	utils::renderer::Rectangle(box->x, box->y, box->width, box->height, Color(255, 255, 255));
+	utils::renderer::Rectangle(box->x + 1, box->y + 1, box->width - 2, box->height - 2, Color(0, 0, 0, 150));
 }
 
 void src::features::DrawName(BaseEntity* entity, Box* box)
@@ -90,16 +91,23 @@ void src::features::DrawName(BaseEntity* entity, Box* box)
 	utils::renderer::Text(box->x + box->width / 2 - nameSize.x / 2, box->y - (nameSize.y + 2.f), utils::renderer::fonts::tahoma13, Color(255, 255, 255), info.name);
 }
 
-void src::features::Run2D()
+void src::features::Run()
 {
-	auto localPlayer = BaseEntity::GetLocalEntity();
+	if (!globals::localPlayer)
+		return;
 
-	for (int i = 0; i < sdk::interfaces::entityList->GetHighestEntityIndex(); i++)
+	size_t highestEntIndex = sdk::interfaces::entityList->GetHighestEntityIndex();
+
+	// Entity 0 is DT_World, so we skip that.
+	// After that, the 1->64 indexes are reserved for players.
+	// This loops over the WHOLE entity list, including the grenades thrown, or whatever is left on the ground
+	// If you want to just loop the player list, loop from 1 to 64 inclusive
+	for (size_t i = 1; i < highestEntIndex; i++)
 	{
 		BaseEntity* entity = sdk::interfaces::entityList->GetClientEntity(i)->As<BaseEntity>();
 
 		// You can do alive check, teammate check, whatever here
-		if (!entity || entity->IsDormant() || entity == localPlayer || !entity->IsPlayer())
+		if (!entity || entity->IsDormant() || entity == globals::localPlayer || !entity->IsPlayer())
 			continue;
 
 		if (!reinterpret_cast<BasePlayer*>(entity)->IsAlive())

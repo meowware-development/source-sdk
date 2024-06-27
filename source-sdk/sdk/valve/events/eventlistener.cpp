@@ -17,7 +17,7 @@ void GameEventListener::FireGameEvent(GameEvent* event) {
 
 void sdk::events::Initialize() {
 	for (const auto& event : events) {
-		LOG(DebugLevel::OK, "Added event {}..", event);
+		LOG(DebugLevel::OK, "Added event {}!", event);
 		sdk::interfaces::gameEventManager->AddListener(eventListener, event, false);
 	}
 

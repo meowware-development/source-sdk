@@ -7,9 +7,9 @@
 #include "../../../utils/constants/const.hpp"
 #include "../../../utils/memory/memory.hpp"
 
-struct Cvar;
-struct ConsoleCommand;
-struct EngineColor;
+class ConVar;
+class ConsoleCommand;
+class Color;
 
 class CvarManager;
 
@@ -26,8 +26,8 @@ public:
 	// Try to find the cvar pointer by name
 	virtual ConsoleCommand* FindCommandBase(const char* name) = 0;
 	virtual const ConsoleCommand* FindCommandBase(const char* name) const = 0;
-	virtual Cvar* FindVar(const char* name) = 0;
-	virtual const Cvar* FindVar(const char* name) const = 0;
+	virtual ConVar* FindVar(const char* name) = 0;
+	virtual const ConVar* FindVar(const char* name) const = 0;
 	virtual void* FindCommand(const char* name) = 0;
 	virtual const void* FindCommand(const char* name) const = 0;
 
@@ -38,12 +38,12 @@ public:
 	// Install a global change callback (to be called when any Cvar changes) 
 	virtual void InstallGlobalChangeCallback(CvarChangeCallback callback) = 0;
 	virtual void RemoveGlobalChangeCallback(CvarChangeCallback callback) = 0;
-	virtual void CallGlobalChangeCallbacks(Cvar* var, const char* pOldString, float flOldValue) = 0;
+	virtual void CallGlobalChangeCallbacks(ConVar* var, const char* pOldString, float flOldValue) = 0;
 
 	// Install a console printer
 	virtual void InstallConsoleDisplayFunc(void* pDisplayFunc) = 0;
 	virtual void RemoveConsoleDisplayFunc(void* pDisplayFunc) = 0;
-	virtual void ConsoleColorPrintf(const EngineColor& clr, const char* pFormat, ...) = 0;
+	virtual void ConsoleColorPrintf(const Color& clr, const char* pFormat, ...) = 0;
 	virtual void ConsolePrintf(const char* pFormat, ...) = 0;
 	virtual void ConsoleDPrintf(const char* pFormat, ...) = 0;
 
@@ -56,9 +56,9 @@ public:
 	virtual void InstallCVarQuery(void* pQuery) = 0;
 
 	virtual bool IsMaterialThreadSetAllowed() const = 0;
-	virtual void QueueMaterialThreadSetValue(Cvar* pCvar, const char* pValue) = 0;
-	virtual void QueueMaterialThreadSetValue(Cvar* pCvar, int nValue) = 0;
-	virtual void QueueMaterialThreadSetValue(Cvar* pCvar, float flValue) = 0;
+	virtual void QueueMaterialThreadSetValue(ConVar* pCvar, const char* pValue) = 0;
+	virtual void QueueMaterialThreadSetValue(ConVar* pCvar, int nValue) = 0;
+	virtual void QueueMaterialThreadSetValue(ConVar* pCvar, float flValue) = 0;
 	virtual bool HasQueuedMaterialThreadCvarSets() const = 0;
 	virtual int	ProcessQueuedMaterialThreadCvarSets() = 0;
 };

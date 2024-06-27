@@ -7,12 +7,12 @@
 namespace utils::renderer {
 	namespace fonts {
 		struct Font {
-			const char* windowsFontName;
-			int tall;
-			int weight;
-			int blur;
-			int scanlines;
-			int flags;
+			const char* windowsFontName = "";
+			int tall = 0;
+			int weight = 0;
+			int blur = 0;
+			int scanlines = 0;
+			int flags = 0;
 
 			unsigned long handle = 0;
 		};
