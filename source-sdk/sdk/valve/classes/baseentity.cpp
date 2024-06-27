@@ -25,7 +25,7 @@ int BaseEntity::GetSolidFlags()
 
 int BaseEntity::GetMoveType()
 {
-	static auto offset = *reinterpret_cast<short*>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), sdk::signatures::client::C_BaseEntity::MoveType::sig) + sdk::signatures::client::C_BaseEntity::MoveType::offset);
+	static auto offset = *utils::memory::PatternScan(utils::memory::GetModule("client.dll"), sdk::signatures::client::C_BaseEntity::MoveType::sig).Cast<short*>(sdk::signatures::client::C_BaseEntity::MoveType::offset);
 	return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + offset);
 }
 

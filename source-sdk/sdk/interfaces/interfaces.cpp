@@ -39,7 +39,7 @@ decltype(auto) sdk::interfaces::GetInterface32(const std::string_view moduleName
 
 #ifdef WIN32
 #define INTERFACE(type, moduleName, interfaceName) sdk::interfaces::GetInterface32<type>(moduleName, interfaceName);
-#define SIGNATURE(type, moduleName, sig, offset) **reinterpret_cast<type***>(utils::memory::PatternScan(utils::memory::GetModule(moduleName), sig) + offset);
+#define SIGNATURE(type, moduleName, sig, offset) **utils::memory::PatternScan(utils::memory::GetModule(moduleName), sig).Cast<type***>(offset);
 #else
 #define INTERFACE(type, moduleName, interfaceName) sdk::interfaces::GetInterface64<type>(moduleName, interfaceName);
 #endif
@@ -58,7 +58,7 @@ void sdk::interfaces::Initialize()
 	gameEventManager = INTERFACE(GameEventManager, "engine.dll", "GAMEEVENTSMANAGER002");
 	modelInfo = INTERFACE(ModelInfo, "engine.dll", "VModelInfoClient00");
 	movement = INTERFACE(GameMovement, "client.dll", "GameMovement0");
-		
+
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
 
 	LOG(DebugLevel::OK, "Initialized interfaces!");

@@ -35,11 +35,33 @@ namespace utils::memory {
 		return function(reinterpret_cast<void*>(base), std::forward<decltype(args)>(args)...);
 	}
 
+	class Scan {
+	public:
+		Scan() = default;
+		Scan(uint8_t* value) : m_ReturnValue(value) {}
+
+		template <typename ReturnType>
+		ReturnType Cast(int offset = 0) {
+			return reinterpret_cast<ReturnType>(m_ReturnValue + offset);
+		}
+
+		template <typename ReturnType>
+		ReturnType Relative(int offset = 0) {
+			return reinterpret_cast<ReturnType>(m_ReturnValue + 0x1 + offset);
+		}
+
+		uint8_t* GetValue() {
+			return m_ReturnValue;
+		}
+	private:
+		uint8_t* m_ReturnValue = 0;
+	};
+
 	/// <summary>
 	/// Scans for IDA-Styled sigs in the specified module. Throws if not found.
 	/// Should generally be used in a try-catch scope while debugging.
 	/// </summary>
-	uint8_t* PatternScan(uintptr_t module, const char* ida);
+	Scan PatternScan(uintptr_t module, const char* ida);
 
 	inline std::unordered_map<std::string, uintptr_t> modules;
 }

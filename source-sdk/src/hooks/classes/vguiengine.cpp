@@ -11,8 +11,8 @@ void __fastcall src::hooks::VGUIEngine::Paint::HookFn(void* ecx, void* edx, int 
 
 	original(ecx, edx, paintMode);
 
-	static auto StartDrawing = reinterpret_cast<sdk::signatures::vguimatsurface::StartDrawingCallback>(utils::memory::PatternScan(utils::memory::GetModule("vguimatsurface.dll"), sdk::signatures::vguimatsurface::StartDrawing));
-	static auto FinishDrawing = reinterpret_cast<sdk::signatures::vguimatsurface::FinishDrawingCallback>(utils::memory::PatternScan(utils::memory::GetModule("vguimatsurface.dll"), sdk::signatures::vguimatsurface::FinishDrawing));
+	static auto StartDrawing = utils::memory::PatternScan(utils::memory::GetModule("vguimatsurface.dll"), sdk::signatures::vguimatsurface::StartDrawing).Cast<sdk::signatures::vguimatsurface::StartDrawingCallback>();
+	static auto FinishDrawing = utils::memory::PatternScan(utils::memory::GetModule("vguimatsurface.dll"), sdk::signatures::vguimatsurface::FinishDrawing).Cast<sdk::signatures::vguimatsurface::FinishDrawingCallback>();
 
 	StartDrawing(sdk::interfaces::surface);
 

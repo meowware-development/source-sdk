@@ -18,7 +18,7 @@ uintptr_t utils::memory::GetModule(const std::string& moduleName) noexcept
 	return moduleAddress;
 }
 
-uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)
+utils::memory::Scan utils::memory::PatternScan(uintptr_t module, const char* ida)
 {
 	// Convert from hexadecimal to bytes
 	std::vector<int> bytes;
@@ -76,10 +76,10 @@ uint8_t* utils::memory::PatternScan(uintptr_t module, const char* ida)
 		if (!found) // Not found, keep searching
 			continue;
 
-		return &scanBytes[i];
+		return Scan(&scanBytes[i]);
 	}
 
 	// Scan for signatures ONLY in the initialization stage, in order to catch not found signatures.
 	throw std::runtime_error(FORMAT("Couldn't find signature: {}", ida));
-	return nullptr;
+	return Scan();
 }
