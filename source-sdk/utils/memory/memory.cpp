@@ -25,61 +25,64 @@ utils::memory::Scan utils::memory::PatternScan(uintptr_t module, const char* ida
 
 	size_t idaLen = strlen(ida);
 
-	// Parse the string using pointers
-	char* current = const_cast<char*>(ida);
-	char* end = const_cast<char*>(ida) + idaLen;
-
-	while (current < end) {
-		if (*current == '?') {
-			current = current + 3; // Skip the ?? and the space after
+	// Parse the string, by skipping 3 characters each time
+	for (size_t idx = 0; idx < idaLen; idx += 3) {
+		if (ida[idx] == '?') {
 			bytes.emplace_back(-1); // In order to recognize wildcards
-
 			continue;
 		}
 
 		// Convert the TWO hexadecimal chars to decimal integers 
-		// Credits for the algorithm: https://stackoverflow.com/questions/10324/convert-a-hexadecimal-string-to-an-integer-efficiently-in-c
-		char a = *current, b = *(current + 1);
+		char a = ida[idx], b = ida[idx + 1];
 		a = (a <= '9') ? a - '0' : (a & 0x7) + 9;
 		b = (b <= '9') ? b - '0' : (b & 0x7) + 9;
 
 		int dec = static_cast<int>((a << 4) + b);
 
 		bytes.emplace_back(dec);
-		current = current + 3;
 	}
-
-	// Creepy windows code
-	const auto dosHeader = reinterpret_cast<PIMAGE_DOS_HEADER>(module);
-	const auto ntHeaders = reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<uint8_t*>(module) + dosHeader->e_lfanew);
-
-	const auto sizeOfImage = ntHeaders->OptionalHeader.SizeOfImage;
-	auto scanBytes = reinterpret_cast<std::uint8_t*>(module);
 
 	size_t bytesLength = bytes.size();
 
-	for (size_t i = 0; i < sizeOfImage - bytesLength; ++i) { // size - bytesLength because we dont want any overflow
-		bool found = true; // Assume we found it
+	// Get image headers
+	const auto dosHeader = reinterpret_cast<PIMAGE_DOS_HEADER>(module);
+	const auto ntHeaders = reinterpret_cast<PIMAGE_NT_HEADERS>(reinterpret_cast<uint8_t*>(module) + dosHeader->e_lfanew);
 
-		// Check for the byte sequence starting at position i, ending at i + bytesLength
-		for (size_t j = 0; j < bytesLength; ++j) {
-			if (bytes[j] == -1) { // Skip over wild cards
-				continue;
-			}
+	// Get first section
+	PIMAGE_SECTION_HEADER currentSection = IMAGE_FIRST_SECTION(ntHeaders);
+	size_t sectionIndex = 0;
 
-			if (bytes[j] != scanBytes[i + j]) { // Sequence doesn't match, break
-				found = false;
-				break;
-			}
-		}
-
-		if (!found) // Not found, keep searching
+	// Parse the PE sections
+	for (; sectionIndex < ntHeaders->FileHeader.NumberOfSections; currentSection++, sectionIndex++) {
+		// We only want the executable ones. In this case, only .text is executable
+		if (!(currentSection->Characteristics & IMAGE_SCN_MEM_EXECUTE))
 			continue;
 
-		return Scan(&scanBytes[i]);
+		const auto sizeOfSection = currentSection->Misc.VirtualSize;
+		auto scanBytes = reinterpret_cast<std::uint8_t*>(module + currentSection->VirtualAddress);
+
+		// Classic linear search
+		for (size_t i = 0; i < sizeOfSection - bytesLength; ++i) {
+			bool found = true;
+
+			for (size_t j = 0; j < bytesLength; ++j) {
+				if (bytes[j] == -1) { // Skip over wild cards
+					continue;
+				}
+
+				if (bytes[j] != scanBytes[i + j]) { // Sequence doesn't match, break
+					found = false;
+					break;
+				}
+			}
+
+			// Return the bytes found
+			if (found)
+				return Scan(&scanBytes[i]);
+		}
 	}
 
-	// Scan for signatures ONLY in the initialization stage, in order to catch not found signatures.
+	// Will only work in the initialization stage, so put important stuff there
 	throw std::runtime_error(FORMAT("Couldn't find signature: {}", ida));
 	return Scan();
 }
