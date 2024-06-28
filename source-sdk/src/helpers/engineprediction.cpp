@@ -33,7 +33,7 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 	if (cmd->weaponSelect) {
 		BaseWeaapon* weapon = sdk::interfaces::entityList->GetClientEntityFromHandle(globals::localPlayer->GetActiveWeapon())->As<BaseWeaapon>();
 
-		if (weapon) 
+		if (weapon)
 			globals::localPlayer->SelectItem(weapon->GetName(), cmd->weaponSubtype);
 	}
 
@@ -52,11 +52,13 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 		globals::localPlayer->Think();
 	}
 
-	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, globals::moveHelper, globals::moveData);
+	static MoveData* moveData = *utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "FF 35 ?? ?? ?? ?? 8B 4D ?? FF 75").Cast<MoveData**>(2);
 
-	sdk::interfaces::movement->ProcessMovement(globals::localPlayer, globals::moveData);
+	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, globals::moveHelper, moveData);
 
-	sdk::interfaces::prediction->FinishMove(globals::localPlayer, cmd, globals::moveData);
+	sdk::interfaces::movement->ProcessMovement(globals::localPlayer, moveData);
+
+	sdk::interfaces::prediction->FinishMove(globals::localPlayer, cmd, moveData);
 
 	globals::localPlayer->PostThink();
 }
