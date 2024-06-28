@@ -15,6 +15,9 @@
 #include "../valve/interfaces/eventmanager.hpp"
 #include "../valve/interfaces/modelinfo.hpp"
 #include "../valve/interfaces/gamemovement.hpp"
+#include "../valve/interfaces/prediction.hpp"
+#include "../valve/interfaces/movehelper.hpp"
+
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -46,4 +49,5 @@ namespace sdk::interfaces {
 	inline GameEventManager* gameEventManager = nullptr;
 	inline ModelInfo* modelInfo = nullptr;
 	inline GameMovement* movement = nullptr;
+	inline Prediction* prediction = nullptr;
 }

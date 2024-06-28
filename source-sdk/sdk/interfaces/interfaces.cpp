@@ -58,6 +58,7 @@ void sdk::interfaces::Initialize()
 	gameEventManager = INTERFACE(GameEventManager, "engine.dll", "GAMEEVENTSMANAGER002");
 	modelInfo = INTERFACE(ModelInfo, "engine.dll", "VModelInfoClient00");
 	movement = INTERFACE(GameMovement, "client.dll", "GameMovement0");
+	prediction = INTERFACE(Prediction, "client.dll", "VClientPrediction00");
 
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
 

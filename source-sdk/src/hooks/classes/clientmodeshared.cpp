@@ -3,6 +3,7 @@
 #include "../../../globals.hpp"
 
 #include "../../features/features.hpp"
+#include "../../helpers/helpers.hpp"
 
 bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* usercmd)
 {
@@ -21,12 +22,13 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 	if (!globals::localPlayer)
 		return original(sdk::interfaces::clientMode, time, usercmd);
 
-	features::BunnyHop(userCmd);
 
 	// Engine Prediction
-	sdk::interfaces::movement->StartTrackPredictionErrors(globals::localPlayer);
+	helpers::StartPrediction(userCmd);
 
-	sdk::interfaces::movement->FinishTrackPredictionErrors(globals::localPlayer);
+	helpers::FinishPrediction();
+
+	features::BunnyHop(userCmd);
 
 	return original(sdk::interfaces::clientMode, time, usercmd);
 }

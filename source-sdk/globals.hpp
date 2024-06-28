@@ -16,4 +16,6 @@
 namespace globals {
 	inline bool shouldUnload = false;
 	inline BasePlayer* localPlayer = nullptr;
+	inline MoveData* moveData = nullptr;
+	inline MoveHelper* moveHelper = nullptr;
 }
