@@ -23,4 +23,5 @@
 
 #include "valve/classes/baseentity.hpp"
 #include "valve/classes/baseplayer.hpp"
+#include "valve/classes/baseweapon.hpp"
 #include "valve/classes/team.hpp"

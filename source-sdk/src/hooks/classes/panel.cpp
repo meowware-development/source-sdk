@@ -47,7 +47,7 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 		utils::renderer::Text(20, 35, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("curtime: {:.2f}", globalVars->curtime));
 		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {:.2f}", globalVars->realtime));
 		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
-
+		utils::renderer::Text(20, 80, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("framecount: {}", globalVars->framecount));
 		src::features::esp::Run();
 	}
 }
