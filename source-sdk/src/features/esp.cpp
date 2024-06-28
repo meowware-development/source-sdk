@@ -31,7 +31,7 @@ static bool GetBoundings(BaseEntity* entity, Box* box)
 	float right = FLT_MIN;
 	float bottom = FLT_MAX;
 
-	for (int i = 0; i < set->hitboxCount; i++) {
+	for (int i = 0; i < set->hitboxCount; ++i) {
 		StudioBox* pbox = set->Hitbox(i);
 
 		if (!pbox)
@@ -77,21 +77,21 @@ static bool GetBoundings(BaseEntity* entity, Box* box)
 	return true;
 }
 
-void src::features::Draw2DBoundingBox(Box* box)
+void src::features::esp::Draw2DBoundingBox(Box* box)
 {
 	utils::renderer::Rectangle(box->x - 1, box->y - 1, box->width + 2, box->height + 2, Color(0, 0, 0, 150));
 	utils::renderer::Rectangle(box->x, box->y, box->width, box->height, Color(255, 255, 255));
 	utils::renderer::Rectangle(box->x + 1, box->y + 1, box->width - 2, box->height - 2, Color(0, 0, 0, 150));
 }
 
-void src::features::DrawName(BaseEntity* entity, Box* box)
+void src::features::esp::DrawName(BaseEntity* entity, Box* box)
 {
 	PlayerInfo info = PlayerInfo::Get(entity->EntityIndex());
 	auto nameSize = utils::renderer::GetTextSize(utils::renderer::fonts::tahoma13, info.name);
 	utils::renderer::Text(box->x + box->width / 2 - nameSize.x / 2, box->y - (nameSize.y + 2.f), utils::renderer::fonts::tahoma13, Color(255, 255, 255), info.name);
 }
 
-void src::features::Run()
+void src::features::esp::Run()
 {
 	if (!globals::localPlayer)
 		return;
@@ -107,18 +107,27 @@ void src::features::Run()
 		BaseEntity* entity = sdk::interfaces::entityList->GetClientEntity(i)->As<BaseEntity>();
 
 		// You can do alive check, teammate check, whatever here
-		if (!entity || entity->IsDormant() || entity == globals::localPlayer || !entity->IsPlayer())
+		if (!entity || entity->IsDormant() || entity == globals::localPlayer)
 			continue;
 
-		if (!reinterpret_cast<BasePlayer*>(entity)->IsAlive())
-			continue;
+		ClientClass* clientClass = entity->GetClientClass();
 
-		Box box{};
+		switch (clientClass->classId) {
+		case ClassIDS::CCSPlayer: {
+			BasePlayer* player = entity->As<BasePlayer>();
 
-		if (!GetBoundings(entity, &box))
-			continue;
+			if (!player->IsAlive())
+				break;
 
-		Draw2DBoundingBox(&box);
-		DrawName(entity, &box);
+			Box box{};
+
+			if (!GetBoundings(entity, &box))
+				continue;
+
+			Draw2DBoundingBox(&box);
+			DrawName(entity, &box);
+			break;
+		}
+		}
 	}
 }

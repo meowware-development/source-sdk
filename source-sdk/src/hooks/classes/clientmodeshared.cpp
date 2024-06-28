@@ -14,13 +14,16 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 
 	UserCmd* userCmd = reinterpret_cast<UserCmd*>(usercmd);
 
+	// Fetch local player
 	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
 
+	// Return if localPlayer is nullptr (shouldn't really happen)
 	if (!globals::localPlayer)
 		return original(sdk::interfaces::clientMode, time, usercmd);
 
 	features::BunnyHop(userCmd);
 
+	// Engine Prediction
 	sdk::interfaces::movement->StartTrackPredictionErrors(globals::localPlayer);
 
 	sdk::interfaces::movement->FinishTrackPredictionErrors(globals::localPlayer);

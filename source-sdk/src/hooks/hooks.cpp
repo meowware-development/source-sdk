@@ -5,9 +5,6 @@ void src::hooks::Initalize() noexcept
 {
 	Panel::PaintTraverse::hook.Initialize("PaintTraverse", sdk::interfaces::panel, 41, Panel::PaintTraverse::HookFn);
 
-	// Uncomment this if you want to hook VGuiEngine->Paint. Could be useful if you only want to render when the console isn't open.
-	// VGUIEngine::Paint::hook.Initialize("Paint", sdk::interfaces::engineVGUI, 13, VGUIEngine::Paint::HookFn);
-
 	Client::HudUpdate::hook.Initialize("HudUpdate", sdk::interfaces::client, 11, Client::HudUpdate::HookFn);
 	ClientMode::CreateMove::hook.Initialize("CreateMove", sdk::interfaces::clientMode, 21, ClientMode::CreateMove::HookFn);
 

@@ -14,13 +14,6 @@ namespace src::hooks {
 		}
 	}
 
-	namespace VGUIEngine {
-		namespace Paint {
-			inline VMTHook hook;
-			void __fastcall HookFn(void* ecx, void* edx, int paintMode);
-		}
-	}
-
 	namespace Surface {
 		namespace OnScreenSizeChanged {
 			inline VMTHook hook;

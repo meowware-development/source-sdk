@@ -54,9 +54,6 @@
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hooks\classes\vguiengine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sdk\valve\netvars\netvar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +73,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\hooks\classes\client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\valve\classes\baseplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\esp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -285,6 +288,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\valve\interfaces\eventmanager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\interfaces\gamemovement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\interfaces\modelinfo.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\movedata.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\valve\structures\vcollide.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\esp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
