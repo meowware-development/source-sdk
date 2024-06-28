@@ -167,6 +167,7 @@
     <ClCompile Include="sdk\valve\classes\team.cpp" />
     <ClCompile Include="src\features\esp.cpp" />
     <ClCompile Include="src\features\misc.cpp" />
+    <ClCompile Include="src\helpers\prediction.cpp" />
     <ClCompile Include="src\hooks\classes\client.cpp" />
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
@@ -244,6 +245,8 @@
     <ClInclude Include="src\features\esp.hpp" />
     <ClInclude Include="src\features\features.hpp" />
     <ClInclude Include="src\features\misc.hpp" />
+    <ClInclude Include="src\helpers\helpers.hpp" />
+    <ClInclude Include="src\helpers\prediction.hpp" />
     <ClInclude Include="src\hooks\hooks.hpp" />
     <ClInclude Include="src\hooks\vmthook\vmthook.hpp" />
     <ClInclude Include="utils\constants\const.hpp" />

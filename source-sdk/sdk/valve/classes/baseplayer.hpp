@@ -31,4 +31,6 @@ public:
 	void PreThink();
 	void Think();
 	void PostThink();
+
+	void UpdateButtonStates(int buttonMask);
 };
