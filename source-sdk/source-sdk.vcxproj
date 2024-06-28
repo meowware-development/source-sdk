@@ -171,7 +171,6 @@
     <ClCompile Include="src\hooks\classes\clientmodeshared.cpp" />
     <ClCompile Include="src\hooks\classes\panel.cpp" />
     <ClCompile Include="src\hooks\classes\surface.cpp" />
-    <ClCompile Include="src\hooks\classes\vguiengine.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
     <ClCompile Include="utils\crashhandler\crashhandler.cpp" />
     <ClCompile Include="utils\input\input.cpp" />

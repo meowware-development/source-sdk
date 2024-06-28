@@ -23,9 +23,7 @@ public:
 	NETVAR(bool, GlowEnabled, DT_BasePlayer, m_bGlowEnabled);
 	NETVAR(bool, Local, DT_BasePlayer, m_Local);
 
-	bool IsAlive() {
-		return (GetLifeState() == LIFE_ALIVE);
-	}
+	bool IsAlive();
 
 	void SetLocalViewangles(Vector3 newAngle);
 	void PreThink();

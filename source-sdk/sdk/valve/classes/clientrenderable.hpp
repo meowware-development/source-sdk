@@ -14,10 +14,10 @@ public:
 	// Data accessors
 	virtual Vector3 const& GetRenderOrigin(void) = 0;
 	virtual Vector3 const& GetRenderAngles(void) = 0;
-	virtual bool					ShouldDraw(void) = 0;
-	virtual bool					IsTransparent(void) = 0;
-	virtual bool					UsesPowerOfTwoFrameBufferTexture() = 0;
-	virtual bool					UsesFullFrameBufferTexture() = 0;
+	virtual bool ShouldDraw(void) = 0;
+	virtual bool IsTransparent(void) = 0;
+	virtual bool UsesPowerOfTwoFrameBufferTexture() = 0;
+	virtual bool UsesFullFrameBufferTexture() = 0;
 
 	virtual void* GetShadowHandle() const = 0;
 

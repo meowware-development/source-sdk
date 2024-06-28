@@ -8,6 +8,7 @@ void __fastcall src::hooks::Surface::OnScreenSizeChanged::HookFn(void* ecx, void
 {
 	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
 
+	// Firstly, call the original to let the game handle the resolution change
 	original(ecx, edx, nOldWidth, nOldHeight);
 
 	// Get the new screen size, and initialize fonts again

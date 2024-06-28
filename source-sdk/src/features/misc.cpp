@@ -9,7 +9,7 @@ void src::features::BunnyHop(UserCmd* cmd)
 
 	int moveType = globals::localPlayer->GetMoveType();
 
-	if (moveType & MOVETYPE_LADDER)
+	if (moveType & MOVETYPE_LADDER || moveType & MOVETYPE_NOCLIP)
 		return;
 
 	if (!(globals::localPlayer->GetFlags() & FL_ONGROUND))

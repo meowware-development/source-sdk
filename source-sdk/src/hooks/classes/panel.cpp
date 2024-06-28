@@ -2,11 +2,10 @@
 
 #include "../../../sdk/sdk.hpp"
 
-#include "../../../sdk/valve/structures/vpanel.hpp"
 #include "../../../utils/renderer/renderer.hpp"
 #include "../../../utils/format/format.hpp"
-#include "../../features/esp.hpp"
 
+#include "../../features/esp.hpp"
 
 void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, unsigned int panelID, bool forceRepaint, bool allowForce)
 {
@@ -19,12 +18,13 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	if (!forceRepaint || !allowForce)
 		return;
 
-	// Always focused panel, always bright
+	// Meant for drawing over EVERYTHING (including pause menu, console, etc)
 	static int FocusOverlayPanel = 0;
 
-	// Reacts to in-game panels by dimming (ex. when console is up it gets dimmer)
+	// Meant for drawing only in the game (while not paused), for example ESP
 	static int EngineTools = 0;
 
+	// Cache Panel ID to check against later
 	if (FocusOverlayPanel == 0) {
 		if (std::string_view(panel->GetName()) == "FocusOverlayPanel") {
 			FocusOverlayPanel = panelID;
@@ -40,7 +40,6 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 	// A switch statement doesn't work here since the variables are not constant
 	if (panelID == FocusOverlayPanel) {
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
-
 	}
 	else if (panelID == EngineTools) {
 		GlobalVars* globalVars = sdk::interfaces::playerInfoManager->GetGlobalVars();
@@ -49,7 +48,7 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* ecx, void* edx, u
 		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {:.2f}", globalVars->realtime));
 		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", globalVars->mapname.ToCStr()));
 
-		src::features::Run();
+		src::features::esp::Run();
 	}
 }
 
