@@ -15,10 +15,6 @@ void Initialization()
 		utils::renderer::Initialize();
 
 		sdk::events::Initialize();
-
-		// Initalize globals
-		globals::moveData = *utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "FF 35 ?? ?? ?? ?? 8B 4D ?? FF 75").Cast<MoveData**>(2);
-		LOG(DebugLevel::OK, "g_pMoveData: 0x{:X}", reinterpret_cast<uintptr_t>(globals::moveData));
 	}
 	catch (const std::exception& error) {
 		LOG(DebugLevel::ERR, "Exception: {}", error.what());

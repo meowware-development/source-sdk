@@ -61,24 +61,22 @@ utils::memory::Scan utils::memory::PatternScan(uintptr_t module, const char* ida
 		const auto sizeOfSection = currentSection->Misc.VirtualSize;
 		auto scanBytes = reinterpret_cast<std::uint8_t*>(module + currentSection->VirtualAddress);
 
-		// Classic linear search
-		for (size_t i = 0; i < sizeOfSection - bytesLength; ++i) {
-			bool found = true;
+		// O(sizeOfSection) search
+		for (size_t i = 0, j = 0; i < sizeOfSection; ++i) {
+			if ((scanBytes[i] == bytes[j] || bytes[j] == -1)) {
+				if (j == bytesLength - 1)
+					return Scan(&scanBytes[i - bytesLength + 1]);
+				else
+					++j;
+			}
+			else {
+				if (i > 0 && j > 0) {
+					if (scanBytes[i - 1] == bytes[j - 1])
+						--i;
 
-			for (size_t j = 0; j < bytesLength; ++j) {
-				if (bytes[j] == -1) { // Skip over wild cards
-					continue;
-				}
-
-				if (bytes[j] != scanBytes[i + j]) { // Sequence doesn't match, break
-					found = false;
-					break;
+					j = 0;
 				}
 			}
-
-			// Return the bytes found
-			if (found)
-				return Scan(&scanBytes[i]);
 		}
 	}
 
