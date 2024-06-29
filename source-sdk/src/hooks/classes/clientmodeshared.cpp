@@ -22,13 +22,15 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 	if (!globals::localPlayer)
 		return original(sdk::interfaces::clientMode, time, usercmd);
 
+	int oldFlags = globals::localPlayer->GetFlags();
+
 	features::BunnyHop(userCmd);
 
-	// Engine Prediction
 	helpers::StartPrediction(userCmd);
 
 	helpers::FinishPrediction();
 
+	features::EdgeJump(oldFlags, userCmd);
 
 	return original(sdk::interfaces::clientMode, time, usercmd);
 }

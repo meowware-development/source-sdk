@@ -1,7 +1,6 @@
 #pragma once
 
 struct UserCmd;
-class BasePlayer;
 
 namespace src::helpers {
 	void StartPrediction(UserCmd* cmd);
