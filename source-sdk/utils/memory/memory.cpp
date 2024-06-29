@@ -61,7 +61,7 @@ utils::memory::Scan utils::memory::PatternScan(uintptr_t module, const char* ida
 		const auto sizeOfSection = currentSection->Misc.VirtualSize;
 		auto scanBytes = reinterpret_cast<std::uint8_t*>(module + currentSection->VirtualAddress);
 
-		// Classic linear search
+		// O(sizeOfSection) search
 		for (size_t i = 0, j = 0; i < sizeOfSection; ++i) {
 			if ((scanBytes[i] == bytes[j] || bytes[j] == -1)) {
 				if (j == bytesLength - 1)

@@ -52,7 +52,7 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 		globals::localPlayer->Think();
 	}
 
-	static MoveData* moveData = *utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "FF 35 ?? ?? ?? ?? 8B 4D ?? FF 75").Cast<MoveData**>(2);
+	static MoveData* moveData = **utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "FF 35 ?? ?? ?? ?? 8B 4D ?? FF 75").Cast<MoveData***>(2);
 
 	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, globals::moveHelper, moveData);
 
