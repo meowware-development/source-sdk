@@ -7,8 +7,11 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 	if (!globals::localPlayer || !globals::localPlayer->IsAlive() || !globals::moveHelper)
 		return;
 
-	/*static auto resetInstanceCounter = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "E8 ?? ?? ?? ?? 8B 7D ?? 8B 5D ?? 53").Relative<void(__stdcall*)()>();
-	resetInstanceCounter();*/
+	static auto physicsRunThink = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "E8 ?? ?? ?? ?? 84 C0 74 0A 8B 07 8B CF FF 90 ?? ?? ?? ?? 6A").Relative<bool(__thiscall*)(BasePlayer*, int)>();
+	static auto resetInstanceCounter = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "68 ?? ?? ?? ?? 6A ?? 68 ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E8 ?? ?? ?? ?? 83 C4").Cast<void(__stdcall*)()>();
+	resetInstanceCounter();
+
+	sdk::interfaces::prediction->m_bInPrediction = true;
 
 	if (!predictionRandomSeed || !predictedPlayer) {
 		predictionRandomSeed = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "A3 ?? ?? ?? ?? 5D C3 55 8B EC 8B 45 08").GetValue() + 1);
@@ -44,7 +47,10 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 
 	globals::localPlayer->SetLocalViewangles(cmd->viewAngles);
 
-	globals::localPlayer->PreThink();
+	if (physicsRunThink(globals::localPlayer, 0)) {
+		globals::localPlayer->PreThink();
+		LOG(DebugLevel::NONE, "Called BasePlayer->PreThink()!");
+	}
 
 	int nextThink = globals::localPlayer->GetNextThinkTick();
 	if (nextThink > 0 && nextThink <= globals::localPlayer->GetTickBase()) {
@@ -82,4 +88,6 @@ void src::helpers::FinishPrediction()
 		globals->frametime = oldFrameTime;
 		globals->curtime = oldCurTime;
 	}
+
+	sdk::interfaces::prediction->m_bInPrediction = false;
 }

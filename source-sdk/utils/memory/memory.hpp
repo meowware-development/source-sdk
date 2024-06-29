@@ -47,7 +47,10 @@ namespace utils::memory {
 
 		template <typename ReturnType>
 		ReturnType Relative(int offset = 0) {
-			return reinterpret_cast<ReturnType>(m_ReturnValue + 0x1 + offset);
+			uintptr_t newAddress = reinterpret_cast<uintptr_t>(m_ReturnValue) + 1 + offset;
+			int32_t relativeOffset = *reinterpret_cast<int32_t*>(newAddress);
+
+			return reinterpret_cast<ReturnType>(newAddress+ sizeof(uintptr_t) + relativeOffset);
 		}
 
 		uint8_t* GetValue() {
