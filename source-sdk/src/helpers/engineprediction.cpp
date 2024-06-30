@@ -88,6 +88,10 @@ void src::helpers::FinishPrediction()
 	if (!globals::localPlayer->IsAlive())
 		return;
 
+	int simulationTick = globals::localPlayer->GetSimulationTick();
+	if (simulationTick == sdk::interfaces::globalVars->tickcount)
+		return;
+
 	sdk::interfaces::movement->FinishTrackPredictionErrors(globals::localPlayer);
 
 	globals::localPlayer->SetCurrentCommand(nullptr);

@@ -14,6 +14,8 @@ public:
 	// Delete yourself.
 	virtual void			Release(void) = 0;
 
+	virtual ClientThinkable* GetClientThinkable() = 0; 
+
 	// Network origin + angles
 	virtual const Vector3& GetAbsOrigin() = 0;
 	virtual const Vector3& GetAbsAngles() = 0;

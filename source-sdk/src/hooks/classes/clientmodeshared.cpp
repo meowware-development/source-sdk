@@ -18,10 +18,12 @@ bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* 
 	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
 
 	// Return if localPlayer is nullptr (shouldn't really happen)
-	if (!globals::localPlayer)
+	if (!globals::localPlayer) [[unlikely]]
 		return original(sdk::interfaces::clientMode, edx, time, cmd);
 
 	int oldFlags = globals::localPlayer->GetFlags();
+
+	globals::prePredPosition = globals::localPlayer->GetAbsOrigin();
 
 	features::BunnyHop(cmd);
 
@@ -29,8 +31,7 @@ bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* 
 
 	helpers::FinishPrediction();
 
-	if (oldFlags != globals::localPlayer->GetFlags())
-		LOG(DebugLevel::OK, "Flags HAVE changed, we have predicted!");
+	globals::postPredPosition = globals::localPlayer->GetAbsOrigin();
 
 	features::EdgeJump(oldFlags, cmd);
 
