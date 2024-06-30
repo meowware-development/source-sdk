@@ -61,6 +61,7 @@ void sdk::interfaces::Initialize()
 	prediction = INTERFACE(Prediction, "client.dll", "VClientPrediction00");
 
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
+	gameRules = SIGNATURE(GameRules, "client.dll", "C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E9 ?? ?? ?? ?? CC CC CC", 2);
 
 	globalVars = playerInfoManager->GetGlobalVars();
 

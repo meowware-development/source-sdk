@@ -5,7 +5,7 @@
 #include "../../features/features.hpp"
 #include "../../helpers/helpers.hpp"
 
-bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, void* usercmd)
+bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, UserCmd* cmd)
 {
 	static auto original = hook.GetOriginal<decltype(&HookFn)>();
 
@@ -14,24 +14,25 @@ bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* 
 	uintptr_t _bp; __asm mov _bp, ebp;
 	bool* sendPacket = (bool*)(***(uintptr_t***)_bp - 0x1);
 
-	UserCmd* userCmd = reinterpret_cast<UserCmd*>(usercmd);
-
 	// Fetch local player
 	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
 
 	// Return if localPlayer is nullptr (shouldn't really happen)
 	if (!globals::localPlayer)
-		return original(sdk::interfaces::clientMode, edx, time, usercmd);
+		return original(sdk::interfaces::clientMode, edx, time, cmd);
 
 	int oldFlags = globals::localPlayer->GetFlags();
 
-	features::BunnyHop(userCmd);
+	features::BunnyHop(cmd);
 
-	helpers::StartPrediction(userCmd);
+	helpers::StartPrediction(cmd);
 
 	helpers::FinishPrediction();
 
-	features::EdgeJump(oldFlags, userCmd);
+	if (oldFlags != globals::localPlayer->GetFlags())
+		LOG(DebugLevel::OK, "Flags HAVE changed, we have predicted!");
 
-	return original(sdk::interfaces::clientMode, edx, time, usercmd);
+	features::EdgeJump(oldFlags, cmd);
+
+	return original(sdk::interfaces::clientMode, edx, time, cmd);
 }

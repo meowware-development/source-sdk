@@ -163,6 +163,7 @@
     <ClCompile Include="sdk\valve\classes\baseweapon.cpp" />
     <ClCompile Include="sdk\valve\classes\clientrenderable.hpp" />
     <ClCompile Include="sdk\valve\events\eventlistener.cpp" />
+    <ClCompile Include="sdk\valve\interfaces\gamerules.cpp" />
     <ClCompile Include="sdk\valve\netvars\netvar.cpp" />
     <ClCompile Include="sdk\valve\structures\playerinfo.cpp" />
     <ClCompile Include="sdk\valve\classes\team.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="sdk\valve\interfaces\entitylist.hpp" />
     <ClInclude Include="sdk\valve\interfaces\eventmanager.hpp" />
     <ClInclude Include="sdk\valve\interfaces\gamemovement.hpp" />
+    <ClInclude Include="sdk\valve\interfaces\gamerules.hpp" />
     <ClInclude Include="sdk\valve\interfaces\globalvars.hpp" />
     <ClInclude Include="sdk\valve\interfaces\enginevgui.hpp" />
     <ClInclude Include="sdk\valve\interfaces\modelinfo.hpp" />

@@ -26,7 +26,7 @@ namespace src::hooks {
 	namespace ClientMode {
 		namespace CreateMove {
 			inline VMTHook hook;
-			bool __fastcall HookFn(void* thisptr, void* edx, float time, void* usercmd);
+			bool __fastcall HookFn(void* thisptr, void* edx, float time, UserCmd* cmd);
 		}
 	}
 

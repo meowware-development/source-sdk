@@ -2,19 +2,52 @@
 #include "../../sdk/sdk.hpp"
 #include "../../globals.hpp"
 
+void set_button_states(BasePlayer* player, int buttons) {
+	// last buttons = player buttons
+	int* buttons_last = reinterpret_cast<int*>(uintptr_t(player) + 0x1018);
+	int buttons_changed = buttons ^ *buttons_last;
+	// player last buttons = last buttons
+	*reinterpret_cast<int*>(uintptr_t(player) + 0x100C) = *buttons_last;
+	*buttons_last = buttons;
+	// button pressed
+	*reinterpret_cast<int*>(uintptr_t(player) + 0x1010) = buttons & buttons_changed;
+	// button released
+	*reinterpret_cast<int*>(uintptr_t(player) + 0x1014) = buttons_changed & ~buttons;
+}
+
 void src::helpers::StartPrediction(UserCmd* cmd)
 {
 	if (!globals::localPlayer->IsAlive())
 		return;
 
-	static auto physicsRunThink = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "E8 ?? ?? ?? ?? 84 C0 74 0A 8B 07 8B CF FF 90 ?? ?? ?? ?? 6A").Relative<bool(__thiscall*)(BasePlayer*, int)>();
-	static auto resetInstanceCounter = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "68 ?? ?? ?? ?? 6A ?? 68 ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E8 ?? ?? ?? ?? 83 C4").Cast<void(__stdcall*)()>();
-	resetInstanceCounter();
-
 	if (!predictionRandomSeed || !predictedPlayer) {
 		predictionRandomSeed = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "A3 ?? ?? ?? ?? 5D C3 55 8B EC 8B 45 08").GetValue(1));
 		predictedPlayer = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "89 3D ?? ?? ?? ?? F3 0F 2A 87").GetValue(2));
 	}
+
+	int simulationTick = globals::localPlayer->GetSimulationTick();
+	if (simulationTick == sdk::interfaces::globalVars->tickcount)
+		return;
+
+	globals::localPlayer->SetSimulationTick(sdk::interfaces::globalVars->tickcount);
+
+	if (!globals::localPlayer->GetGroundEntity()) 
+		globals::localPlayer->GetFlags() &= ~FL_ONGROUND;
+	
+	CommandContext* ctx = globals::localPlayer->GetCommandContext();
+
+
+	if (globals::localPlayer->GetFlags() & FL_FROZEN) {
+		cmd->forwardMove = 0;
+		cmd->sideMove = 0;
+		cmd->upMove = 0;
+		cmd->buttons = 0;
+		cmd->impulse = 0;
+	}
+
+	static auto physicsRunThink = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "E8 ?? ?? ?? ?? 84 C0 74 0A 8B 07 8B CF FF 90 ?? ?? ?? ?? 6A").Relative<bool(__thiscall*)(BasePlayer*, int)>();
+	static auto resetInstanceCounter = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "68 ?? ?? ?? ?? 6A ?? 68 ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E8 ?? ?? ?? ?? 83 C4").Cast<void(__stdcall*)()>();
+	resetInstanceCounter();
 
 	oldCurTime = sdk::interfaces::globalVars->curtime;
 	oldFrameTime = sdk::interfaces::globalVars->frametime;
@@ -39,7 +72,8 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 	if (cmd->impulse)
 		globals::localPlayer->SetImpulse(cmd->impulse);
 
-	globals::localPlayer->UpdateButtonStates(cmd->buttons);
+	//globals::localPlayer->UpdateButtonStates(cmd->buttons);
+	set_button_states(globals::localPlayer, cmd->buttons);
 
 	globals::localPlayer->SetLocalViewangles(cmd->viewAngles);
 
@@ -54,10 +88,9 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 
 	static MoveHelper* moveHelper = **reinterpret_cast<MoveHelper***>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "8B 15 ?? ?? ?? ?? 8B 41 08 8B").GetValue(2));
 
-	MoveData moveData;
+	MoveData moveData{};
 
-	memset(&moveData, 0, sizeof(moveData));
-
+	// No need to pass in moveHelper; its only used for veichle related shit
 	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, moveHelper, &moveData);
 
 	sdk::interfaces::movement->ProcessMovement(globals::localPlayer, &moveData);
