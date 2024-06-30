@@ -5,11 +5,12 @@
 #include "../../features/features.hpp"
 #include "../../helpers/helpers.hpp"
 
-bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* usercmd)
+bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, void* usercmd)
 {
-	using CreateMoveOriginal = bool(__thiscall*)(void*, float, void*);
-	static auto original = hook.GetOriginal<CreateMoveOriginal>();
+	static auto original = hook.GetOriginal<decltype(&HookFn)>();
 
+	// SendPacket is used for desync / fakelag
+	// Set to true if you want to choke packets
 	uintptr_t _bp; __asm mov _bp, ebp;
 	bool* sendPacket = (bool*)(***(uintptr_t***)_bp - 0x1);
 
@@ -20,7 +21,7 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 
 	// Return if localPlayer is nullptr (shouldn't really happen)
 	if (!globals::localPlayer)
-		return original(sdk::interfaces::clientMode, time, usercmd);
+		return original(sdk::interfaces::clientMode, edx, time, usercmd);
 
 	int oldFlags = globals::localPlayer->GetFlags();
 
@@ -32,5 +33,5 @@ bool __stdcall src::hooks::ClientMode::CreateMove::HookFn(float time, void* user
 
 	features::EdgeJump(oldFlags, userCmd);
 
-	return original(sdk::interfaces::clientMode, time, usercmd);
+	return original(sdk::interfaces::clientMode, edx, time, usercmd);
 }

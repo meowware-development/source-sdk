@@ -1,7 +1,7 @@
 #include "baseweapon.hpp"
 #include "../../../utils/memory/memory.hpp"
 
-const char* BaseWeaapon::GetName()
+const char* BaseWeapon::GetName()
 {
-    return utils::memory::CallVirtualFunction<const char*>(this, 311);
+	return utils::memory::CallVirtualFunction<const char*>(this, 311);
 }

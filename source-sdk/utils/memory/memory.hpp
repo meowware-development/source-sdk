@@ -50,11 +50,11 @@ namespace utils::memory {
 			uintptr_t newAddress = reinterpret_cast<uintptr_t>(m_ReturnValue) + 1 + offset;
 			int32_t relativeOffset = *reinterpret_cast<int32_t*>(newAddress);
 
-			return reinterpret_cast<ReturnType>(newAddress+ sizeof(uintptr_t) + relativeOffset);
+			return reinterpret_cast<ReturnType>(newAddress + sizeof(uintptr_t) + relativeOffset);
 		}
 
-		uint8_t* GetValue() {
-			return m_ReturnValue;
+		uint8_t* GetValue(int offset = 0) {
+			return m_ReturnValue + offset;
 		}
 	private:
 		uint8_t* m_ReturnValue = 0;

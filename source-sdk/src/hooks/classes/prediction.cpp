@@ -2,14 +2,11 @@
 
 #include "../../../globals.hpp"
 
-
-
-void __fastcall src::hooks::Prediction::RunCommand::HookFn(void* ecx, void* edx, BasePlayer* player, UserCmd* cmd, MoveHelper* moveHelper)
+void __fastcall src::hooks::Prediction::RunCommand::HookFn(void* thisptr, void* edx, BasePlayer* player, UserCmd* cmd, MoveHelper* moveHelper)
 {
-	using RunCommandOriginal = bool(__thiscall*)(void*, BasePlayer*, UserCmd*, MoveHelper*);
-	static auto original = hook.GetOriginal<RunCommandOriginal>();
+	static auto original = hook.GetOriginal<decltype(&HookFn)>();
 
-	globals::moveHelper = moveHelper;
+	//globals::prediction::moveHelper = moveHelper;
 
-	original(sdk::interfaces::prediction, player, cmd, moveHelper);
+	original(sdk::interfaces::prediction, edx, player, cmd, moveHelper);
 }

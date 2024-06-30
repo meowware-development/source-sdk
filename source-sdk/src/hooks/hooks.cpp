@@ -10,7 +10,7 @@ void src::hooks::Initalize() noexcept
 
 	Surface::OnScreenSizeChanged::hook.Initialize("OnScreenSizeChanged", sdk::interfaces::surface, 111, Surface::OnScreenSizeChanged::HookFn);
 
-	Prediction::RunCommand::hook.Initialize("RunCommand", sdk::interfaces::prediction, 17, Prediction::RunCommand::HookFn);
+	//Prediction::RunCommand::hook.Initialize("RunCommand", sdk::interfaces::prediction, 17, Prediction::RunCommand::HookFn);
 
 	LOG(DebugLevel::OK, "Initialized hooks!");
 }

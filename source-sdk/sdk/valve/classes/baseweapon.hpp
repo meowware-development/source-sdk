@@ -1,7 +1,7 @@
 #pragma once
 #include "baseentity.hpp"
 
-class BaseWeaapon : public BaseEntity {
+class BaseWeapon : public BaseEntity {
 public:
 	const char* GetName();
 };

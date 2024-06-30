@@ -2,11 +2,9 @@
 #include "../../sdk/sdk.hpp"
 #include "../../globals.hpp"
 
-static MoveData moveData = {};
-
 void src::helpers::StartPrediction(UserCmd* cmd)
 {
-	if (!globals::localPlayer || !globals::localPlayer->IsAlive() || !globals::moveHelper)
+	if (!globals::localPlayer->IsAlive())
 		return;
 
 	static auto physicsRunThink = utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "E8 ?? ?? ?? ?? 84 C0 74 0A 8B 07 8B CF FF 90 ?? ?? ?? ?? 6A").Relative<bool(__thiscall*)(BasePlayer*, int)>();
@@ -14,19 +12,17 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 	resetInstanceCounter();
 
 	if (!predictionRandomSeed || !predictedPlayer) {
-		predictionRandomSeed = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "A3 ?? ?? ?? ?? 5D C3 55 8B EC 8B 45 08").GetValue() + 1);
-		predictedPlayer = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "89 3D ?? ?? ?? ?? F3 0F 2A 87").GetValue() + 2);
+		predictionRandomSeed = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "A3 ?? ?? ?? ?? 5D C3 55 8B EC 8B 45 08").GetValue(1));
+		predictedPlayer = *reinterpret_cast<int**>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "89 3D ?? ?? ?? ?? F3 0F 2A 87").GetValue(2));
 	}
 
-	static GlobalVars* globals = sdk::interfaces::playerInfoManager->GetGlobalVars();
-
-	oldCurTime = globals->curtime;
-	oldFrameTime = globals->frametime;
+	oldCurTime = sdk::interfaces::globalVars->curtime;
+	oldFrameTime = sdk::interfaces::globalVars->frametime;
 
 	globals::localPlayer->SetCurrentCommand(cmd);
 
-	globals->curtime = globals::localPlayer->GetTickBase() * globals->intervalPerTick;
-	globals->frametime = sdk::interfaces::prediction->m_bEnginePaused ? 0.f : globals->intervalPerTick;
+	sdk::interfaces::globalVars->curtime = globals::localPlayer->GetTickBase() * sdk::interfaces::globalVars->intervalPerTick;
+	sdk::interfaces::globalVars->frametime = sdk::interfaces::prediction->m_bEnginePaused ? 0.f : sdk::interfaces::globalVars->intervalPerTick;
 
 	*predictionRandomSeed = cmd->randomSeed;
 	*predictedPlayer = *reinterpret_cast<int*>(globals::localPlayer);
@@ -34,9 +30,9 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 	sdk::interfaces::movement->StartTrackPredictionErrors(globals::localPlayer);
 
 	if (cmd->weaponSelect) {
-		BaseWeaapon* weapon = sdk::interfaces::entityList->GetClientEntityFromHandle(globals::localPlayer->GetActiveWeapon())->As<BaseWeaapon>();
+		BaseWeapon* weapon = sdk::interfaces::entityList->GetClientEntityFromHandle(globals::localPlayer->GetActiveWeapon())->As<BaseWeapon>();
 
-		if (weapon) 
+		if (weapon)
 			globals::localPlayer->SelectItem(weapon->GetName(), cmd->weaponSubtype);
 	}
 
@@ -47,9 +43,8 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 
 	globals::localPlayer->SetLocalViewangles(cmd->viewAngles);
 
-	if (physicsRunThink(globals::localPlayer, 0)) 
+	if (physicsRunThink(globals::localPlayer, 0))
 		globals::localPlayer->PreThink();
-	
 
 	int nextThink = globals::localPlayer->GetNextThinkTick();
 	if (nextThink > 0 && nextThink <= globals::localPlayer->GetTickBase()) {
@@ -57,7 +52,13 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 		globals::localPlayer->Think();
 	}
 
-	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, globals::moveHelper, &moveData);
+	static MoveHelper* moveHelper = **reinterpret_cast<MoveHelper***>(utils::memory::PatternScan(utils::memory::GetModule("client.dll"), "8B 15 ?? ?? ?? ?? 8B 41 08 8B").GetValue(2));
+
+	MoveData moveData;
+
+	memset(&moveData, 0, sizeof(moveData));
+
+	sdk::interfaces::prediction->SetupMove(globals::localPlayer, cmd, moveHelper, &moveData);
 
 	sdk::interfaces::movement->ProcessMovement(globals::localPlayer, &moveData);
 
@@ -68,10 +69,8 @@ void src::helpers::StartPrediction(UserCmd* cmd)
 
 void src::helpers::FinishPrediction()
 {
-	if (!globals::localPlayer || !globals::localPlayer->IsAlive() || !globals::moveHelper)
+	if (!globals::localPlayer->IsAlive())
 		return;
-
-	static GlobalVars* globals = sdk::interfaces::playerInfoManager->GetGlobalVars();
 
 	sdk::interfaces::movement->FinishTrackPredictionErrors(globals::localPlayer);
 
@@ -80,12 +79,8 @@ void src::helpers::FinishPrediction()
 	*predictionRandomSeed = -1;
 	*predictedPlayer = 0;
 
-	if (globals->frametime > 0)
-		globals::localPlayer->GetTickBase()++;
-
 	if (oldFrameTime != 0) {
-		globals->frametime = oldFrameTime;
-		globals->curtime = oldCurTime;
+		sdk::interfaces::globalVars->frametime = oldFrameTime;
+		sdk::interfaces::globalVars->curtime = oldCurTime;
 	}
-
 }

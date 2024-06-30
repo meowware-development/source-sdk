@@ -62,5 +62,7 @@ void sdk::interfaces::Initialize()
 
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
 
+	globalVars = playerInfoManager->GetGlobalVars();
+
 	LOG(DebugLevel::OK, "Initialized interfaces!");
 }

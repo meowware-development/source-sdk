@@ -20,6 +20,7 @@
 #include "valve/structures/studio.hpp"
 #include "valve/structures/vcollide.hpp"
 #include "valve/structures/vpanel.hpp"
+#include "valve/structures/movedata.hpp"
 
 #include "valve/classes/baseentity.hpp"
 #include "valve/classes/baseplayer.hpp"
