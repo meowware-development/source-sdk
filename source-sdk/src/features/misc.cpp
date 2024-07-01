@@ -29,5 +29,4 @@ void src::features::EdgeJump(int oldFlags, UserCmd* cmd)
 	// We are on the ground current tick, but we predicted that we will not be next tick
 	if (oldFlags & FL_ONGROUND && !(globals::localPlayer->GetFlags() & FL_ONGROUND))
 		cmd->buttons |= IN_JUMP;
-	
 }

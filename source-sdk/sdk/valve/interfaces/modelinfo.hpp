@@ -62,7 +62,7 @@ public:
 		Vector3 const& angles, Vector3* pLightingCenter) = 0;
 
 	virtual int						GetModelContents(int modelIndex) = 0;
-	virtual StudioHDR* GetStudiomodel(const Model* model) = 0;
+	virtual StudioHDR* GetStudioModel(const Model* model) = 0;
 	virtual int						GetModelSpriteWidth(const Model* model) const = 0;
 	virtual int						GetModelSpriteHeight(const Model* model) const = 0;
 

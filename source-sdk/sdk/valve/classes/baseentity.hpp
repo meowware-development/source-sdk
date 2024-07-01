@@ -4,6 +4,7 @@
 #include "collideable.hpp"
 
 #include "../../math/vector.hpp"
+#include "../../math/matrix.hpp"
 
 #include "../datatypes/firebulletsinfo.hpp"
 #include "../datatypes/takedamageinfo.hpp"
@@ -21,9 +22,7 @@ class BaseEntity : public ClientEntity {
 public:
 	static BaseEntity* GetLocalEntity();
 	bool IsValid();
-
 	int GetSolidFlags();
-
 	int GetMoveType();
 
 	// You can't get the max health from netvars, and this is the only way to do it
@@ -38,6 +37,12 @@ public:
 	bool IsInLocalTeam();
 
 	bool IsPlayer();
+
+	// Bone/Hitbox Position functionality
+	Vector3 GetBonePosition(int bone);
+	Vector3 GetBonePosition(Matrix3x4* boneMatrix, int bone);
+	Vector3 GetHitboxPosition(int hitboxId);
+	Vector3 GetHitboxPosition(Matrix3x4* boneMatrix, int hitboxId);
 public:
 	NETVAR(Vector3, Origin, DT_BaseEntity, m_vecOrigin);
 	NETVAR(float, AnimTime, DT_BaseEntity, m_flAnimTime);
