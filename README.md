@@ -13,7 +13,7 @@ By default, we have decided to make three branches for the specified games:
 
 There is also the main branch which just follows the base Source Game Engine and is very bare bones.  
   
-**You are currently on the Main branch**
+**You are currently on the Counter-Strike: Source branch**
 
 # Features
 
