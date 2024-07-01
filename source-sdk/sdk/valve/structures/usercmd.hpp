@@ -46,3 +46,9 @@ struct UserCmd {
 	short mouseDY;
 	bool hasBeenPredicted;
 };
+
+struct CommandContext {
+	bool needsProcessing;
+	UserCmd* cmd;
+	int commandNumber;
+};

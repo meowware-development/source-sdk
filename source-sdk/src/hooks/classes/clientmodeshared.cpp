@@ -15,24 +15,26 @@ bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* 
 	uintptr_t _bp; __asm mov _bp, ebp;
 	bool* sendPacket = (bool*)(***(uintptr_t***)_bp - 0x1);
 
-	UserCmd* userCmd = reinterpret_cast<UserCmd*>(usercmd);
-
 	// Fetch local player
 	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
 
 	// Return if localPlayer is nullptr (shouldn't really happen)
-	if (!globals::localPlayer)
-		return original(sdk::interfaces::clientMode, edx, time, usercmd);
+	if (!globals::localPlayer) [[unlikely]]
+		return original(sdk::interfaces::clientMode, edx, time, cmd);
 
 	int oldFlags = globals::localPlayer->GetFlags();
 
-	features::BunnyHop(userCmd);
+	globals::prePredPosition = globals::localPlayer->GetAbsOrigin();
 
-	helpers::StartPrediction(userCmd);
+	features::BunnyHop(cmd);
+
+	helpers::StartPrediction(cmd);
 
 	helpers::FinishPrediction();
 
-	features::EdgeJump(oldFlags, userCmd);
+	globals::postPredPosition = globals::localPlayer->GetAbsOrigin();
 
-	return original(sdk::interfaces::clientMode, edx, time, usercmd);
+	features::EdgeJump(oldFlags, cmd);
+
+	return original(sdk::interfaces::clientMode, edx, time, cmd);
 }

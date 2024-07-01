@@ -1,6 +1,7 @@
 #include "baseplayer.hpp"
 #include "../../../utils/memory/memory.hpp"
 #include "../structures/usercmd.hpp"
+#include "../../interfaces/interfaces.hpp"
 
 bool BasePlayer::IsAlive()
 {
@@ -24,7 +25,33 @@ void BasePlayer::Think()
 
 void BasePlayer::PostThink()
 {
-	utils::memory::CallVirtualFunction<void>(this, 254);
+	if (IsAlive()) {
+		Vector3* min, *max;
+		if (GetFlags() & FL_DUCKING) {
+			min = &sdk::interfaces::gameRules->GetViewVectors()->duckHullMin;
+			max = &sdk::interfaces::gameRules->GetViewVectors()->duckHullMax;
+		}
+		else {
+			min = &sdk::interfaces::gameRules->GetViewVectors()->hullMin;
+			max = &sdk::interfaces::gameRules->GetViewVectors()->hullMax;
+		}
+
+		SetCollisionBounds(min, max);
+
+		if (GetFlags() & FL_ONGROUND)
+			*reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + 0xE34) = 0;
+
+		if (GetSequence() == -1)
+			SetSequence(0);
+
+		StudioFrameAdvance();
+	}
+
+	static auto simulatePlayerSimulatedEntites = utils::memory::PatternScan(utils::memory::GetModule("client.dll"),
+																			"E8 ?? ?? ?? ?? 8B 06 8B CE 5E 5B").Relative<void(__thiscall*)(BasePlayer*)>();
+
+	simulatePlayerSimulatedEntites(this);
+
 }
 
 int BasePlayer::GetNextThinkTick()
@@ -61,4 +88,41 @@ void BasePlayer::SetImpulse(int impulse)
 {
 	// TODO: Sig for offset
 	*reinterpret_cast<bool*>(reinterpret_cast<uintptr_t>(this) + 0x10C4) = impulse;
+}
+
+void BasePlayer::SetCollisionBounds(Vector3* min, Vector3* max)
+{
+	static auto function = utils::memory::PatternScan(utils::memory::GetModule("client.dll"),
+													  "E8 ?? ?? ?? ?? 53 E8 ?? ?? ?? ?? 83 C4 ?? 5F 84 C0").Relative<void(__thiscall*)(uintptr_t, Vector3*, Vector3*)>();
+	function(reinterpret_cast<uintptr_t>(this) + 0x19C, min, max);
+}
+
+int BasePlayer::GetSequence()
+{
+	return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + 0x7C0);
+}
+
+void BasePlayer::SetSequence(int newSequence)
+{
+	utils::memory::CallVirtualFunction<void>(this, 185, newSequence);
+}
+
+void BasePlayer::StudioFrameAdvance()
+{
+	utils::memory::CallVirtualFunction<void>(this, 186);
+}
+
+int BasePlayer::GetSimulationTick()
+{
+	return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + 0xCC);
+}
+
+void BasePlayer::SetSimulationTick(int newSimTick)
+{
+	*reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + 0xCC) = newSimTick;
+}
+
+CommandContext* BasePlayer::GetCommandContext()
+{
+	return nullptr;
 }

@@ -68,6 +68,7 @@ void sdk::interfaces::Initialize()
 
 	// Scan for pointers
 	clientMode = SIGNATURE(ClientMode, "client.dll", sdk::signatures::client::clientMode::sig, sdk::signatures::client::clientMode::offset);
+	gameRules = SIGNATURE(GameRules, "client.dll", "C7 05 ?? ?? ?? ?? ?? ?? ?? ?? E9 ?? ?? ?? ?? CC CC CC", 2);
 
 	// GetGlobalVars can be called anywhere in the game thread, so this can be easily removed if wanted
 	globalVars = playerInfoManager->GetGlobalVars();

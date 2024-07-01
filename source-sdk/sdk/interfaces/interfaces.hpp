@@ -17,6 +17,7 @@
 #include "../valve/interfaces/gamemovement.hpp"
 #include "../valve/interfaces/prediction.hpp"
 #include "../valve/interfaces/movehelper.hpp"
+#include "../valve/interfaces/gamerules.hpp"
 
 // To get a list of interfaces for any source game: https://github.com/PancakeWithPotato/meowware-interfacewalker
 
@@ -50,4 +51,5 @@ namespace sdk::interfaces {
 	inline GameMovement* movement = nullptr;
 	inline Prediction* prediction = nullptr;
 	inline GlobalVars* globalVars = nullptr;
+	inline GameRules* gameRules = nullptr;
 }

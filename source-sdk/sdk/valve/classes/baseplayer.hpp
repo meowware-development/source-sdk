@@ -24,6 +24,7 @@ public:
 	NETVAR(float, DeathTime, DT_BasePlayer, m_flDeathTime);
 	NETVAR(bool, GlowEnabled, DT_BasePlayer, m_bGlowEnabled);
 	NETVAR(bool, Local, DT_BasePlayer, m_Local);
+	NETVAR(void*, GroundEntity, DT_BasePlayer, m_hGroundEntity);
 
 	bool IsAlive();
 
@@ -39,4 +40,16 @@ public:
 	void SetCurrentCommand(UserCmd* command);
 	void SelectItem(const char* name, int subType = 0);
 	void SetImpulse(int impulse);
+
+	void SetCollisionBounds(Vector3* min, Vector3* max);
+
+	int GetSequence();
+	void SetSequence(int newSequence);
+
+	void StudioFrameAdvance();
+
+	int GetSimulationTick();
+	void SetSimulationTick(int newSimTick);
+
+	struct CommandContext* GetCommandContext();
 };
