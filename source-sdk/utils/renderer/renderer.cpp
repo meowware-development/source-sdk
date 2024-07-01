@@ -7,7 +7,7 @@
 
 #undef CreateFont
 
-void utils::renderer::fonts::AddFont(Font& font)
+void utils::renderer::fonts::AddFont(Font& font) noexcept
 {
 	if (!font.handle)
 		font.handle = sdk::interfaces::surface->CreateFont();
@@ -15,7 +15,7 @@ void utils::renderer::fonts::AddFont(Font& font)
 	sdk::interfaces::surface->SetFontGlyphSet(font.handle, font.windowsFontName, font.tall, font.weight, font.blur, font.scanlines, font.flags);
 }
 
-void utils::renderer::fonts::Initialize()
+void utils::renderer::fonts::Initialize() noexcept
 {
 	tahoma13 = Font{
 		"Tahoma",
@@ -26,31 +26,31 @@ void utils::renderer::fonts::Initialize()
 	AddFont(tahoma13);
 }
 
-void utils::renderer::Initialize()
+void utils::renderer::Initialize() noexcept
 {
 	sdk::interfaces::surface->GetScreenSize(screenWidth, screenHeight);
 
 	fonts::Initialize();
 }
 
-void utils::renderer::FilledRectangle(float x, float y, float width, float height, Color color)
+void utils::renderer::FilledRectangle(float x, float y, float width, float height, Color color) noexcept
 {
 	sdk::interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	sdk::interfaces::surface->DrawFilledRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x + width), static_cast<int>(y + height));
 }
 
-void utils::renderer::Rectangle(float x, float y, float width, float height, Color color)
+void utils::renderer::Rectangle(float x, float y, float width, float height, Color color) noexcept
 {
 	sdk::interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	// This calls DrawFilledRect 4 times :dislike:
 	sdk::interfaces::surface->DrawOutlinedRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x + width), static_cast<int>(y + height));
 }
 
-void utils::renderer::Text(float x, float y, const fonts::Font& font, Color color, std::string_view text)
+void utils::renderer::Text(float x, float y, const fonts::Font& font, Color color, std::string_view text) noexcept
 {
-	// Using WinAPI seems like the easiest solution.
-	// There was the codecvt library that did utf8 -> utf16 but it got deprecated in c++17 (and it had poor performance also)
-	// And MSVC suggested to switch to MultiByteToWideChar, so whatever.
+	// Using WinAPI seems like the easiest solution
+	// There was the codecvt library that did utf8 -> utf16 but it got deprecated in C++17 (and it had poor performance also)
+	// And MSVC suggested to switch to MultiByteToWideChar, so whatever
 	wchar_t wstr[128];
 	if (MultiByteToWideChar(CP_UTF8, 0, text.data(), -1, wstr, 128) > 0) {
 		sdk::interfaces::surface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
@@ -60,7 +60,7 @@ void utils::renderer::Text(float x, float y, const fonts::Font& font, Color colo
 	}
 }
 
-void utils::renderer::TextWSTR(float x, float y, const fonts::Font& font, Color color, std::wstring wstr)
+void utils::renderer::TextWSTR(float x, float y, const fonts::Font& font, Color color, std::wstring wstr) noexcept
 {
 	sdk::interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	sdk::interfaces::surface->DrawSetTextFont(font.handle);
@@ -68,7 +68,7 @@ void utils::renderer::TextWSTR(float x, float y, const fonts::Font& font, Color 
 	sdk::interfaces::surface->DrawPrintText(wstr.data(), wstr.length());
 }
 
-Vector2 utils::renderer::GetTextSize(const fonts::Font& font, std::string text)
+Vector2 utils::renderer::GetTextSize(const fonts::Font& font, std::string text) noexcept
 {
 	wchar_t wstr[128];
 	if (MultiByteToWideChar(CP_UTF8, 0, text.c_str(), -1, wstr, 128) > 0) {
@@ -82,7 +82,7 @@ Vector2 utils::renderer::GetTextSize(const fonts::Font& font, std::string text)
 	return Vector2();
 }
 
-Vector2 utils::renderer::GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr)
+Vector2 utils::renderer::GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr) noexcept
 {
 	int wide, tall;
 

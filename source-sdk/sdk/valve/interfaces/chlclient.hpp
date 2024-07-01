@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../structures/clientclass.hpp"
+#include "../datatypes/clientclass.hpp"
 #include "../../utils/memory/memory.hpp"
 
 class CHLClient

@@ -5,7 +5,6 @@ struct VPanel;
 
 struct SurfacePlat
 {
-public:
 	HWND    hwnd;
 	HDC     hdc;
 	HDC     hwndDC;

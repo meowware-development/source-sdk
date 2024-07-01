@@ -6,7 +6,7 @@
 #include "../../helpers/helpers.hpp"
 
 // Meant for in game features related to players usually (aimbot, movement etc) 
-bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, void* usercmd)
+bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, UserCmd* cmd)
 {
 	static auto original = hook.GetOriginal<decltype(&HookFn)>();
 
@@ -19,22 +19,24 @@ bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* 
 	globals::localPlayer = BaseEntity::GetLocalEntity()->As<BasePlayer>();
 
 	// Return if localPlayer is nullptr (shouldn't really happen)
-	if (!globals::localPlayer) [[unlikely]]
+	if (!globals::localPlayer) {
+		[[unlikely]]
 		return original(sdk::interfaces::clientMode, edx, time, cmd);
+	}
 
-	int oldFlags = globals::localPlayer->GetFlags();
+	// int oldFlags = globals::localPlayer->GetFlags();
 
-	globals::prePredPosition = globals::localPlayer->GetAbsOrigin();
+	// globals::prePredPosition = globals::localPlayer->GetAbsOrigin();
 
 	features::BunnyHop(cmd);
 
-	helpers::StartPrediction(cmd);
+	//helpers::StartPrediction(cmd);
 
-	helpers::FinishPrediction();
+	//helpers::FinishPrediction();
 
-	globals::postPredPosition = globals::localPlayer->GetAbsOrigin();
+	//globals::postPredPosition = globals::localPlayer->GetAbsOrigin();
 
-	features::EdgeJump(oldFlags, cmd);
+	//features::EdgeJump(oldFlags, cmd);
 
 	return original(sdk::interfaces::clientMode, edx, time, cmd);
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "../../math/vector.hpp"
-#include "../structures/movedata.hpp"
+#include "../datatypes/movedata.hpp"
 
 class BasePlayer;
 

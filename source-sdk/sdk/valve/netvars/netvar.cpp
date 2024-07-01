@@ -1,13 +1,15 @@
-// Set this to 1 to dump netvars and clientclass ids into files stored in the game directory
-#define DUMP 0
-
 #include "netvar.hpp"
-#include "../structures/clientclass.hpp"
-#include "../../../utils/debug/debug.hpp"
-#include "../../interfaces/interfaces.hpp"
 
 #include <fstream>
 #include <format>
+
+// Set this to 1 to dump netvars and clientclass ids into files stored in the game directory
+#define DUMP 0
+
+#include "../datatypes/clientclass.hpp"
+#include "../../interfaces/interfaces.hpp"
+
+#include "../../../utils/debug/debug.hpp"
 
 void sdk::netvars::Initialize()
 {
@@ -16,19 +18,19 @@ void sdk::netvars::Initialize()
 #endif
 
 	// Loop through all the classes
-	ClientClass* cClass = sdk::interfaces::client->GetAllClasses();
+	ClientClass* clientClass = sdk::interfaces::client->GetAllClasses();
 
 #if DUMP 
 	std::ofstream client_ids("client_ids.txt");
 	client_ids << "enum class ClassIDS : int {\n";
 #endif
 
-	while (cClass != nullptr) {
+	while (clientClass != nullptr) {
 #if DUMP 
 		client_ids << '\t' << cClass->networkName << " = " << static_cast<int>(cClass->classId) << ",\n";
 #endif
 
-		RecvTable* table = cClass->table;
+		RecvTable* table = clientClass->table;
 
 		for (int i = 0; i < table->propCount; i++) {
 			RecvProp prop = table->props[i];
@@ -63,7 +65,7 @@ void sdk::netvars::Initialize()
 			//LOG(DebugLevel::OK, "Got a prop from the table {} with the name {} and an offset of {}!", table->tableName, prop.varName, prop.offset);
 #endif
 		}
-		cClass = cClass->next;
+		clientClass = clientClass->next;
 	}
 
 	LOG(DebugLevel::OK, "Initialized netvars!");

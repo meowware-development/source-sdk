@@ -1,12 +1,21 @@
 #pragma once
 #include "../../math/vector.hpp"
-#include "../structures/trace.hpp"
-#include "../structures/studio.hpp"
+#include "../datatypes/trace.hpp"
+#include "../datatypes/studio.hpp"
 
 struct Model;
 struct Material;
-struct VCollide;
 class ClientRenderable;
+
+struct VCollide
+{
+	unsigned short solidCount : 15;
+	unsigned short isPacked : 1;
+	unsigned short descSize;
+	// VPhysicsSolids
+	void** solids;
+	char* pKeyValues;
+};
 
 class ModelInfo
 {
@@ -14,7 +23,7 @@ public:
 	virtual							~ModelInfo(void) { }
 
 	// Returns Model* pointer for a model given a precached or dynamic model index.
-	virtual const Model * GetModel(int modelindex) = 0;
+	virtual const Model* GetModel(int modelindex) = 0;
 
 	// Returns index of model by name for precached or known dynamic models.
 	// Does not adjust reference count for dynamic models.
@@ -47,10 +56,10 @@ public:
 
 	// Available on client only!!!
 	virtual void					GetModelMaterialColorAndLighting(const Model* model, Vector3 const& origin,
-										Vector3 const& angles, GameTrace* pTrace,
-										Vector3& lighting, Vector3& matColor) = 0;
+		Vector3 const& angles, GameTrace* pTrace,
+		Vector3& lighting, Vector3& matColor) = 0;
 	virtual void					GetIlluminationPoint(const Model* model, ClientRenderable* pRenderable, Vector3 const& origin,
-														 Vector3 const& angles, Vector3* pLightingCenter) = 0;
+		Vector3 const& angles, Vector3* pLightingCenter) = 0;
 
 	virtual int						GetModelContents(int modelIndex) = 0;
 	virtual StudioHDR* GetStudiomodel(const Model* model) = 0;
@@ -82,7 +91,7 @@ public:
 	virtual void					InitDynamicModels() = 0;
 	virtual void					ShutdownDynamicModels() = 0;
 	virtual void					AddDynamicModel(const char* name, int nModelIndex = -1) = 0;
-		virtual void					ReferenceModel(int modelindex) = 0;
+	virtual void					ReferenceModel(int modelindex) = 0;
 	virtual void					UnreferenceModel(int modelindex) = 0;
 	virtual void					CleanupDynamicModels(bool bForce = false) = 0;
 

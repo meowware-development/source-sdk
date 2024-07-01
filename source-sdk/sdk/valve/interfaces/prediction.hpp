@@ -1,6 +1,6 @@
 #pragma once
 #include "../../math/vector.hpp"
-#include "../structures/movedata.hpp"
+#include "../datatypes/movedata.hpp"
 
 struct UserCmd;
 
@@ -14,12 +14,12 @@ public:
 
 	// Run prediction
 	virtual void	Update
-					(
-						int startframe,				// World update ( un-modded ) most recently received
-						bool validframe,			// Is frame data valid
-						int incoming_acknowledged,	// Last command acknowledged to have been run by server (un-modded)
-						int outgoing_command		// Last command (most recent) sent to server (un-modded)
-					) = 0;
+	(
+		int startframe,				// World update ( un-modded ) most recently received
+		bool validframe,			// Is frame data valid
+		int incoming_acknowledged,	// Last command acknowledged to have been run by server (un-modded)
+		int outgoing_command		// Last command (most recent) sent to server (un-modded)
+	) = 0;
 
 	// We are about to get a network update from the server.  We know the update #, so we can pull any
 	//  data purely predicted on the client side and transfer it to the new from data state.

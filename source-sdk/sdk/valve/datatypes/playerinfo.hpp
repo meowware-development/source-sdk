@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include "../../interfaces/interfaces.hpp"
 
 struct PlayerInfo
 {
@@ -22,5 +23,16 @@ struct PlayerInfo
 	// this counter increases each time the server downloaded a new file
 	unsigned char	filesDownloaded;
 
-	static PlayerInfo Get(int idx);
+	static PlayerInfo Get(int idx)
+	{
+		PlayerInfo info{};
+
+		if (sdk::interfaces::engine) {
+			[[likely]]
+			sdk::interfaces::engine->GetPlayerInfo(idx, &info);
+		}
+
+		// Return empty player info
+		return info;
+	}
 };

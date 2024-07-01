@@ -8,9 +8,10 @@ void utils::debug::Initialize(const std::string_view title) noexcept
 #ifdef _DEBUG
 	AllocConsole();
 
-	freopen_s(reinterpret_cast<_iobuf**>(__acrt_iob_func(0)), "conin$", "r", static_cast<_iobuf*>(__acrt_iob_func(0)));
-	freopen_s(reinterpret_cast<_iobuf**>(__acrt_iob_func(1)), "conout$", "w", static_cast<_iobuf*>(__acrt_iob_func(1)));
-	freopen_s(reinterpret_cast<_iobuf**>(__acrt_iob_func(2)), "conout$", "w", static_cast<_iobuf*>(__acrt_iob_func(2)));
+	// Open all io buffers (stdin, stdout, stderr)
+	freopen_s(reinterpret_cast<_iobuf**>(stdin), "conin$", "r", static_cast<_iobuf*>(stdin));
+	freopen_s(reinterpret_cast<_iobuf**>(stdout), "conout$", "w", static_cast<_iobuf*>(stdout));
+	freopen_s(reinterpret_cast<_iobuf**>(stderr), "conout$", "w", static_cast<_iobuf*>(stderr));
 
 	// In order to enable ANSII Color Codes
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_VIRTUAL_TERMINAL_INPUT);
@@ -23,9 +24,10 @@ void utils::debug::Initialize(const std::string_view title) noexcept
 void utils::debug::Release() noexcept
 {
 #ifdef _DEBUG
-	fclose(static_cast<_iobuf*>(__acrt_iob_func(0)));
-	fclose(static_cast<_iobuf*>(__acrt_iob_func(1)));
-	fclose(static_cast<_iobuf*>(__acrt_iob_func(2)));
+	// Close all io buffers (stdin, stdout, stderr)
+	fclose(static_cast<_iobuf*>(stdin));
+	fclose(static_cast<_iobuf*>(stdout));
+	fclose(static_cast<_iobuf*>(stderr));
 
 	FreeConsole();
 #endif

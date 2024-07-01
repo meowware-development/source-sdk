@@ -9,7 +9,7 @@
 #include <exception>
 
 namespace utils::input {
-	// Microsoft: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nc-winuser-wndproc
+	// Microsoft says: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nc-winuser-wndproc
 	inline WNDPROC original = nullptr;
 	inline HWND window = nullptr;
 	inline HANDLE update = nullptr;
@@ -79,7 +79,7 @@ void utils::input::Update()
 
 	WARNING: Must be called in the game's thread.
 	Tried doing a separate thread but it's just too fast (keys go to KeyState::HELD instantly and are not one time recognized for being at KeyState::PRESSED as they should)
-	Best place would be in a rendering function or even CHLClient::Update() I guess
+	Best place would be in a rendering function or even CHLClient::HudUpdate() I guess
 	*/
 
 	for (size_t i = 0; i < 256; ++i) {
@@ -100,13 +100,17 @@ void utils::input::Initialize()
 	// Find game window by the Valve001 class (Can be used in all source games)
 	window = FindWindowA("Valve001", NULL);
 
-	if (!window)
+	if (!window) {
+		[[unlikely]]
 		throw std::exception("Couldn't find game window!");
+	}
 
 	original = reinterpret_cast<WNDPROC>(SetWindowLongPtr(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WndProc)));
 
-	if (!original)
+	if (!original) {
+		[[unlikely]]
 		throw std::exception("Couldn't initialize input!");
+	}
 
 	LOG(DebugLevel::OK, "Initialized input!");
 

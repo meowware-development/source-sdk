@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../math/vector.hpp"
-#include "../misc/sourcedefs.hpp"
+#include "../enums/sourcedefs.hpp"
 
 #pragma once
 

@@ -68,7 +68,6 @@ enum MapLoadType_t
 	MapLoad_Background,
 };
 
-
 class GlobalVars : public GlobalVarsBase
 {
 public:

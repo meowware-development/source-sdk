@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 
-#include "../structures/event.hpp"
+#include "../valve/interfaces/eventmanager.hpp"
 
 namespace sdk::events {
 	inline GameEventListener* eventListener = new GameEventListener();

@@ -2,7 +2,7 @@
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
 
-#include "../structures/trace.hpp"
+#include "../datatypes/trace.hpp"
 
 class HandleEntity;
 class ClientUnknown;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../structures/globalvars.hpp"
+#include "../datatypes/globalvars.hpp"
 
 class PlayerInfoManager
 {

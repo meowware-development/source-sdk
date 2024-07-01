@@ -1,15 +1,16 @@
 #pragma once
 #include "cliententity.hpp"
 
-#include "../../math/vector.hpp"
-
-#include "../structures/firebulletsinfo.hpp"
-#include "../structures/takedamageinfo.hpp"
-#include "../structures/studio.hpp"
 #include "collideable.hpp"
 
-#include "../misc/color.hpp"
-#include "../misc/entity.hpp"
+#include "../../math/vector.hpp"
+
+#include "../datatypes/firebulletsinfo.hpp"
+#include "../datatypes/takedamageinfo.hpp"
+#include "../datatypes/studio.hpp"
+#include "../datatypes/color.hpp"
+
+#include "../enums/entity.hpp"
 
 #include "../netvars/netvar.hpp"
 

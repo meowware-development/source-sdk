@@ -1,15 +1,15 @@
 #include "eventlistener.hpp"
 
-#include "../../../sdk/interfaces/interfaces.hpp"
+#include "../interfaces/interfaces.hpp"
 
-#include "../../../utils/debug/debug.hpp"
-#include "../../../utils/hash/fnv1a.hpp"
+#include "../../utils/debug/debug.hpp"
+#include "../../utils/hash/fnv1a.hpp"
 
 void GameEventListener::FireGameEvent(GameEvent* event) {
 	switch (utils::hash::fnv1a::hash32(event->GetName()))
 	{
 	case utils::hash::fnv1a::hash32("player_hurt"): {
-		LOG(DebugLevel::ERR, "Player hurt!");
+		LOG(DebugLevel::ERR, "player_hurt event called!");
 		break;
 	}
 	}

@@ -1,7 +1,6 @@
 #pragma once
 
-template <class T, class I = int> class CUtlMemory {
-public:
+template <class T, class I = int> struct CUtlMemory {
 	T& operator[](int i) {
 		return m_pMemory[i];
 	};
@@ -11,8 +10,7 @@ public:
 	int m_nGrowSize;
 };
 
-template <class T, class A = CUtlMemory<T>> class CUtlVector {
-public:
+template <class T, class A = CUtlMemory<T>> struct CUtlVector {
 	typedef A CAllocator;
 
 	T& operator[](int i) {

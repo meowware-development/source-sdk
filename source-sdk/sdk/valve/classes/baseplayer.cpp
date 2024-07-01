@@ -1,6 +1,9 @@
 #include "baseplayer.hpp"
+
 #include "../../../utils/memory/memory.hpp"
-#include "../structures/usercmd.hpp"
+
+#include "../datatypes/usercmd.hpp"
+
 #include "../../interfaces/interfaces.hpp"
 
 bool BasePlayer::IsAlive()
@@ -26,7 +29,7 @@ void BasePlayer::Think()
 void BasePlayer::PostThink()
 {
 	if (IsAlive()) {
-		Vector3* min, *max;
+		Vector3* min, * max;
 		if (GetFlags() & FL_DUCKING) {
 			min = &sdk::interfaces::gameRules->GetViewVectors()->duckHullMin;
 			max = &sdk::interfaces::gameRules->GetViewVectors()->duckHullMax;
@@ -48,7 +51,7 @@ void BasePlayer::PostThink()
 	}
 
 	static auto simulatePlayerSimulatedEntites = utils::memory::PatternScan(utils::memory::GetModule("client.dll"),
-																			"E8 ?? ?? ?? ?? 8B 06 8B CE 5E 5B").Relative<void(__thiscall*)(BasePlayer*)>();
+		"E8 ?? ?? ?? ?? 8B 06 8B CE 5E 5B").Relative<void(__thiscall*)(BasePlayer*)>();
 
 	simulatePlayerSimulatedEntites(this);
 
@@ -93,7 +96,7 @@ void BasePlayer::SetImpulse(int impulse)
 void BasePlayer::SetCollisionBounds(Vector3* min, Vector3* max)
 {
 	static auto function = utils::memory::PatternScan(utils::memory::GetModule("client.dll"),
-													  "E8 ?? ?? ?? ?? 53 E8 ?? ?? ?? ?? 83 C4 ?? 5F 84 C0").Relative<void(__thiscall*)(uintptr_t, Vector3*, Vector3*)>();
+		"E8 ?? ?? ?? ?? 53 E8 ?? ?? ?? ?? 83 C4 ?? 5F 84 C0").Relative<void(__thiscall*)(uintptr_t, Vector3*, Vector3*)>();
 	function(reinterpret_cast<uintptr_t>(this) + 0x19C, min, max);
 }
 

@@ -6,8 +6,10 @@
 
 uintptr_t utils::memory::GetModule(const std::string& moduleName) noexcept
 {
-	if (modules.contains(moduleName))
+	if (modules.contains(moduleName)) {
+		[[likely]]
 		return modules.at(moduleName);
+	}
 
 	// We haven't called for that module yet, let's grab it
 	uintptr_t moduleAddress = reinterpret_cast<uintptr_t>(GetModuleHandleA(moduleName.data()));
@@ -66,16 +68,16 @@ utils::memory::Scan utils::memory::PatternScan(uintptr_t module, const char* ida
 			if ((scanBytes[i] == bytes[j] || bytes[j] == -1)) {
 				if (j == bytesLength - 1)
 					return Scan(&scanBytes[i - bytesLength + 1]);
-				else
-					++j;
-			}
-			else {
-				if (i > 0 && j > 0) {
-					if (scanBytes[i - 1] == bytes[j - 1])
-						--i;
 
-					j = 0;
-				}
+				++j;
+				continue;
+			}
+
+			if (i > 0 && j > 0) {
+				if (scanBytes[i - 1] == bytes[j - 1])
+					--i;
+
+				j = 0;
 			}
 		}
 	}

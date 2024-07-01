@@ -4,8 +4,8 @@
 
 #include "../../math/vector.hpp"
 
-#include "../misc/color.hpp"
-#include "../misc/sourcedefs.hpp"
+#include "../datatypes/color.hpp"
+#include "../enums/sourcedefs.hpp"
 
 #undef CreateFont
 

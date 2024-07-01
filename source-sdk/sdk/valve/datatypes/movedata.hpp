@@ -1,9 +1,8 @@
 #pragma once
 #include "../../math/vector.hpp"
 
-class MoveData
+struct MoveData
 {
-public:
 	bool			m_bFirstRunOfFunctions : 1;
 	bool			m_bGameCodeMovedPlayer : 1;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../structures/trace.hpp"
+#include "../datatypes/trace.hpp"
 
 class TraceSystem {
 public:
