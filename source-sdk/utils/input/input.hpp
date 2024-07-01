@@ -27,9 +27,14 @@ namespace utils::input {
 	void Update();
 
 	struct Mouse {
-		std::int16_t x = 0, y = 0;
+		int xPos = 0, yPos = 0;
 		// If > 0 => mouse wheel is scrolling up, otherwise it is scrolling down, and if it's 0 its just not moving at all.
-		std::int16_t wheelDelta = 0;
+		int wheelDelta = 0;
+
+		bool Hovering(int x, int y, int width, int height) const;
+		bool Held(int x, int y, int width, int height) const;
+		bool Clicked(int x, int y, int width, int height) const;
+		bool RightClicked(int x, int y, int width, int height) const;
 	} inline mouse;
 
 	inline std::array<Key, 256> keys;

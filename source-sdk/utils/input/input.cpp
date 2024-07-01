@@ -58,8 +58,8 @@ namespace utils::input {
 			break;
 		}
 		case WM_MOUSEMOVE: { // Handle mouse coordonations on the screen
-			mouse.x = GET_X_LPARAM(lparam);
-			mouse.y = GET_Y_LPARAM(lparam);
+			mouse.xPos = GET_X_LPARAM(lparam);
+			mouse.yPos = GET_Y_LPARAM(lparam);
 			break;
 		}
 		case WM_MOUSEWHEEL: { // Handle mouse wheel
@@ -69,6 +69,26 @@ namespace utils::input {
 		}
 
 		return CallWindowProcW(original, hwnd, msg, wparam, lparam);
+	}
+
+	bool input::Mouse::Hovering(int x, int y, int width, int height) const
+	{
+		return (x >= xPos) && (y >= yPos) && (x <= xPos + width) && (y <= yPos + height);
+	}
+
+	bool input::Mouse::Clicked(int x, int y, int width, int height) const
+	{
+		return (x >= xPos) && (y >= yPos) && (x <= xPos + width) && (y <= yPos + height) && keys[VK_LBUTTON].IsPressed();
+	}
+
+	bool input::Mouse::RightClicked(int x, int y, int width, int height) const
+	{
+		return (x >= xPos) && (y >= yPos) && (x <= xPos + width) && (y <= yPos + height) && keys[VK_RBUTTON].IsPressed();
+	}
+
+	bool input::Mouse::Held(int x, int y, int width, int height) const
+	{
+		return (x >= xPos) && (y >= yPos) && (x <= xPos + width) && (y <= yPos + height) && keys[VK_LBUTTON].IsHeld();
 	}
 }
 

@@ -29,14 +29,18 @@ namespace utils::renderer {
 		void Initialize() noexcept;
 	}
 
-	void FilledRectangle(float x, float y, float width, float height, Color color) noexcept;
-	void Rectangle(float x, float y, float width, float height, Color color) noexcept;
+	void FilledRectangle(int x, int y, int width, int height, Color color) noexcept;
+	void Rectangle(int x, int y, int width, int height, Color color) noexcept;
 
-	void Text(float x, float y, const fonts::Font& font, Color color, std::string_view text) noexcept;
-	void TextWSTR(float x, float y, const fonts::Font& font, Color color, std::wstring wstr) noexcept;
+	void Text(int x, int y, const fonts::Font& font, Color color, std::string_view text) noexcept;
+	void TextWSTR(int x, int y, const fonts::Font& font, Color color, std::wstring wstr) noexcept;
 
-	Vector2 GetTextSize(const fonts::Font& font, std::string text) noexcept;
-	Vector2 GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr) noexcept;
+	struct Size {
+		int width, height;
+	};
+
+	Size GetTextSize(const fonts::Font& font, std::string text) noexcept;
+	Size GetTextSizeWSTR(const fonts::Font& font, std::wstring wstr) noexcept;
 
 	inline int screenWidth = 0;
 	inline int screenHeight = 0;
