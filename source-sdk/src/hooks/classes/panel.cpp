@@ -7,6 +7,7 @@
 
 #include "../../features/esp.hpp"
 
+// Meant for drawing (both in game and in menu)
 void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* thisptr, void* edx, unsigned int panelID, bool forceRepaint, bool allowForce)
 {
 	static const auto original = hook.GetOriginal<decltype(&HookFn)>();
@@ -39,9 +40,11 @@ void __fastcall src::hooks::Panel::PaintTraverse::HookFn(void* thisptr, void* ed
 
 	// A switch statement doesn't work here since the variables are not constant
 	if (panelID == FocusOverlayPanel) {
+		// Draw stuff like menu, watermark etc here
 		utils::renderer::Text(20, 20, utils::renderer::fonts::tahoma13, Color(255, 255, 255), "[source-sdk] Counter-Strike: Source");
 	}
 	else if (panelID == EngineTools) {
+		// Draw anything related to esp here
 		utils::renderer::Text(20, 35, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("curtime: {:.2f}", sdk::interfaces::globalVars->curtime));
 		utils::renderer::Text(20, 50, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("realtime: {:.2f}", sdk::interfaces::globalVars->realtime));
 		utils::renderer::Text(20, 65, utils::renderer::fonts::tahoma13, Color(255, 255, 255), FORMAT("map: {}", sdk::interfaces::globalVars->mapname.ToCStr()));

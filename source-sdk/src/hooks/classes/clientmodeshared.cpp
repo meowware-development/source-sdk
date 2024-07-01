@@ -5,6 +5,7 @@
 #include "../../features/features.hpp"
 #include "../../helpers/helpers.hpp"
 
+// Meant for in game features related to players usually (aimbot, movement etc) 
 bool __fastcall src::hooks::ClientMode::CreateMove::HookFn(void* thisptr, void* edx, float time, void* usercmd)
 {
 	static auto original = hook.GetOriginal<decltype(&HookFn)>();

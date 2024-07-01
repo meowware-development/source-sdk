@@ -15,6 +15,7 @@ float sdk::math::Deg2Rad(float x) {
 	return ((float)(x) * (float)(M_PI_F / 180.f));
 }
 
+// Get 2D Point from 3D Point
 bool sdk::math::WorldToScreen(const Vector3& world, Vector2& screen) {
 	const Matrix4x4& matrix = sdk::interfaces::engine->WorldToScreenMatrix();
 
@@ -127,6 +128,7 @@ Vector3 sdk::math::VectorAngles(const Vector3& vecDirection) {
 	return Vector3(fPitch, fYaw, 0.f);
 }
 
+// Used to calculate angle between 2 3D points (Use this in aimbot)
 Vector3 sdk::math::CalculateAngle(const Vector3 source, const Vector3 destination) {
 	Vector3 angles = Vector3(0.0f, 0.0f, 0.0f);
 	Vector3 delta = (source - destination);

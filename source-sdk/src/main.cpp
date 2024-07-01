@@ -66,10 +66,7 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
 	case DLL_PROCESS_ATTACH: {
 		HANDLE threadHandle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(Attach), instance, 0, 0);
 
-		if (!threadHandle) {
-			MessageBoxA(NULL, FORMAT("CreateThread Failed! Error code: {}", GetLastError()), "Exception!", MB_ICONERROR);
-		}
-		else {
+		if (threadHandle) {
 			CloseHandle(threadHandle);
 		}
 
